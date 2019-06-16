@@ -4,16 +4,18 @@ queue()
 
 function makeGraphs(error, accData) {
     var ndx = crossfilter(accData);
+
     accData.forEach(function(d) {
         d.number_of_accidents = parseInt(d.number_of_accidents);
     });
 
-
     show_region_selector(ndx);
     show_accidents_severity(ndx);
-    show_percent_that_are_slight(ndx, "Slight", "#percent-of-slight");
-    show_percent_that_are_slight(ndx, "Serious", "#percent-of-serious");
-    show_percent_that_are_slight(ndx, "Fatal", "#percent-of-fatal");
+    show_percent_by_severity(ndx, "Slight", "#percent-of-slight");
+    show_percent_by_severity(ndx, "Serious", "#percent-of-serious");
+    show_percent_by_severity(ndx, "Fatal", "#percent-of-fatal");
+    show_accidents_road(ndx);
+
     dc.renderAll();
 }
 
@@ -66,24 +68,24 @@ function show_accidents_severity(ndx) {
         });
 }
 
-function show_percent_that_are_slight(ndx, severity, element) {
-    var percentageOfAccThatAreSlight = ndx.groupAll().reduce(
+function show_percent_by_severity(ndx, severity, element) {
+    var percentageOfAccBySeverity = ndx.groupAll().reduce(
         function(p, v) {
             p.total += v.number_of_accidents;
             if (v.accident_severity === severity) {
-                p.are_slight += v.number_of_accidents;
+                p.by_severity += v.number_of_accidents;
             }
             return p;
         },
         function(p, v) {
             p.total -= v.number_of_accidents;
             if (v.accident_severity === severity) {
-                p.are_slight -= v.number_of_accidents;
+                p.by_severity -= v.number_of_accidents;
             }
             return p;
         },
         function() {
-            return { total: 0, are_slight: 0 };
+            return { total: 0, by_severity: 0 };
 
         },
     );
@@ -95,8 +97,41 @@ function show_percent_that_are_slight(ndx, severity, element) {
                 return 0;
             }
             else {
-                return (d.are_slight / d.total);
+                return (d.by_severity / d.total);
             }
         })
-        .group(percentageOfAccThatAreSlight);
+        .group(percentageOfAccBySeverity);
+}
+
+
+function show_accidents_road(ndx) {
+    var dim = ndx.dimension(dc.pluck('road_type'));
+
+    function add_item(p, v) {
+        p.total += v.number_of_accidents;
+        return p;
+    }
+
+    function remove_item(p, v) {
+        p.total -= v.number_of_accidents;
+        return p;
+    }
+
+    function initialise() {
+        return { total: 0 };
+    }
+
+    var totalAccByRoad = dim.group().reduce(add_item, remove_item, initialise);
+
+    dc.rowChart("#rd-type-split")
+        .width(400)
+        .height(300)
+        .gap(5)
+        .renderTitleLabel(true)
+        .dimension(dim)
+        .group(totalAccByRoad)
+        .valueAccessor(function(d) {
+            return d.value.total.toFixed(0);
+        })
+        .transitionDuration(500);
 }
