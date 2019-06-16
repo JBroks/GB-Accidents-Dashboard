@@ -6,12 +6,14 @@ function makeGraphs(error, accData) {
     var ndx = crossfilter(accData);
     accData.forEach(function(d) {
         d.number_of_accidents = parseInt(d.number_of_accidents);
-    })
+    });
 
 
     show_region_selector(ndx);
     show_accidents_severity(ndx);
-
+    show_percent_that_are_slight(ndx, "Slight", "#percent-of-slight");
+    show_percent_that_are_slight(ndx, "Serious", "#percent-of-serious");
+    show_percent_that_are_slight(ndx, "Fatal", "#percent-of-fatal");
     dc.renderAll();
 }
 
@@ -60,8 +62,41 @@ function show_accidents_severity(ndx) {
         .label(function(d) {
             console.log('label');
             console.log(d);
-            return d.key.toUpperCase();
+            return d.key;
         });
 }
 
+function show_percent_that_are_slight(ndx, severity, element) {
+    var percentageOfAccThatAreSlight = ndx.groupAll().reduce(
+        function(p, v) {
+            p.total += v.number_of_accidents;
+            if (v.accident_severity === severity) {
+                p.are_slight += v.number_of_accidents;
+            }
+            return p;
+        },
+        function(p, v) {
+            p.total -= v.number_of_accidents;
+            if (v.accident_severity === severity) {
+                p.are_slight -= v.number_of_accidents;
+            }
+            return p;
+        },
+        function() {
+            return { total: 0, are_slight: 0 };
 
+        },
+    );
+
+    dc.numberDisplay(element)
+        .formatNumber(d3.format(".2%"))
+        .valueAccessor(function(d) {
+            if (d.total == 0) {
+                return 0;
+            }
+            else {
+                return (d.are_slight / d.total);
+            }
+        })
+        .group(percentageOfAccThatAreSlight);
+}
