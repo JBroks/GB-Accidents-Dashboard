@@ -8,6 +8,11 @@ function makeGraphs(error, accData) {
     accData.forEach(function(d) {
         d.number_of_accidents = parseInt(d.number_of_accidents);
     });
+    
+    var parseDate = d3.time.format("%d/%m/%Y").parse;
+    accData.forEach(function(d) {
+        d.date = parseDate(d.date);
+    });
 
     show_region_selector(ndx);
     show_accidents_severity(ndx);
@@ -15,6 +20,9 @@ function makeGraphs(error, accData) {
     show_percent_by_severity(ndx, "Serious", "#percent-of-serious");
     show_percent_by_severity(ndx, "Fatal", "#percent-of-fatal");
     show_accidents_road(ndx);
+    /*
+    show_accidents_hour(ndx);*/
+    show_accidents_month(ndx);
 
     dc.renderAll();
 }
@@ -32,40 +40,18 @@ function show_region_selector(ndx) {
 
 function show_accidents_severity(ndx) {
     var dim = ndx.dimension(dc.pluck('accident_severity'));
-
-    function add_item(p, v) {
-        p.total += v.number_of_accidents;
-        return p;
-    }
-
-    function remove_item(p, v) {
-        p.total -= v.number_of_accidents;
-        return p;
-    }
-
-    function initialise() {
-        return { total: 0 };
-    }
-
-    var totalAccBySeverity = dim.group().reduce(add_item, remove_item, initialise);
+    var totalAccBySeverity = dim.group().reduceSum(dc.pluck('number_of_accidents'));
 
     dc.pieChart("#accidents-severity")
-        .width(368)
-        .height(380)
+        .width(268)
+        .height(280)
         .slicesCap(3)
-        .innerRadius(80)
+        .innerRadius(50)
         .dimension(dim)
         .group(totalAccBySeverity)
-        .valueAccessor(function(d) {
-            return d.value.total.toFixed(0);
-        })
         .transitionDuration(500)
-        .renderLabel(true)
-        .label(function(d) {
-            console.log('label');
-            console.log(d);
-            return d.key;
-        });
+        .renderLabel(false)
+        .legend(dc.legend().x(160).y(170))
 }
 
 function show_percent_by_severity(ndx, severity, element) {
@@ -103,35 +89,44 @@ function show_percent_by_severity(ndx, severity, element) {
         .group(percentageOfAccBySeverity);
 }
 
-
 function show_accidents_road(ndx) {
     var dim = ndx.dimension(dc.pluck('road_type'));
-
-    function add_item(p, v) {
-        p.total += v.number_of_accidents;
-        return p;
-    }
-
-    function remove_item(p, v) {
-        p.total -= v.number_of_accidents;
-        return p;
-    }
-
-    function initialise() {
-        return { total: 0 };
-    }
-
-    var totalAccByRoad = dim.group().reduce(add_item, remove_item, initialise);
+    var totalAccByRoad = dim.group().reduceSum(dc.pluck('number_of_accidents'));
 
     dc.rowChart("#rd-type-split")
-        .width(400)
+        .width(600)
         .height(300)
+        .margins({ top: 10, right: 50, bottom: 30, left: 50 })
         .gap(5)
-        .renderTitleLabel(true)
+        .elasticX(false)
+        .renderLabel(true)
         .dimension(dim)
         .group(totalAccByRoad)
-        .valueAccessor(function(d) {
-            return d.value.total.toFixed(0);
-        })
         .transitionDuration(500);
+}
+
+function show_accidents_month(ndx) {
+
+    var dim = ndx.dimension(dc.pluck('date'));
+    
+    var totalAccByMonth = dim.group().reduceSum(dc.pluck('number_of_accidents'));
+    
+    var minDate = dim.bottom(1)[0].date;
+    var maxDate = dim.top(1)[0].date;
+    
+    dc.lineChart("#accidents-month")
+        .width(1000)
+        .height(300)
+        .margins({ top: 10, right: 50, bottom: 30, left: 50 })
+        .dimension(dim)
+        .group(totalAccByMonth)
+        .transitionDuration(500)
+        .renderDataPoints(true)
+        .renderArea(true)
+        .dotRadius(5)
+        .brushOn(false)
+        .x(d3.time.scale().domain([minDate, maxDate]))
+        .xAxisLabel("Month")
+        .yAxis().ticks(5);
+
 }
