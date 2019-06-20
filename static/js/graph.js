@@ -8,20 +8,27 @@ function makeGraphs(error, accData) {
     accData.forEach(function(d) {
         d.number_of_accidents = parseInt(d.number_of_accidents);
     });
-    
+
     var parseDate = d3.time.format("%d/%m/%Y").parse;
     accData.forEach(function(d) {
         d.date = parseDate(d.date);
     });
 
+    var parseTime = d3.time.format("%H:%M:%S").parse;
+    accData.forEach(function(d) {
+        d.time = parseTime(d.time);
+    });
+
+    accData.forEach(function(d) { d.totalAcc += d.number_of_accidents.amount; });
+
     show_region_selector(ndx);
+    //    show_total_accidents(ndx);
     show_accidents_severity(ndx);
     show_percent_by_severity(ndx, "Slight", "#percent-of-slight");
     show_percent_by_severity(ndx, "Serious", "#percent-of-serious");
     show_percent_by_severity(ndx, "Fatal", "#percent-of-fatal");
     show_accidents_road(ndx);
-    /*
-    show_accidents_hour(ndx);*/
+    show_accidents_hour(ndx);
     show_accidents_month(ndx);
 
     dc.renderAll();
@@ -108,12 +115,12 @@ function show_accidents_road(ndx) {
 function show_accidents_month(ndx) {
 
     var dim = ndx.dimension(dc.pluck('date'));
-    
+
     var totalAccByMonth = dim.group().reduceSum(dc.pluck('number_of_accidents'));
-    
+
     var minDate = dim.bottom(1)[0].date;
     var maxDate = dim.top(1)[0].date;
-    
+
     dc.lineChart("#accidents-month")
         .width(1000)
         .height(300)
@@ -127,6 +134,32 @@ function show_accidents_month(ndx) {
         .brushOn(false)
         .x(d3.time.scale().domain([minDate, maxDate]))
         .xAxisLabel("Month")
+        .yAxis().ticks(5);
+
+}
+
+function show_accidents_hour(ndx) {
+
+    var dim = ndx.dimension(dc.pluck('time'));
+
+    var totalAccByHour = dim.group().reduceSum(dc.pluck('number_of_accidents'));
+
+    var minHour = dim.bottom(1)[0].time;
+    var maxHour = dim.top(1)[0].time;
+
+    dc.lineChart("#accidents-hour")
+        .width(1000)
+        .height(300)
+        .margins({ top: 10, right: 50, bottom: 30, left: 50 })
+        .dimension(dim)
+        .group(totalAccByHour)
+        .transitionDuration(500)
+        .renderDataPoints(true)
+        .renderArea(true)
+        .dotRadius(5)
+        .brushOn(false)
+        .x(d3.time.scale().domain([minHour, maxHour]))
+        .xAxisLabel("Hour")
         .yAxis().ticks(5);
 
 }
