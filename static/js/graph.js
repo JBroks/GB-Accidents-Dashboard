@@ -22,7 +22,6 @@ function makeGraphs(error, accData) {
     accData.forEach(function(d) { d.totalAcc += d.number_of_accidents.amount; });
 
     show_region_selector(ndx);
-    //    show_total_accidents(ndx);
     show_accidents_severity(ndx);
     show_percent_by_severity(ndx, "Slight", "#percent-of-slight");
     show_percent_by_severity(ndx, "Serious", "#percent-of-serious");
@@ -109,7 +108,8 @@ function show_accidents_road(ndx) {
         .renderLabel(true)
         .dimension(dim)
         .group(totalAccByRoad)
-        .transitionDuration(500);
+        .transitionDuration(500)
+        .tickFormat(d3.format(".0%"));
 }
 
 function show_accidents_month(ndx) {
@@ -160,6 +160,7 @@ function show_accidents_hour(ndx) {
         .brushOn(false)
         .x(d3.time.scale().domain([minHour, maxHour]))
         .xAxisLabel("Hour")
-        .yAxis().ticks(5);
+        .yAxis().ticks(5)
+        .tickFormat(d3.time.format('%H:%M'));
 
 }
