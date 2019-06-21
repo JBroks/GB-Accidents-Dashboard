@@ -1,5 +1,5 @@
 queue()
-    .defer(d3.csv, "data/Accidents_2017_aggregated.csv")
+    .defer(d3.csv, "data/Accidents_2017_aggregated_v2.csv")
     .await(makeGraphs);
 
 function makeGraphs(error, accData) {
@@ -9,17 +9,14 @@ function makeGraphs(error, accData) {
         d.number_of_accidents = parseInt(d.number_of_accidents);
     });
 
+    accData.forEach(function(d) {
+        d.hour = parseInt(d.hour);
+    });
+
     var parseDate = d3.time.format("%d/%m/%Y").parse;
     accData.forEach(function(d) {
         d.date = parseDate(d.date);
     });
-
-    var parseTime = d3.time.format("%H:%M:%S").parse;
-    accData.forEach(function(d) {
-        d.time = parseTime(d.time);
-    });
-
-    accData.forEach(function(d) { d.totalAcc += d.number_of_accidents.amount; });
 
     show_region_selector(ndx);
     show_accidents_severity(ndx);
@@ -29,6 +26,7 @@ function makeGraphs(error, accData) {
     show_accidents_road(ndx);
     show_accidents_hour(ndx);
     show_accidents_month(ndx);
+    //   test(ndx, "#test");
 
     dc.renderAll();
 }
@@ -108,8 +106,7 @@ function show_accidents_road(ndx) {
         .renderLabel(true)
         .dimension(dim)
         .group(totalAccByRoad)
-        .transitionDuration(500)
-        .tickFormat(d3.format(".0%"));
+        .transitionDuration(500);
 }
 
 function show_accidents_month(ndx) {
@@ -140,12 +137,10 @@ function show_accidents_month(ndx) {
 
 function show_accidents_hour(ndx) {
 
-    var dim = ndx.dimension(dc.pluck('time'));
+    var dim = ndx.dimension(dc.pluck('hour'));
 
     var totalAccByHour = dim.group().reduceSum(dc.pluck('number_of_accidents'));
 
-    var minHour = dim.bottom(1)[0].time;
-    var maxHour = dim.top(1)[0].time;
 
     dc.lineChart("#accidents-hour")
         .width(1000)
@@ -158,9 +153,8 @@ function show_accidents_hour(ndx) {
         .renderArea(true)
         .dotRadius(5)
         .brushOn(false)
-        .x(d3.time.scale().domain([minHour, maxHour]))
+        .x(d3.scale.linear().domain([0, 23]))
         .xAxisLabel("Hour")
-        .yAxis().ticks(5)
-        .tickFormat(d3.time.format('%H:%M'));
+        .xAxis().ticks(24);
 
 }
