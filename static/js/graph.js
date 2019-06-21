@@ -26,7 +26,7 @@ function makeGraphs(error, accData) {
     show_accidents_road(ndx);
     show_accidents_hour(ndx);
     show_accidents_month(ndx);
-    //   test(ndx, "#test");
+  //  test(ndx, "#test");
 
     dc.renderAll();
 }
@@ -158,3 +158,46 @@ function show_accidents_hour(ndx) {
         .xAxis().ticks(24);
 
 }
+
+/*
+function test(ndx, road, chart) {
+    var percentageOfAccByRoad = ndx.groupAll().reduce(
+        function(p, v) {
+            p.total += v.number_of_accidents;
+            if (v.road_type === road) {
+                p.by_road += v.number_of_accidents;
+            }
+            return p;
+        },
+        function(p, v) {
+            p.total -= v.number_of_accidents;
+            if (v.road_type === road) {
+                p.by_road -= v.number_of_accidents;
+            }
+            return p;
+        },
+        function() {
+            return { total: 0, by_road: 0 };
+
+        },
+    );
+    
+
+    dc.rowChart(chart)
+        .valueAccessor(function(d) {
+            if (d.total == 0) {
+                return 0;
+            }
+            else {
+                return (d.by_road / d.total);
+            }
+        })
+        .group(percentageOfAccByRoad)
+        .width(600)
+        .height(300)
+        .margins({ top: 10, right: 50, bottom: 30, left: 50 })
+        .gap(5)
+        .elasticX(false)
+        .renderLabel(true)
+        .transitionDuration(500);
+}*/
