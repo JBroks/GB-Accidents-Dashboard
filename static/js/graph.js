@@ -19,6 +19,9 @@ function makeGraphs(error, accData) {
     });
 
     show_region_selector(ndx);
+    show_accidents_total(ndx);
+    show_casualties_total(ndx);
+    show_vehicles_total(ndx);
     show_accidents_severity(ndx);
     show_percent_by_severity(ndx, "Slight", "#percent-of-slight");
     show_percent_by_severity(ndx, "Serious", "#percent-of-serious");
@@ -26,7 +29,7 @@ function makeGraphs(error, accData) {
     show_accidents_road(ndx);
     show_accidents_hour(ndx);
     show_accidents_month(ndx);
-  //  test(ndx, "#test");
+    
 
     dc.renderAll();
 }
@@ -56,6 +59,33 @@ function show_accidents_severity(ndx) {
         .transitionDuration(500)
         .renderLabel(false)
         .legend(dc.legend().x(160).y(170))
+}
+
+function show_accidents_total(ndx) {
+    var dim = ndx.dimension(dc.pluck('ref'));
+    var totalAcc = dim.group().reduceSum(dc.pluck('number_of_accidents'));
+
+    dc.numberDisplay("#accidents-total")
+        .formatNumber(d3.format(".2s"))
+        .group(totalAcc);
+}
+
+function show_casualties_total(ndx) {
+    var dim = ndx.dimension(dc.pluck('ref'));
+    var totalCas = dim.group().reduceSum(dc.pluck('number_of_casualties'));
+
+    dc.numberDisplay("#casualties-total")
+        .formatNumber(d3.format(".2s"))
+        .group(totalCas);
+}
+
+function show_vehicles_total(ndx) {
+    var dim = ndx.dimension(dc.pluck('ref'));
+    var totalVeh = dim.group().reduceSum(dc.pluck('number_of_vehicles'));
+
+    dc.numberDisplay("#vehicles-total")
+        .formatNumber(d3.format(".2s"))
+        .group(totalVeh);
 }
 
 function show_percent_by_severity(ndx, severity, element) {
@@ -158,46 +188,3 @@ function show_accidents_hour(ndx) {
         .xAxis().ticks(24);
 
 }
-
-/*
-function test(ndx, road, chart) {
-    var percentageOfAccByRoad = ndx.groupAll().reduce(
-        function(p, v) {
-            p.total += v.number_of_accidents;
-            if (v.road_type === road) {
-                p.by_road += v.number_of_accidents;
-            }
-            return p;
-        },
-        function(p, v) {
-            p.total -= v.number_of_accidents;
-            if (v.road_type === road) {
-                p.by_road -= v.number_of_accidents;
-            }
-            return p;
-        },
-        function() {
-            return { total: 0, by_road: 0 };
-
-        },
-    );
-    
-
-    dc.rowChart(chart)
-        .valueAccessor(function(d) {
-            if (d.total == 0) {
-                return 0;
-            }
-            else {
-                return (d.by_road / d.total);
-            }
-        })
-        .group(percentageOfAccByRoad)
-        .width(600)
-        .height(300)
-        .margins({ top: 10, right: 50, bottom: 30, left: 50 })
-        .gap(5)
-        .elasticX(false)
-        .renderLabel(true)
-        .transitionDuration(500);
-}*/
