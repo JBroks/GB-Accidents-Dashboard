@@ -168,7 +168,7 @@ function show_accidents_month(ndx) {
     var maxDate = dim.top(1)[0].date;
 
     dc.lineChart("#accidents-month")
-        .width(1000)
+        .width(700)
         .height(300)
         .margins({ top: 10, right: 50, bottom: 30, left: 50 })
         .dimension(dim)
@@ -192,7 +192,7 @@ function show_accidents_hour(ndx) {
 
 
     dc.lineChart("#accidents-hour")
-        .width(1000)
+        .width(700)
         .height(300)
         .margins({ top: 10, right: 50, bottom: 30, left: 50 })
         .dimension(dim)
