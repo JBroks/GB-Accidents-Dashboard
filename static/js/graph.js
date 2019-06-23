@@ -123,7 +123,7 @@ function show_percent_by_severity(ndx, severity, element) {
         })
         .group(percentageOfAccBySeverity);
 }
-
+/*
 function show_accidents_road(ndx) {
     var dim = ndx.dimension(dc.pluck('road_type'));
     var totalAccByRoad = dim.group().reduceSum(dc.pluck('number_of_accidents'));
@@ -138,6 +138,23 @@ function show_accidents_road(ndx) {
         .dimension(dim)
         .group(totalAccByRoad)
         .transitionDuration(500);
+}
+*/
+
+function show_accidents_road(ndx) {
+    var dim = ndx.dimension(dc.pluck('road_type'));
+    var totalAccByRoad = dim.group().reduceSum(dc.pluck('number_of_accidents'));
+
+    dc.pieChart("#rd-type-split")
+        .width(268)
+        .height(280)
+        .slicesCap(3)
+        .innerRadius(50)
+        .dimension(dim)
+        .group(totalAccByRoad)
+        .transitionDuration(500)
+        .renderLabel(false)
+        .legend(dc.legend().x(160).y(170))
 }
 
 
