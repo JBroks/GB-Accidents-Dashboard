@@ -29,7 +29,8 @@ function makeGraphs(error, accData) {
     show_accidents_road(ndx);
     show_accidents_hour(ndx);
     show_accidents_month(ndx);
-    
+    show_severity_distribution(ndx);
+
 
     dc.renderAll();
 }
@@ -139,6 +140,7 @@ function show_accidents_road(ndx) {
         .transitionDuration(500);
 }
 
+
 function show_accidents_month(ndx) {
 
     var dim = ndx.dimension(dc.pluck('date'));
@@ -187,4 +189,55 @@ function show_accidents_hour(ndx) {
         .xAxisLabel("Hour")
         .xAxis().ticks(24);
 
+}
+
+
+function show_severity_distribution(ndx) {
+
+    function severityBySpeed(dimension, severity) {
+        return dimension.group().reduce(
+            function(p, v) {
+                p.total += v.number_of_accidents;
+                if (v.accident_severity === severity) {
+                    p.by_severity += v.number_of_accidents;
+                }
+                return p;
+            },
+            function(p, v) {
+                p.total -= v.number_of_accidents;
+                if (v.accident_severity === severity) {
+                    p.by_severity -= v.number_of_accidents;
+                }
+                return p;
+            },
+            function() {
+                return { total: 0, by_severity: 0 };
+            }
+        );
+    }
+
+    var dim = ndx.dimension(dc.pluck("speed_limit"));
+    var slightBySpeeed = severityBySpeed(dim, "Slight");
+    var seriousBySpeeed = severityBySpeed(dim, "Serious");
+    var fatalBySpeeed = severityBySpeed(dim, "Fatal");
+
+    dc.barChart("#severity-distribution")
+        .width(400)
+        .height(300)
+        .dimension(dim)
+        .group(fatalBySpeeed, "Fatal")
+        .stack(seriousBySpeeed, "Serious")
+        .stack(slightBySpeeed, "Slight")
+        .valueAccessor(function(d) {
+            if (d.value.total > 0) {
+                return (d.value.by_severity / d.value.total) * 100;
+            }
+            else {
+                return 0;
+            }
+        })
+        .x(d3.scale.ordinal())
+        .xUnits(dc.units.ordinal)
+        .legend(dc.legend().x(320).y(20).itemHeight(15).gap(5))
+        .margins({ top: 10, right: 100, bottom: 30, left: 30 });
 }
