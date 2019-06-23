@@ -27,6 +27,12 @@ function makeGraphs(error, accData) {
     show_percent_by_severity(ndx, "Serious", "#percent-of-serious");
     show_percent_by_severity(ndx, "Fatal", "#percent-of-fatal");
     show_accidents_road(ndx);
+    show_percent_by_road(ndx, "Single carriageway", "#percent-of-single");
+    show_percent_by_road(ndx, "Dual carriageway", "#percent-of-dual");
+    show_percent_by_road(ndx, "Roundabout", "#percent-of-rbt");
+    show_percent_by_road(ndx, "One way street", "#percent-of-oneway");
+    show_percent_by_road(ndx, "Slip road", "#percent-of-slip");
+     show_percent_by_road(ndx, "Unknown", "#percent-of-unknown");
     show_accidents_hour(ndx);
     show_accidents_month(ndx);
     show_severity_distribution(ndx);
@@ -148,7 +154,7 @@ function show_accidents_road(ndx) {
     dc.pieChart("#rd-type-split")
         .width(268)
         .height(280)
-        .slicesCap(3)
+        .slicesCap(8)
         .innerRadius(50)
         .dimension(dim)
         .group(totalAccByRoad)
@@ -157,6 +163,40 @@ function show_accidents_road(ndx) {
         .legend(dc.legend().x(160).y(170))
 }
 
+function show_percent_by_road(ndx, road, element) {
+    var percentageOfAccByRoad = ndx.groupAll().reduce(
+        function(p, v) {
+            p.total += v.number_of_accidents;
+            if (v.road_type === road) {
+                p.by_road += v.number_of_accidents;
+            }
+            return p;
+        },
+        function(p, v) {
+            p.total -= v.number_of_accidents;
+            if (v.road_type === road) {
+                p.by_road -= v.number_of_accidents;
+            }
+            return p;
+        },
+        function() {
+            return { total: 0, by_road: 0 };
+
+        },
+    );
+
+    dc.numberDisplay(element)
+        .formatNumber(d3.format(".2%"))
+        .valueAccessor(function(d) {
+            if (d.total == 0) {
+                return 0;
+            }
+            else {
+                return (d.by_road / d.total);
+            }
+        })
+        .group(percentageOfAccByRoad);
+}
 
 function show_accidents_month(ndx) {
 
