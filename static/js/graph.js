@@ -1,9 +1,15 @@
 queue()
     .defer(d3.csv, "data/Accidents_2017_aggregated_v2.csv")
+    .defer(d3.csv, "data/Accidents_2016_aggregated.csv")
     .await(makeGraphs);
 
-function makeGraphs(error, accData) {
+function makeGraphs(error, accData, accData16) {
     var ndx = crossfilter(accData);
+    var ndx_16 = crossfilter(accData16);
+
+    accData16.forEach(function(d) {
+        d.number_of_accidents = parseInt(d.number_of_accidents);
+    });
 
     accData.forEach(function(d) {
         d.number_of_accidents = parseInt(d.number_of_accidents);
@@ -32,7 +38,7 @@ function makeGraphs(error, accData) {
     show_percent_by_road(ndx, "Roundabout", "#percent-of-rbt");
     show_percent_by_road(ndx, "One way street", "#percent-of-oneway");
     show_percent_by_road(ndx, "Slip road", "#percent-of-slip");
-     show_percent_by_road(ndx, "Unknown", "#percent-of-unknown");
+    show_percent_by_road(ndx, "Unknown", "#percent-of-unknown");
     show_accidents_hour(ndx);
     show_accidents_month(ndx);
     show_severity_distribution(ndx);
@@ -50,22 +56,6 @@ function show_region_selector(ndx) {
         .group(group)
         .promptText('UK total')
         .multiple(false); //change to true if you decide to allow multiple selection
-}
-
-function show_accidents_severity(ndx) {
-    var dim = ndx.dimension(dc.pluck('accident_severity'));
-    var totalAccBySeverity = dim.group().reduceSum(dc.pluck('number_of_accidents'));
-
-    dc.pieChart("#accidents-severity")
-        .width(268)
-        .height(280)
-        .slicesCap(3)
-        .innerRadius(50)
-        .dimension(dim)
-        .group(totalAccBySeverity)
-        .transitionDuration(500)
-        .renderLabel(false)
-        .legend(dc.legend().x(160).y(170))
 }
 
 function show_accidents_total(ndx) {
@@ -93,6 +83,38 @@ function show_vehicles_total(ndx) {
     dc.numberDisplay("#vehicles-total")
         .formatNumber(d3.format(".2s"))
         .group(totalVeh);
+}
+
+function show_accidents_severity(ndx) {
+    var dim = ndx.dimension(dc.pluck('accident_severity'));
+    var totalAccBySeverity = dim.group().reduceSum(dc.pluck('number_of_accidents'));
+
+    dc.pieChart("#accidents-severity")
+        .width(268)
+        .height(280)
+        .slicesCap(3)
+        .innerRadius(50)
+        .dimension(dim)
+        .group(totalAccBySeverity)
+        .transitionDuration(500)
+        .renderLabel(true)
+        .legend(dc.legend().x(160).y(170))
+        .on('pretransition', function(chart) {
+            chart.selectAll('text.pie-slice').text(function(d) { 
+                if (dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) >= 4) {
+                    return dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) + '%';
+                }
+            });
+            chart.selectAll('.dc-legend-item text')
+                .text('')
+                .append('tspan')
+                .text(function(d) { return d.name; })
+                .append('tspan')
+                .attr('x', 100)
+                .attr('text-anchor', 'end')
+                .text(function(d) { return d.data.toLocaleString(); });
+        });
+
 }
 
 function show_percent_by_severity(ndx, severity, element) {
@@ -159,8 +181,24 @@ function show_accidents_road(ndx) {
         .dimension(dim)
         .group(totalAccByRoad)
         .transitionDuration(500)
-        .renderLabel(false)
+        .renderLabel(true)
         .legend(dc.legend().x(160).y(170))
+        .on('pretransition', function(chart) {
+            chart.selectAll('text.pie-slice').text(function(d) { 
+                if (dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) >= 4) {
+                    return dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) + '%';
+                }
+            });
+            chart.selectAll('.dc-legend-item text')
+                .text('')
+                .append('tspan')
+                .text(function(d) { return d.name; })
+                .append('tspan')
+                .attr('x', 150)
+                .attr('text-anchor', 'end')
+                .text(function(d) { return d.data.toLocaleString(); });
+        });
+
 }
 
 function show_percent_by_road(ndx, road, element) {
@@ -196,6 +234,57 @@ function show_percent_by_road(ndx, road, element) {
             }
         })
         .group(percentageOfAccByRoad);
+}
+
+function show_severity_distribution(ndx) {
+
+    function severityBySpeed(dimension, severity) {
+        return dimension.group().reduce(
+            function(p, v) {
+                p.total += v.number_of_accidents;
+                if (v.accident_severity === severity) {
+                    p.by_severity += v.number_of_accidents;
+                }
+                return p;
+            },
+            function(p, v) {
+                p.total -= v.number_of_accidents;
+                if (v.accident_severity === severity) {
+                    p.by_severity -= v.number_of_accidents;
+                }
+                return p;
+            },
+            function() {
+                return { total: 0, by_severity: 0 };
+            }
+        );
+    }
+
+    var dim = ndx.dimension(dc.pluck("speed_limit"));
+    var slightBySpeeed = severityBySpeed(dim, "Slight");
+    var seriousBySpeeed = severityBySpeed(dim, "Serious");
+    var fatalBySpeeed = severityBySpeed(dim, "Fatal");
+
+    dc.barChart("#severity-distribution")
+        .width(400)
+        .height(300)
+        .dimension(dim)
+        .group(fatalBySpeeed, "Fatal")
+        .stack(seriousBySpeeed, "Serious")
+        .stack(slightBySpeeed, "Slight")
+        .valueAccessor(function(d) {
+            if (d.value.total > 0) {
+                return (d.value.by_severity / d.value.total) * 100;
+            }
+            else {
+                return 0;
+            }
+        })
+        .x(d3.scale.ordinal())
+        .xUnits(dc.units.ordinal)
+        .xAxisLabel("Speed limit (mph)")
+        .legend(dc.legend().x(320).y(20).itemHeight(15).gap(5))
+        .margins({ top: 10, right: 100, bottom: 30, left: 30 });
 }
 
 function show_accidents_month(ndx) {
@@ -246,55 +335,4 @@ function show_accidents_hour(ndx) {
         .xAxisLabel("Hour")
         .xAxis().ticks(24);
 
-}
-
-
-function show_severity_distribution(ndx) {
-
-    function severityBySpeed(dimension, severity) {
-        return dimension.group().reduce(
-            function(p, v) {
-                p.total += v.number_of_accidents;
-                if (v.accident_severity === severity) {
-                    p.by_severity += v.number_of_accidents;
-                }
-                return p;
-            },
-            function(p, v) {
-                p.total -= v.number_of_accidents;
-                if (v.accident_severity === severity) {
-                    p.by_severity -= v.number_of_accidents;
-                }
-                return p;
-            },
-            function() {
-                return { total: 0, by_severity: 0 };
-            }
-        );
-    }
-
-    var dim = ndx.dimension(dc.pluck("speed_limit"));
-    var slightBySpeeed = severityBySpeed(dim, "Slight");
-    var seriousBySpeeed = severityBySpeed(dim, "Serious");
-    var fatalBySpeeed = severityBySpeed(dim, "Fatal");
-
-    dc.barChart("#severity-distribution")
-        .width(400)
-        .height(300)
-        .dimension(dim)
-        .group(fatalBySpeeed, "Fatal")
-        .stack(seriousBySpeeed, "Serious")
-        .stack(slightBySpeeed, "Slight")
-        .valueAccessor(function(d) {
-            if (d.value.total > 0) {
-                return (d.value.by_severity / d.value.total) * 100;
-            }
-            else {
-                return 0;
-            }
-        })
-        .x(d3.scale.ordinal())
-        .xUnits(dc.units.ordinal)
-        .legend(dc.legend().x(320).y(20).itemHeight(15).gap(5))
-        .margins({ top: 10, right: 100, bottom: 30, left: 30 });
 }
