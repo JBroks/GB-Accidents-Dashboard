@@ -29,16 +29,16 @@ function makeGraphs(error, accData, accData16) {
     show_casualties_total(ndx);
     show_vehicles_total(ndx);
     show_accidents_severity(ndx);
-    show_percent_by_severity(ndx, "Slight", "#percent-of-slight");
-    show_percent_by_severity(ndx, "Serious", "#percent-of-serious");
-    show_percent_by_severity(ndx, "Fatal", "#percent-of-fatal");
+    //show_percent_by_severity(ndx, "Slight", "#percent-of-slight");
+    //show_percent_by_severity(ndx, "Serious", "#percent-of-serious");
+    //show_percent_by_severity(ndx, "Fatal", "#percent-of-fatal");
     show_accidents_road(ndx);
-    show_percent_by_road(ndx, "Single carriageway", "#percent-of-single");
-    show_percent_by_road(ndx, "Dual carriageway", "#percent-of-dual");
-    show_percent_by_road(ndx, "Roundabout", "#percent-of-rbt");
-    show_percent_by_road(ndx, "One way street", "#percent-of-oneway");
-    show_percent_by_road(ndx, "Slip road", "#percent-of-slip");
-    show_percent_by_road(ndx, "Unknown", "#percent-of-unknown");
+    //show_percent_by_road(ndx, "Single carriageway", "#percent-of-single");
+    //show_percent_by_road(ndx, "Dual carriageway", "#percent-of-dual");
+    //show_percent_by_road(ndx, "Roundabout", "#percent-of-rbt");
+    //show_percent_by_road(ndx, "One way street", "#percent-of-oneway");
+    //show_percent_by_road(ndx, "Slip road", "#percent-of-slip");
+    //show_percent_by_road(ndx, "Unknown", "#percent-of-unknown");
     show_accidents_hour(ndx);
     show_accidents_month(ndx);
     show_severity_distribution(ndx);
@@ -116,7 +116,7 @@ function show_accidents_severity(ndx) {
         });
 
 }
-
+/*
 function show_percent_by_severity(ndx, severity, element) {
     var percentageOfAccBySeverity = ndx.groupAll().reduce(
         function(p, v) {
@@ -150,7 +150,7 @@ function show_percent_by_severity(ndx, severity, element) {
             }
         })
         .group(percentageOfAccBySeverity);
-}
+}*/
 /*
 function show_accidents_road(ndx) {
     var dim = ndx.dimension(dc.pluck('road_type'));
@@ -200,7 +200,7 @@ function show_accidents_road(ndx) {
         });
 
 }
-
+/*
 function show_percent_by_road(ndx, road, element) {
     var percentageOfAccByRoad = ndx.groupAll().reduce(
         function(p, v) {
@@ -234,7 +234,7 @@ function show_percent_by_road(ndx, road, element) {
             }
         })
         .group(percentageOfAccByRoad);
-}
+}*/
 
 function show_severity_distribution(ndx) {
 
