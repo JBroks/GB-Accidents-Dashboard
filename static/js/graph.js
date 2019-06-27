@@ -25,7 +25,10 @@ function makeGraphs(error, accData, accData16) {
     });
 
     show_region_selector(ndx);
-    show_accidents_total(ndx, ndx_16);
+    show_accidents_total(ndx);
+    show_sparkline_acc(ndx);
+    show_sparkline_cas(ndx);
+    show_sparkline_veh(ndx);
     show_casualties_total(ndx);
     show_vehicles_total(ndx);
     show_accidents_severity(ndx);
@@ -47,7 +50,7 @@ function makeGraphs(error, accData, accData16) {
     dc.renderAll();
 }
 
-function show_region_selector(ndx) {
+function show_region_selector(ndx, ) {
     var dim = ndx.dimension(dc.pluck('region'));
     var group = dim.group();
 
@@ -58,19 +61,31 @@ function show_region_selector(ndx) {
         .multiple(false); //change to true if you decide to allow multiple selection
 }
 
-function show_accidents_total(ndx, ndx_16) {
+function show_accidents_total(ndx) {
     var dim = ndx.dimension(dc.pluck('ref'));
-    var dim_16 = ndx_16.dimension(dc.pluck('ref'));
     var totalAcc = dim.group().reduceSum(dc.pluck('number_of_accidents'));
-    var totalAcc16 = dim_16.group().reduceSum(dc.pluck('number_of_accidents'));
 
     dc.numberDisplay("#accidents-total")
         .formatNumber(d3.format(".2s"))
         .group(totalAcc);
+}
 
-    dc.numberDisplay("#accidents-total_growth_rate")
-        .formatNumber(d3.format("0.0%"))
-        .group(totalAcc16);
+function show_sparkline_acc(ndx) {
+    var dim = ndx.dimension(dc.pluck("day_of_week"));
+    var group = dim.group().reduceSum(dc.pluck("number_of_accidents"));
+
+    dc.barChart("#sparkline-acc")
+        .width(80)
+        .height(30)
+        .margins({ left: -10, top: 10, right: 10, bottom: -1 })
+        .x(d3.scale.ordinal())
+        .xUnits(dc.units.ordinal)
+        .on("renderlet", (function(chart) {
+            chart.selectAll(".bar").on("click", function(d){
+        chart.filter(null);});
+        }))
+        .dimension(dim)
+        .group(group);
 }
 
 function show_casualties_total(ndx) {
@@ -82,6 +97,25 @@ function show_casualties_total(ndx) {
         .group(totalCas);
 }
 
+function show_sparkline_cas(ndx) {
+    var dim = ndx.dimension(dc.pluck("day_of_week"));
+    var group = dim.group().reduceSum(dc.pluck("number_of_accidents"));
+
+    dc.barChart("#sparkline-cas")
+        .width(80)
+        .height(30)
+        .margins({ left: -10, top: 10, right: 10, bottom: -1 })
+        .x(d3.scale.ordinal())
+        .xUnits(dc.units.ordinal)
+        .on("renderlet", (function(chart) {
+            chart.selectAll(".bar").on("click", function(d){
+        chart.filter(null);});
+        }))
+        .dimension(dim)
+        .group(group);
+}
+
+
 function show_vehicles_total(ndx) {
     var dim = ndx.dimension(dc.pluck('ref'));
     var totalVeh = dim.group().reduceSum(dc.pluck('number_of_vehicles'));
@@ -90,6 +124,25 @@ function show_vehicles_total(ndx) {
         .formatNumber(d3.format(".2s"))
         .group(totalVeh);
 }
+
+function show_sparkline_veh(ndx) {
+    var dim = ndx.dimension(dc.pluck("day_of_week"));
+    var group = dim.group().reduceSum(dc.pluck("number_of_accidents"));
+
+    dc.barChart("#sparkline-veh")
+        .width(80)
+        .height(30)
+        .margins({ left: -10, top: 10, right: 10, bottom: -1 })
+        .x(d3.scale.ordinal())
+        .xUnits(dc.units.ordinal)
+        .on("renderlet", (function(chart) {
+            chart.selectAll(".bar").on("click", function(d){
+        chart.filter(null);});
+        }))
+        .dimension(dim)
+        .group(group);
+}
+
 
 function show_accidents_severity(ndx) {
     var dim = ndx.dimension(dc.pluck('accident_severity'));
