@@ -1,6 +1,6 @@
 queue()
     .defer(d3.csv, "data/Accidents_2017_aggregated_v2.csv")
-    .defer(d3.csv, "data/Accidents_2016_aggregated.csv")
+    .defer(d3.csv, "data/Accidents_2016_aggregated_v2.csv")
     .await(makeGraphs);
 
 function makeGraphs(error, accData, accData16) {
@@ -25,7 +25,7 @@ function makeGraphs(error, accData, accData16) {
     });
 
     show_region_selector(ndx);
-    show_accidents_total(ndx);
+    show_accidents_total(ndx, ndx_16);
     show_casualties_total(ndx);
     show_vehicles_total(ndx);
     show_accidents_severity(ndx);
@@ -58,13 +58,19 @@ function show_region_selector(ndx) {
         .multiple(false); //change to true if you decide to allow multiple selection
 }
 
-function show_accidents_total(ndx) {
+function show_accidents_total(ndx, ndx_16) {
     var dim = ndx.dimension(dc.pluck('ref'));
+    var dim_16 = ndx_16.dimension(dc.pluck('ref'));
     var totalAcc = dim.group().reduceSum(dc.pluck('number_of_accidents'));
+    var totalAcc16 = dim_16.group().reduceSum(dc.pluck('number_of_accidents'));
 
     dc.numberDisplay("#accidents-total")
         .formatNumber(d3.format(".2s"))
         .group(totalAcc);
+
+    dc.numberDisplay("#accidents-total_growth_rate")
+        .formatNumber(d3.format("0.0%"))
+        .group(totalAcc16);
 }
 
 function show_casualties_total(ndx) {
@@ -90,17 +96,17 @@ function show_accidents_severity(ndx) {
     var totalAccBySeverity = dim.group().reduceSum(dc.pluck('number_of_accidents'));
 
     dc.pieChart("#accidents-severity")
-        .width(268)
-        .height(280)
+        .width(320)
+        .height(350)
         .slicesCap(3)
-        .innerRadius(50)
+        .innerRadius(95)
         .dimension(dim)
         .group(totalAccBySeverity)
         .transitionDuration(500)
         .renderLabel(true)
-        .legend(dc.legend().x(160).y(170))
+        .legend(dc.legend().x(110).y(150).itemHeight(13).gap(5))
         .on('pretransition', function(chart) {
-            chart.selectAll('text.pie-slice').text(function(d) { 
+            chart.selectAll('text.pie-slice').text(function(d) {
                 if (dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) >= 4) {
                     return dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) + '%';
                 }
@@ -174,17 +180,17 @@ function show_accidents_road(ndx) {
     var totalAccByRoad = dim.group().reduceSum(dc.pluck('number_of_accidents'));
 
     dc.pieChart("#rd-type-split")
-        .width(268)
-        .height(280)
+        .width(320)
+        .height(350)
         .slicesCap(8)
-        .innerRadius(50)
+        .innerRadius(95)
         .dimension(dim)
         .group(totalAccByRoad)
         .transitionDuration(500)
         .renderLabel(true)
-        .legend(dc.legend().x(160).y(170))
+        .legend(dc.legend().x(85).y(125).itemHeight(13).gap(5))
         .on('pretransition', function(chart) {
-            chart.selectAll('text.pie-slice').text(function(d) { 
+            chart.selectAll('text.pie-slice').text(function(d) {
                 if (dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) >= 4) {
                     return dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) + '%';
                 }
@@ -282,9 +288,11 @@ function show_severity_distribution(ndx) {
         })
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
-        .xAxisLabel("Speed limit (mph)")
+        .yAxisLabel("Percentage of accidents", 20)
+        .xAxisLabel("Speed limit (mph)", 25)
+        // .yAxis().tickFormat(function(d) { return d + "%" ;}) - why it doesn't work? 
         .legend(dc.legend().x(320).y(20).itemHeight(15).gap(5))
-        .margins({ top: 10, right: 100, bottom: 30, left: 30 });
+        .margins({ top: 10, right: 100, bottom: 60, left: 50 });
 }
 
 function show_accidents_month(ndx) {
@@ -299,16 +307,22 @@ function show_accidents_month(ndx) {
     dc.lineChart("#accidents-month")
         .width(700)
         .height(300)
-        .margins({ top: 10, right: 50, bottom: 30, left: 50 })
+        .margins({ top: 10, right: 50, bottom: 60, left: 50 })
         .dimension(dim)
         .group(totalAccByMonth)
         .transitionDuration(500)
         .renderDataPoints(true)
         .renderArea(true)
-        .dotRadius(5)
+        .renderDataPoints({ radius: 2.5, fillOpacity: 1.0 })
         .brushOn(false)
+        .elasticY(true)
         .x(d3.time.scale().domain([minDate, maxDate]))
-        .xAxisLabel("Month")
+        .yAxisLabel("Total number of accidents")
+        .on("renderlet", (function(chart) {
+            chart.selectAll("g.x text")
+                .attr('dx', '-30')
+                .attr('transform', "rotate(-45)");
+        }))
         .yAxis().ticks(5);
 
 }
@@ -323,16 +337,28 @@ function show_accidents_hour(ndx) {
     dc.lineChart("#accidents-hour")
         .width(700)
         .height(300)
-        .margins({ top: 10, right: 50, bottom: 30, left: 50 })
+        .margins({ top: 10, right: 50, bottom: 60, left: 50 })
         .dimension(dim)
         .group(totalAccByHour)
         .transitionDuration(500)
         .renderDataPoints(true)
         .renderArea(true)
-        .dotRadius(5)
+        .renderDataPoints({ radius: 2.5, fillOpacity: 1.0 })
         .brushOn(false)
+        .elasticY(true)
         .x(d3.scale.linear().domain([0, 23]))
-        .xAxisLabel("Hour")
-        .xAxis().ticks(24);
+        .yAxisLabel("Total number of accidents")
+        //   .yAxis().ticks(5).tickFormat(d3.format(".1s")) - why I can't edit x and y axis labels at the same time?
+        .on("renderlet", (function(chart) {
+            chart.selectAll("g.x text")
+                .attr('dx', '-30')
+                .attr('transform', "rotate(-45)");
+        }))
+        .xAxis().ticks(24).tickFormat(function(d) {
+            if (d < 10) {
+                return "0" + d + ':00';
+            }
+            else { return d + ':00'; }
+        });
 
 }

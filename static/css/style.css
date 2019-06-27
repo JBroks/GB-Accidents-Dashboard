@@ -1,1 +1,6 @@
 .dc-chart g.row text {fill: black;}
+
+div {
+    width: auto;
+    height: auto;
+}
