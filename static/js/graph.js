@@ -26,9 +26,9 @@ function makeGraphs(error, accData, accData16) {
 
     show_region_selector(ndx);
     show_accidents_total(ndx);
-    show_sparkline_acc(ndx);
-    show_sparkline_cas(ndx);
-    show_sparkline_veh(ndx);
+    show_sparkline_acc(ndx_16);
+    show_sparkline_cas(ndx_16);
+    show_sparkline_veh(ndx_16);
     show_casualties_total(ndx);
     show_vehicles_total(ndx);
     show_accidents_severity(ndx);
@@ -46,7 +46,6 @@ function makeGraphs(error, accData, accData16) {
     show_accidents_month(ndx);
     show_severity_distribution(ndx);
 
-
     dc.renderAll();
 }
 
@@ -54,7 +53,7 @@ function show_region_selector(ndx) {
     var dim = ndx.dimension(dc.pluck('region'));
     var group = dim.group();
 
-    dc.selectMenu("#region-selector", "chartGroupA")
+    dc.selectMenu("#region-selector")
         .dimension(dim)
         .group(group)
         .promptText('UK total')
@@ -65,51 +64,58 @@ function show_accidents_total(ndx) {
     var dim = ndx.dimension(dc.pluck('ref'));
     var totalAcc = dim.group().reduceSum(dc.pluck('number_of_accidents'));
 
-    dc.numberDisplay("#accidents-total", "chartGroupA")
+    dc.numberDisplay("#accidents-total")
         .formatNumber(d3.format(".2s"))
         .group(totalAcc);
 }
 
-function show_sparkline_acc(ndx) {
-    var dim = ndx.dimension(dc.pluck("day_of_week"));
+function show_sparkline_acc(ndx_16) {
+    var dim = ndx_16.dimension(dc.pluck("day_of_week"));
     var group = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
-    dc.barChart("#sparkline-acc", "chartGroupB")
+    dc.barChart("#sparkline-acc")
         .width(80)
         .height(30)
         .margins({ left: -10, top: 10, right: 10, bottom: -1 })
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .on("renderlet", (function(chart) {
-            chart.selectAll(".bar").on("click", function(d){
-        chart.filter(null);});
+            chart.selectAll(".bar").on("click", function(d) {
+                chart.filter(null);
+            });
+            chart.selectAll(".bar")
+            .style('pointer-events', 'none');
         }))
         .dimension(dim)
         .group(group);
+
 }
 
 function show_casualties_total(ndx) {
     var dim = ndx.dimension(dc.pluck('ref'));
     var totalCas = dim.group().reduceSum(dc.pluck('number_of_casualties'));
 
-    dc.numberDisplay("#casualties-total", "chartGroupA")
+    dc.numberDisplay("#casualties-total")
         .formatNumber(d3.format(".2s"))
         .group(totalCas);
 }
 
-function show_sparkline_cas(ndx) {
-    var dim = ndx.dimension(dc.pluck("day_of_week"));
+function show_sparkline_cas(ndx_16) {
+    var dim = ndx_16.dimension(dc.pluck("day_of_week"));
     var group = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
-    dc.barChart("#sparkline-cas", "chartGroupB")
+    dc.barChart("#sparkline-cas")
         .width(80)
         .height(30)
         .margins({ left: -10, top: 10, right: 10, bottom: -1 })
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .on("renderlet", (function(chart) {
-            chart.selectAll(".bar").on("click", function(d){
-        chart.filter(null);});
+            chart.selectAll(".bar").on("click", function(d) {
+                chart.filter(null);
+            });
+            chart.selectAll(".bar")
+            .style('pointer-events', 'none');
         }))
         .dimension(dim)
         .group(group);
@@ -120,24 +126,27 @@ function show_vehicles_total(ndx) {
     var dim = ndx.dimension(dc.pluck('ref'));
     var totalVeh = dim.group().reduceSum(dc.pluck('number_of_vehicles'));
 
-    dc.numberDisplay("#vehicles-total", "chartGroupA")
+    dc.numberDisplay("#vehicles-total")
         .formatNumber(d3.format(".2s"))
         .group(totalVeh);
 }
 
-function show_sparkline_veh(ndx) {
-    var dim = ndx.dimension(dc.pluck("day_of_week"));
+function show_sparkline_veh(ndx_16) {
+    var dim = ndx_16.dimension(dc.pluck("day_of_week"));
     var group = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
-    dc.barChart("#sparkline-veh", "chartGroupB")
+    dc.barChart("#sparkline-veh")
         .width(80)
         .height(30)
         .margins({ left: -10, top: 10, right: 10, bottom: -1 })
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .on("renderlet", (function(chart) {
-            chart.selectAll(".bar").on("click", function(d){
-        chart.filter(null);});
+            chart.selectAll(".bar").on("click", function(d) {
+                chart.filter(null);
+            });
+            chart.selectAll(".bar")
+            .style('pointer-events', 'none');
         }))
         .dimension(dim)
         .group(group);
@@ -148,7 +157,7 @@ function show_accidents_severity(ndx) {
     var dim = ndx.dimension(dc.pluck('accident_severity'));
     var totalAccBySeverity = dim.group().reduceSum(dc.pluck('number_of_accidents'));
 
-    dc.pieChart("#accidents-severity", "chartGroupA")
+    dc.pieChart("#accidents-severity")
         .width(320)
         .height(350)
         .slicesCap(3)
@@ -232,7 +241,7 @@ function show_accidents_road(ndx) {
     var dim = ndx.dimension(dc.pluck('road_type'));
     var totalAccByRoad = dim.group().reduceSum(dc.pluck('number_of_accidents'));
 
-    dc.pieChart("#rd-type-split", "chartGroupA")
+    dc.pieChart("#rd-type-split")
         .width(320)
         .height(350)
         .slicesCap(8)
@@ -324,7 +333,7 @@ function show_severity_distribution(ndx) {
     var seriousBySpeeed = severityBySpeed(dim, "Serious");
     var fatalBySpeeed = severityBySpeed(dim, "Fatal");
 
-    dc.barChart("#severity-distribution", "chartGroupA")
+    dc.barChart("#severity-distribution")
         .width(400)
         .height(300)
         .dimension(dim)
@@ -343,7 +352,7 @@ function show_severity_distribution(ndx) {
         .xUnits(dc.units.ordinal)
         .yAxisLabel("Percentage of accidents", 20)
         .xAxisLabel("Speed limit (mph)", 25)
-        // .yAxis().tickFormat(function(d) { return d + "%" ;}) - why it doesn't work? 
+        //.yAxis().tickFormat(function(d) { return d + "%" ;}) - why it doesn't work? 
         .legend(dc.legend().x(320).y(20).itemHeight(15).gap(5))
         .margins({ top: 10, right: 100, bottom: 60, left: 50 });
 }
@@ -357,7 +366,7 @@ function show_accidents_month(ndx) {
     var minDate = dim.bottom(1)[0].date;
     var maxDate = dim.top(1)[0].date;
 
-    dc.lineChart("#accidents-month", "chartGroupA")
+    dc.lineChart("#accidents-month")
         .width(700)
         .height(300)
         .margins({ top: 10, right: 50, bottom: 60, left: 50 })
@@ -387,7 +396,7 @@ function show_accidents_hour(ndx) {
     var totalAccByHour = dim.group().reduceSum(dc.pluck('number_of_accidents'));
 
 
-    dc.lineChart("#accidents-hour", "chartGroupA")
+    dc.lineChart("#accidents-hour")
         .width(700)
         .height(300)
         .margins({ top: 10, right: 50, bottom: 60, left: 50 })
@@ -401,7 +410,7 @@ function show_accidents_hour(ndx) {
         .elasticY(true)
         .x(d3.scale.linear().domain([0, 23]))
         .yAxisLabel("Total number of accidents")
-        //   .yAxis().ticks(5).tickFormat(d3.format(".1s")) - why I can't edit x and y axis labels at the same time?
+        //.yAxis().ticks(6).tickFormat(d3.format(".1s"))
         .on("renderlet", (function(chart) {
             chart.selectAll("g.x text")
                 .attr('dx', '-30')
