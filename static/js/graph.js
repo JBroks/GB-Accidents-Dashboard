@@ -50,11 +50,11 @@ function makeGraphs(error, accData, accData16) {
     dc.renderAll();
 }
 
-function show_region_selector(ndx, ) {
+function show_region_selector(ndx) {
     var dim = ndx.dimension(dc.pluck('region'));
     var group = dim.group();
 
-    dc.selectMenu("#region-selector")
+    dc.selectMenu("#region-selector", "chartGroupA")
         .dimension(dim)
         .group(group)
         .promptText('UK total')
@@ -65,7 +65,7 @@ function show_accidents_total(ndx) {
     var dim = ndx.dimension(dc.pluck('ref'));
     var totalAcc = dim.group().reduceSum(dc.pluck('number_of_accidents'));
 
-    dc.numberDisplay("#accidents-total")
+    dc.numberDisplay("#accidents-total", "chartGroupA")
         .formatNumber(d3.format(".2s"))
         .group(totalAcc);
 }
@@ -74,7 +74,7 @@ function show_sparkline_acc(ndx) {
     var dim = ndx.dimension(dc.pluck("day_of_week"));
     var group = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
-    dc.barChart("#sparkline-acc")
+    dc.barChart("#sparkline-acc", "chartGroupB")
         .width(80)
         .height(30)
         .margins({ left: -10, top: 10, right: 10, bottom: -1 })
@@ -92,7 +92,7 @@ function show_casualties_total(ndx) {
     var dim = ndx.dimension(dc.pluck('ref'));
     var totalCas = dim.group().reduceSum(dc.pluck('number_of_casualties'));
 
-    dc.numberDisplay("#casualties-total")
+    dc.numberDisplay("#casualties-total", "chartGroupA")
         .formatNumber(d3.format(".2s"))
         .group(totalCas);
 }
@@ -101,7 +101,7 @@ function show_sparkline_cas(ndx) {
     var dim = ndx.dimension(dc.pluck("day_of_week"));
     var group = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
-    dc.barChart("#sparkline-cas")
+    dc.barChart("#sparkline-cas", "chartGroupB")
         .width(80)
         .height(30)
         .margins({ left: -10, top: 10, right: 10, bottom: -1 })
@@ -120,7 +120,7 @@ function show_vehicles_total(ndx) {
     var dim = ndx.dimension(dc.pluck('ref'));
     var totalVeh = dim.group().reduceSum(dc.pluck('number_of_vehicles'));
 
-    dc.numberDisplay("#vehicles-total")
+    dc.numberDisplay("#vehicles-total", "chartGroupA")
         .formatNumber(d3.format(".2s"))
         .group(totalVeh);
 }
@@ -129,7 +129,7 @@ function show_sparkline_veh(ndx) {
     var dim = ndx.dimension(dc.pluck("day_of_week"));
     var group = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
-    dc.barChart("#sparkline-veh")
+    dc.barChart("#sparkline-veh", "chartGroupB")
         .width(80)
         .height(30)
         .margins({ left: -10, top: 10, right: 10, bottom: -1 })
@@ -148,7 +148,7 @@ function show_accidents_severity(ndx) {
     var dim = ndx.dimension(dc.pluck('accident_severity'));
     var totalAccBySeverity = dim.group().reduceSum(dc.pluck('number_of_accidents'));
 
-    dc.pieChart("#accidents-severity")
+    dc.pieChart("#accidents-severity", "chartGroupA")
         .width(320)
         .height(350)
         .slicesCap(3)
@@ -232,7 +232,7 @@ function show_accidents_road(ndx) {
     var dim = ndx.dimension(dc.pluck('road_type'));
     var totalAccByRoad = dim.group().reduceSum(dc.pluck('number_of_accidents'));
 
-    dc.pieChart("#rd-type-split")
+    dc.pieChart("#rd-type-split", "chartGroupA")
         .width(320)
         .height(350)
         .slicesCap(8)
@@ -324,7 +324,7 @@ function show_severity_distribution(ndx) {
     var seriousBySpeeed = severityBySpeed(dim, "Serious");
     var fatalBySpeeed = severityBySpeed(dim, "Fatal");
 
-    dc.barChart("#severity-distribution")
+    dc.barChart("#severity-distribution", "chartGroupA")
         .width(400)
         .height(300)
         .dimension(dim)
@@ -357,7 +357,7 @@ function show_accidents_month(ndx) {
     var minDate = dim.bottom(1)[0].date;
     var maxDate = dim.top(1)[0].date;
 
-    dc.lineChart("#accidents-month")
+    dc.lineChart("#accidents-month", "chartGroupA")
         .width(700)
         .height(300)
         .margins({ top: 10, right: 50, bottom: 60, left: 50 })
@@ -387,7 +387,7 @@ function show_accidents_hour(ndx) {
     var totalAccByHour = dim.group().reduceSum(dc.pluck('number_of_accidents'));
 
 
-    dc.lineChart("#accidents-hour")
+    dc.lineChart("#accidents-hour", "chartGroupA")
         .width(700)
         .height(300)
         .margins({ top: 10, right: 50, bottom: 60, left: 50 })
