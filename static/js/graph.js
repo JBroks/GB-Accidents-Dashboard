@@ -32,16 +32,7 @@ function makeGraphs(error, accData, accData16) {
     show_casualties_total(ndx);
     show_vehicles_total(ndx);
     show_accidents_severity(ndx);
-    //show_percent_by_severity(ndx, "Slight", "#percent-of-slight");
-    //show_percent_by_severity(ndx, "Serious", "#percent-of-serious");
-    //show_percent_by_severity(ndx, "Fatal", "#percent-of-fatal");
     show_accidents_road(ndx);
-    //show_percent_by_road(ndx, "Single carriageway", "#percent-of-single");
-    //show_percent_by_road(ndx, "Dual carriageway", "#percent-of-dual");
-    //show_percent_by_road(ndx, "Roundabout", "#percent-of-rbt");
-    //show_percent_by_road(ndx, "One way street", "#percent-of-oneway");
-    //show_percent_by_road(ndx, "Slip road", "#percent-of-slip");
-    //show_percent_by_road(ndx, "Unknown", "#percent-of-unknown");
     show_accidents_hour(ndx);
     show_accidents_month(ndx);
     show_severity_distribution(ndx);
@@ -82,9 +73,9 @@ function show_sparkline_acc(ndx_16) {
         .on("renderlet", (function(chart) {
             chart.selectAll(".bar").on("click", function(d) {
                 chart.filter(null);
-            });
+            }); // code suggesting how to disable click for sparkline charts found in here: https://groups.google.com/forum/#!msg/dc-js-user-group/Fxg4vykNSqI/hgdj2PEomHsJ
             chart.selectAll(".bar")
-            .style('pointer-events', 'none');
+                .style('pointer-events', 'none');
         }))
         .dimension(dim)
         .group(group);
@@ -115,7 +106,7 @@ function show_sparkline_cas(ndx_16) {
                 chart.filter(null);
             });
             chart.selectAll(".bar")
-            .style('pointer-events', 'none');
+                .style('pointer-events', 'none');
         }))
         .dimension(dim)
         .group(group);
@@ -146,7 +137,7 @@ function show_sparkline_veh(ndx_16) {
                 chart.filter(null);
             });
             chart.selectAll(".bar")
-            .style('pointer-events', 'none');
+                .style('pointer-events', 'none');
         }))
         .dimension(dim)
         .group(group);
@@ -156,7 +147,7 @@ function show_sparkline_veh(ndx_16) {
 function show_accidents_severity(ndx) {
     var dim = ndx.dimension(dc.pluck('accident_severity'));
     var totalAccBySeverity = dim.group().reduceSum(dc.pluck('number_of_accidents'));
-
+    
     dc.pieChart("#accidents-severity")
         .width(320)
         .height(350)
@@ -167,12 +158,15 @@ function show_accidents_severity(ndx) {
         .transitionDuration(500)
         .renderLabel(true)
         .legend(dc.legend().x(110).y(150).itemHeight(13).gap(5))
+        .title(function(d) {
+           return ((d.value / d3.sum(totalAccBySeverity.all(), function(d){ return d.value; })) * 100).toFixed(2) + "%";
+        }) // solution inspired by the follwoing code: https://groups.google.com/forum/#!topic/dc-js-user-group/u-zPORy4-2Y
         .on('pretransition', function(chart) {
             chart.selectAll('text.pie-slice').text(function(d) {
-                if (dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) >= 4) {
+                if (dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) >= 5) {
                     return dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) + '%';
                 }
-            });
+            }); // solution suggested by CI Tutor: https://github.com/dc-js/dc.js/blob/master/web/examples/pie.html
             chart.selectAll('.dc-legend-item text')
                 .text('')
                 .append('tspan')
@@ -181,61 +175,9 @@ function show_accidents_severity(ndx) {
                 .attr('x', 100)
                 .attr('text-anchor', 'end')
                 .text(function(d) { return d.data.toLocaleString(); });
-        });
+        }); //toLocalString() method found in here: https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
 
 }
-/*
-function show_percent_by_severity(ndx, severity, element) {
-    var percentageOfAccBySeverity = ndx.groupAll().reduce(
-        function(p, v) {
-            p.total += v.number_of_accidents;
-            if (v.accident_severity === severity) {
-                p.by_severity += v.number_of_accidents;
-            }
-            return p;
-        },
-        function(p, v) {
-            p.total -= v.number_of_accidents;
-            if (v.accident_severity === severity) {
-                p.by_severity -= v.number_of_accidents;
-            }
-            return p;
-        },
-        function() {
-            return { total: 0, by_severity: 0 };
-
-        },
-    );
-
-    dc.numberDisplay(element)
-        .formatNumber(d3.format(".2%"))
-        .valueAccessor(function(d) {
-            if (d.total == 0) {
-                return 0;
-            }
-            else {
-                return (d.by_severity / d.total);
-            }
-        })
-        .group(percentageOfAccBySeverity);
-}*/
-/*
-function show_accidents_road(ndx) {
-    var dim = ndx.dimension(dc.pluck('road_type'));
-    var totalAccByRoad = dim.group().reduceSum(dc.pluck('number_of_accidents'));
-
-    dc.rowChart("#rd-type-split")
-        .width(600)
-        .height(300)
-        .margins({ top: 10, right: 50, bottom: 30, left: 50 })
-        .gap(5)
-        .elasticX(false)
-        .renderLabel(true)
-        .dimension(dim)
-        .group(totalAccByRoad)
-        .transitionDuration(500);
-}
-*/
 
 function show_accidents_road(ndx) {
     var dim = ndx.dimension(dc.pluck('road_type'));
@@ -251,9 +193,12 @@ function show_accidents_road(ndx) {
         .transitionDuration(500)
         .renderLabel(true)
         .legend(dc.legend().x(85).y(125).itemHeight(13).gap(5))
+        .title(function(d) {
+           return ((d.value / d3.sum(totalAccByRoad.all(), function(d){ return d.value; })) * 100).toFixed(2) + "%";
+        })
         .on('pretransition', function(chart) {
             chart.selectAll('text.pie-slice').text(function(d) {
-                if (dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) >= 4) {
+                if (dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) >= 5) {
                     return dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) + '%';
                 }
             });
@@ -268,41 +213,6 @@ function show_accidents_road(ndx) {
         });
 
 }
-/*
-function show_percent_by_road(ndx, road, element) {
-    var percentageOfAccByRoad = ndx.groupAll().reduce(
-        function(p, v) {
-            p.total += v.number_of_accidents;
-            if (v.road_type === road) {
-                p.by_road += v.number_of_accidents;
-            }
-            return p;
-        },
-        function(p, v) {
-            p.total -= v.number_of_accidents;
-            if (v.road_type === road) {
-                p.by_road -= v.number_of_accidents;
-            }
-            return p;
-        },
-        function() {
-            return { total: 0, by_road: 0 };
-
-        },
-    );
-
-    dc.numberDisplay(element)
-        .formatNumber(d3.format(".2%"))
-        .valueAccessor(function(d) {
-            if (d.total == 0) {
-                return 0;
-            }
-            else {
-                return (d.by_road / d.total);
-            }
-        })
-        .group(percentageOfAccByRoad);
-}*/
 
 function show_severity_distribution(ndx) {
 
@@ -348,6 +258,18 @@ function show_severity_distribution(ndx) {
                 return 0;
             }
         })
+        .title("Fatal", function(d) {
+            var percent = (d.value.by_severity / d.value.total) * 100;
+            return d.key + " mph: " + percent.toFixed(1) + "% of fatal accidents";
+        })
+        .title("Serious", function(d) {
+            var percent = (d.value.by_severity / d.value.total) * 100;
+            return d.key + " mph: " + percent.toFixed(1) + "% of serious accidents";
+        })
+        .title("Slight", function(d) {
+            var percent = (d.value.by_severity / d.value.total) * 100;
+            return d.key + " mph: " + percent.toFixed(1) + "% of slight accidents";
+        })
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .yAxisLabel("Percentage of accidents", 20)
@@ -378,13 +300,17 @@ function show_accidents_month(ndx) {
         .renderDataPoints({ radius: 2.5, fillOpacity: 1.0 })
         .brushOn(false)
         .elasticY(true)
+        .title(function(d) {
+            var numberWithCommas = d.value.toLocaleString();
+            return numberWithCommas + " accidents";
+        })
         .x(d3.time.scale().domain([minDate, maxDate]))
         .yAxisLabel("Total number of accidents")
         .on("renderlet", (function(chart) {
             chart.selectAll("g.x text")
                 .attr('dx', '-30')
                 .attr('transform', "rotate(-45)");
-        }))
+        }))  // solution that enabled label rotation found in here: https://groups.google.com/forum/#!msg/dc-js-user-group/TjXkTTbOhsQ/7WU14__RGoIJ
         .yAxis().ticks(5);
 
 }
@@ -408,6 +334,13 @@ function show_accidents_hour(ndx) {
         .renderDataPoints({ radius: 2.5, fillOpacity: 1.0 })
         .brushOn(false)
         .elasticY(true)
+        .title(function(d) {
+            var numberWithCommas = d.value.toLocaleString();
+            if (d.key < 10) {
+                return numberWithCommas + " accidents at " + "0" + d.key + ':00';
+            }
+            else { return numberWithCommas + " accidents at " + d.key + ':00'; }
+        })
         .x(d3.scale.linear().domain([0, 23]))
         .yAxisLabel("Total number of accidents")
         //.yAxis().ticks(6).tickFormat(d3.format(".1s"))
@@ -422,5 +355,4 @@ function show_accidents_hour(ndx) {
             }
             else { return d + ':00'; }
         });
-
 }
