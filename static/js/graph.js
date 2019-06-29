@@ -147,7 +147,7 @@ function show_sparkline_veh(ndx_16) {
 function show_accidents_severity(ndx) {
     var dim = ndx.dimension(dc.pluck('accident_severity'));
     var totalAccBySeverity = dim.group().reduceSum(dc.pluck('number_of_accidents'));
-    
+
     dc.pieChart("#accidents-severity")
         .width(320)
         .height(350)
@@ -159,7 +159,7 @@ function show_accidents_severity(ndx) {
         .renderLabel(true)
         .legend(dc.legend().x(110).y(150).itemHeight(13).gap(5))
         .title(function(d) {
-           return ((d.value / d3.sum(totalAccBySeverity.all(), function(d){ return d.value; })) * 100).toFixed(2) + "%";
+            return ((d.value / d3.sum(totalAccBySeverity.all(), function(d) { return d.value; })) * 100).toFixed(2) + "%";
         }) // solution inspired by the follwoing code: https://groups.google.com/forum/#!topic/dc-js-user-group/u-zPORy4-2Y
         .on('pretransition', function(chart) {
             chart.selectAll('text.pie-slice').text(function(d) {
@@ -194,7 +194,7 @@ function show_accidents_road(ndx) {
         .renderLabel(true)
         .legend(dc.legend().x(85).y(125).itemHeight(13).gap(5))
         .title(function(d) {
-           return ((d.value / d3.sum(totalAccByRoad.all(), function(d){ return d.value; })) * 100).toFixed(2) + "%";
+            return ((d.value / d3.sum(totalAccByRoad.all(), function(d) { return d.value; })) * 100).toFixed(2) + "%";
         })
         .on('pretransition', function(chart) {
             chart.selectAll('text.pie-slice').text(function(d) {
@@ -270,13 +270,14 @@ function show_severity_distribution(ndx) {
             var percent = (d.value.by_severity / d.value.total) * 100;
             return d.key + " mph: " + percent.toFixed(1) + "% of slight accidents";
         })
+        .legend(dc.legend().x(320).y(20).itemHeight(15).gap(5))
+        .margins({ top: 10, right: 100, bottom: 60, left: 50 })
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
-        .yAxisLabel("Percentage of accidents", 20)
         .xAxisLabel("Speed limit (mph)", 25)
-        //.yAxis().tickFormat(function(d) { return d + "%" ;}) - why it doesn't work? 
-        .legend(dc.legend().x(320).y(20).itemHeight(15).gap(5))
-        .margins({ top: 10, right: 100, bottom: 60, left: 50 });
+        .yAxisLabel("Percentage of accidents", 20)
+        .yAxis().tickFormat(function(d) { return d + "%"; }); //- why it doesn't work? ;
+
 }
 
 function show_accidents_month(ndx) {
@@ -304,14 +305,10 @@ function show_accidents_month(ndx) {
             var numberWithCommas = d.value.toLocaleString();
             return numberWithCommas + " accidents";
         })
-        .x(d3.time.scale().domain([minDate, maxDate]))
         .yAxisLabel("Total number of accidents")
-        .on("renderlet", (function(chart) {
-            chart.selectAll("g.x text")
-                .attr('dx', '-30')
-                .attr('transform', "rotate(-45)");
-        }))  // solution that enabled label rotation found in here: https://groups.google.com/forum/#!msg/dc-js-user-group/TjXkTTbOhsQ/7WU14__RGoIJ
-        .yAxis().ticks(5);
+        //.yAxis().ticks(5) - why i cant display it?
+        .x(d3.time.scale().domain([minDate, maxDate]))
+        .xAxis().ticks(12).tickFormat(d3.time.format("%b"));
 
 }
 
@@ -320,7 +317,6 @@ function show_accidents_hour(ndx) {
     var dim = ndx.dimension(dc.pluck('hour'));
 
     var totalAccByHour = dim.group().reduceSum(dc.pluck('number_of_accidents'));
-
 
     dc.lineChart("#accidents-hour")
         .width(700)
@@ -341,14 +337,14 @@ function show_accidents_hour(ndx) {
             }
             else { return numberWithCommas + " accidents at " + d.key + ':00'; }
         })
-        .x(d3.scale.linear().domain([0, 23]))
-        .yAxisLabel("Total number of accidents")
-        //.yAxis().ticks(6).tickFormat(d3.format(".1s"))
         .on("renderlet", (function(chart) {
             chart.selectAll("g.x text")
                 .attr('dx', '-30')
                 .attr('transform', "rotate(-45)");
-        }))
+        })) // solution that enabled label rotation found in here: https://groups.google.com/forum/#!msg/dc-js-user-group/TjXkTTbOhsQ/7WU14__RGoIJ
+        .yAxisLabel("Total number of accidents")
+        //.yAxis().ticks(6).tickFormat(d3.format(".1s"))
+        .x(d3.scale.linear().domain([0, 23]))
         .xAxis().ticks(24).tickFormat(function(d) {
             if (d < 10) {
                 return "0" + d + ':00';
