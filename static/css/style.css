@@ -5,3 +5,19 @@ html {
     padding: 0;
     margin: 0;
 }
+
+h2 {
+    font-size: 1.2em;
+}
+
+#region-selector {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+.chart-tile {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    display: block;
+}

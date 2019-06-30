@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>UK Accidents Data - Dashboard</title>
+  <title>GB Accidents Data - Dashboard</title>
   <link rel="stylesheet" href="static/css/bootstrap.min.css" type="text/css" />
   <link rel="stylesheet" href="static/css/dc.min.css" type="text/css" />
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -26,7 +26,7 @@
       <a class="navbar-brand" href="#">Road Safety Data - Accidents 2017</a>
     </div>
   </nav>
-  
+
   <main>
 
     <div class="container-fluid">
@@ -34,11 +34,11 @@
       <section class="section">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-lg-12">
-              <h1 class=section-heading>Road Safety Data - Accidents 2017</h1>
+            <div class="col-lg-6 col-md-12">
+              <h1 class="section-heading">Road Safety Data - Accidents 2017</h1>
             </div>
             <!-- Regional selector added so user is able to see totals for the Uk or filter data by region -->
-            <div class="col-lg-12">
+            <div class="col-lg-6 col-md-12 d-flex justify-content-lg-end justify-content-md-start">
               <div id="region-selector"></div>
             </div>
           </div>
@@ -50,7 +50,7 @@
         <div class="container-fluid">
 
           <div class="row" id="summary-statistics">
-            <div class="col-lg-4 col-md-12">
+            <div class="col-lg-4 col-md-4 col-sm-12 chart-tile">
               <div class="col-12">
                 <div class="number-box-title text-left">
                   <h2>Total Accidents</h2>
@@ -64,7 +64,7 @@
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-12">
+            <div class="col-lg-4 col-md-4 col-sm-12 chart-tile">
               <div class="col-12">
                 <div class="number-box-title text-left">
                   <h2>All Casualties</h2>
@@ -78,7 +78,7 @@
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-12">
+            <div class="col-lg-4 col-md-4 col-sm-12 chart-tile">
               <div class="col-12">
                 <div class="number-box-title text-left">
                   <h2>Total number of vehicles involved</h2>
@@ -104,19 +104,19 @@
 
           <div class="row">
 
-            <div class="col-lg-4 col-md-12">
+            <div class="col-lg-4 col-md-6 col-sm-12 chart-tile">
               <div class="chart-title">
                 <h2>Accidents by severity</h2>
               </div>
               <div class="chart" id="accidents-severity"></div>
             </div>
-            <div class="col-lg-4 col-md-12">
+            <div class="col-lg-4 col-md-6 col-sm-12 chart-tile">
               <div class="chart-title">
                 <h2>Accidents by road type</h2>
               </div>
               <div class="chart" id="rd-type-split"></div>
             </div>
-            <div class="col-lg-4 col-md-12">
+            <div class="col-lg-4 col-md-12 col-sm-12 chart-tile">
               <div class="chart-title">
                 <h2>Accident severity by speed limit</h2>
               </div>
@@ -135,13 +135,14 @@
 
           <div class="row">
 
-            <div class="col-lg-6 col-md-12 col-12-sm">
+            <div class="col-lg-6 col-md-12 col-12-sm chart-tile">
               <div class="chart-title">
                 <h2>Total number of accidents by month</h2>
               </div>
               <div class="chart" id="accidents-month"></div>
             </div>
-            <div class="col-lg-6 col-md-12 col-12-sm">
+
+            <div class="col-lg-6 col-md-12 col-12-sm chart-tile">
               <div class="chart-title">
                 <h2>Total number of accidents by hour</h2>
               </div>
@@ -159,14 +160,14 @@
   </main>
 
   <footer>
-    
+
     <div class="container-fluid">
-      
+
       <div class="row">
-        <div class="col-md-6 col-sm-12 text-center footer-item">Source: <a href="https://data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data" target="_blank">DfT</a></div>
-        <div class="col-md-6 col-sm-12 text-center footer-item"><a href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/" target="_blank"> © Crown copyright</a></div>
+        <div class="col-lg-6 col-md-12 col-sm-12 text-center footer-item">Source: <a href="https://data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data" target="_blank">DfT</a></div>
+        <div class="col-lg-6 col-md-12 col-sm-12 text-center footer-item"><a href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/" target="_blank"> © Crown copyright</a></div>
       </div>
-      
+
     </div>
 
   </footer>
