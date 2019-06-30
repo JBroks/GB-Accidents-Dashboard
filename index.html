@@ -20,69 +20,155 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-default">
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">Reported road accidents in Great Britain: 2017 annual statistics</a>
-      </div>
+      <a class="navbar-brand" href="#">Road Safety Data - Accidents 2017</a>
     </div>
   </nav>
-  <div class="container-fluid">
+  
+  <main>
 
-    <div class="row">
-      <div class="col-md-4 offset-md-4">Select Region</div>
+    <div class="container-fluid">
+
+      <section class="section">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <h1 class=section-heading>Road Safety Data - Accidents 2017</h1>
+            </div>
+            <!-- Regional selector added so user is able to see totals for the Uk or filter data by region -->
+            <div class="col-lg-12">
+              <div id="region-selector"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+
+        <div class="container-fluid">
+
+          <div class="row" id="summary-statistics">
+            <div class="col-lg-4 col-md-12">
+              <div class="col-12">
+                <div class="number-box-title text-left">
+                  <h2>Total Accidents</h2>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="number-box text-left" id="accidents-total"></div>
+              </div>
+              <div class="col-6">
+                <div class="sparkline text-right"><span id="sparkline-acc"></span></div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+              <div class="col-12">
+                <div class="number-box-title text-left">
+                  <h2>All Casualties</h2>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="number-box text-left" id="casualties-total"></div>
+              </div>
+              <div class="col-6">
+                <div class="sparkline text-right"><span id="sparkline-cas"></span></div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+              <div class="col-12">
+                <div class="number-box-title text-left">
+                  <h2>Total number of vehicles involved</h2>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="number-box text-left" id="vehicles-total"></div>
+              </div>
+              <div class="col-6">
+                <div class="sparkline text-right"><span id="sparkline-veh"></span></div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="section">
+
+        <div class="container-fluid">
+
+          <div class="row">
+
+            <div class="col-lg-4 col-md-12">
+              <div class="chart-title">
+                <h2>Accidents by severity</h2>
+              </div>
+              <div class="chart" id="accidents-severity"></div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+              <div class="chart-title">
+                <h2>Accidents by road type</h2>
+              </div>
+              <div class="chart" id="rd-type-split"></div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+              <div class="chart-title">
+                <h2>Accident severity by speed limit</h2>
+              </div>
+              <div class="chart" id="severity-distribution"></div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="section">
+
+        <div class="container-fluid">
+
+          <div class="row">
+
+            <div class="col-lg-6 col-md-12 col-12-sm">
+              <div class="chart-title">
+                <h2>Total number of accidents by month</h2>
+              </div>
+              <div class="chart" id="accidents-month"></div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-12-sm">
+              <div class="chart-title">
+                <h2>Total number of accidents by hour</h2>
+              </div>
+              <div class="chart" id="accidents-hour"></div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
     </div>
 
-    <div class="row">
-      <!-- Regional selector added so user is able to see totals for the Uk or filter data by region -->
-      <div class="col-md-4 offset-md-4" id="region-selector"></div>
+  </main>
+
+  <footer>
+    
+    <div class="container-fluid">
+      
+      <div class="row">
+        <div class="col-md-6 col-sm-12 text-center footer-item">Source: <a href="https://data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data" target="_blank">DfT</a></div>
+        <div class="col-md-6 col-sm-12 text-center footer-item"><a href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/" target="_blank"> © Crown copyright</a></div>
+      </div>
+      
     </div>
 
-    <div class="row">
-      <div class="col-md-4 number-box-header">Total Accidents</div>
-      <div class="col-md-4 number-box-header">All Casualties</div>
-      <div class="col-md-4 number-box-header">Total number of vehicles involved</div>
-    </div>
-
-
-    <div class="row" id="summary-statistics">
-      <div class="col-md-2 number-box" id="accidents-total"></div>
-      <div class="col-md-2 sparkline"><span id="sparkline-acc"></span></div>
-      <div class="col-md-2 number-box" id="casualties-total"></div>
-      <div class="col-md-2 sparkline"><span id="sparkline-cas"></span></div>
-      <div class="col-md-2 number-box" id="vehicles-total"></div>
-      <div class="col-md-2 sparkline"><span id="sparkline-veh"></span></div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-4 chart-header">Accidents by severity</div>
-      <div class="col-md-4 chart-header">Accidents by road type</div>
-      <div class="col-md-4 chart-header">Accident severity by speed limit</div>
-    </div>
-
-    <div class="row" id="first-chart-section">
-      <div class="col-md-4 pie-chart" id="accidents-severity"></div>
-      <div class="col-md-4 pie-chart" id="rd-type-split"></div>
-      <div class="col-md-4 stacked-chart" id="severity-distribution"></div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6 chart-header">Total number of accidents by month</div>
-      <div class="col-md-6 chart-header">Total number of accidents by hour</div>
-    </div>
-
-    <div class="row" id="second-chart-section">
-      <div class="col-md-6 line-chart" id="accidents-month"></div>
-      <div class="col-md-6 line-chart" id="accidents-hour"></div>
-    </div>
-
-  </div>
-
-  <footer class="container-fluid">
-    <div class="row">
-      <div class="col-md-2 offset-md-8 text-right footer-item">Source: <a href="https://data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data" target="_blank"> DfT</a></div>
-      <div class="col-md-2 text-right footer-item"><a href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/" target="_blank"> © Crown copyright</a></div>
-    </div>
   </footer>
 
 </body>

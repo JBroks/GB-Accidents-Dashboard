@@ -47,7 +47,7 @@ function show_region_selector(ndx) {
     dc.selectMenu("#region-selector")
         .dimension(dim)
         .group(group)
-        .promptText('UK total')
+        .promptText('All regions')
         .multiple(false); //change to true if you decide to allow multiple selection
 }
 
@@ -245,7 +245,7 @@ function show_severity_distribution(ndx) {
 
     dc.barChart("#severity-distribution")
         .width(400)
-        .height(300)
+        .height(380)
         .dimension(dim)
         .group(fatalBySpeeed, "Fatal")
         .stack(seriousBySpeeed, "Serious")
