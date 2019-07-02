@@ -6,8 +6,10 @@ html {
     margin: 0;
 }
 
+
+/* Styling main heading and chart titles to make them smaller */
 h2 {
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
 h1 {
@@ -25,12 +27,10 @@ h1 {
 }
 
 
-.chart-tile {
-    display: block;
-}
-
+/* Select menu styling to match bootstrap theme */
 
 select {
-    background: #df691a;
+    background: #4e5d6c;
     color: #ebebeb;
 }
+
