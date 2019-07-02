@@ -284,7 +284,7 @@ function show_severity_distribution(ndx) {
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .xAxisLabel("Speed limit (mph)", 25)
-        .yAxisLabel("Percentage of accidents", 20)
+        //   .yAxisLabel("Percentage of accidents", 20)
         .yAxis().tickFormat(function(d) { return d + "%"; }); //- why it doesn't work? ;
 
 }
@@ -305,7 +305,6 @@ function show_accidents_month(ndx) {
         .dimension(dim)
         .group(totalAccByMonth)
         .transitionDuration(500)
-        .renderDataPoints(true)
         .renderArea(true)
         .renderDataPoints({ radius: 2.5, fillOpacity: 1.0 })
         .brushOn(false)
@@ -314,7 +313,7 @@ function show_accidents_month(ndx) {
             var numberWithCommas = d.value.toLocaleString();
             return numberWithCommas + " accidents";
         })
-        .yAxisLabel("Total number of accidents")
+        //.yAxisLabel("Total number of accidents")
         //.yAxis().ticks(5) - why i cant display it?
         .x(d3.time.scale().domain([minDate, maxDate]))
         .xAxis().ticks(12).tickFormat(d3.time.format("%b"));
@@ -334,7 +333,6 @@ function show_accidents_hour(ndx) {
         .dimension(dim)
         .group(totalAccByHour)
         .transitionDuration(500)
-        .renderDataPoints(true)
         .renderArea(true)
         .renderDataPoints({ radius: 2.5, fillOpacity: 1.0 })
         .brushOn(false)
@@ -351,7 +349,7 @@ function show_accidents_hour(ndx) {
                 .attr('dx', '-30')
                 .attr('transform', "rotate(-45)");
         })) // solution that enabled label rotation found in here: https://groups.google.com/forum/#!msg/dc-js-user-group/TjXkTTbOhsQ/7WU14__RGoIJ
-        .yAxisLabel("Total number of accidents")
+        //.yAxisLabel("Total number of accidents")
         //.yAxis().ticks(6).tickFormat(d3.format(".1s"))
         .x(d3.scale.linear().domain([0, 23]))
         .xAxis().ticks(24).tickFormat(function(d) {
