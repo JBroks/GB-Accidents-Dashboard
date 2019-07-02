@@ -10,6 +10,15 @@ h2 {
     font-size: 1.2em;
 }
 
+h1 {
+    margin: 0;
+}
+
+.section {
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
 #region-selector {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -17,7 +26,11 @@ h2 {
 
 
 .chart-tile {
-    margin-bottom: 10px;
-    margin-top: 10px;
     display: block;
+}
+
+
+select {
+    background: #df691a;
+    color: #ebebeb;
 }
