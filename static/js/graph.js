@@ -71,7 +71,7 @@ function show_sparkline_acc(ndx_16) {
     dc.barChart("#sparkline-acc")
         .width(80)
         .height(30)
-        .margins({ left: -10, top: 10, right: 10, bottom: -1 })
+        .margins({ left: -10, top: 6, right: 10, bottom: -1 })
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .on("renderlet", (function(chart) {
@@ -80,6 +80,11 @@ function show_sparkline_acc(ndx_16) {
             }); // code suggesting how to disable click for sparkline charts found in here: https://groups.google.com/forum/#!msg/dc-js-user-group/Fxg4vykNSqI/hgdj2PEomHsJ
             chart.selectAll(".bar")
                 .style('pointer-events', 'none');
+        }))
+        .on("renderlet", (function(chart) {
+            chart.selectAll("g.x text")
+                .attr('dx', '-30')
+                .attr('transform', "rotate(-45)");
         }))
         .dimension(dim)
         .group(group);
@@ -102,7 +107,7 @@ function show_sparkline_cas(ndx_16) {
     dc.barChart("#sparkline-cas")
         .width(80)
         .height(30)
-        .margins({ left: -10, top: 10, right: 10, bottom: -1 })
+        .margins({ left: -10, top: 6, right: 10, bottom: -1 })
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .on("renderlet", (function(chart) {
@@ -133,7 +138,7 @@ function show_sparkline_veh(ndx_16) {
     dc.barChart("#sparkline-veh")
         .width(80)
         .height(30)
-        .margins({ left: -10, top: 10, right: 10, bottom: -1 })
+        .margins({ left: -10, top: 6, right: 10, bottom: -1 })
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .on("renderlet", (function(chart) {
@@ -154,7 +159,7 @@ function show_accidents_severity(ndx) {
 
     dc.pieChart("#accidents-severity")
         .width(320)
-        .height(350)
+        .height(360)
         .slicesCap(3)
         .innerRadius(95)
         .dimension(dim)
@@ -189,7 +194,7 @@ function show_accidents_road(ndx) {
 
     dc.pieChart("#rd-type-split")
         .width(320)
-        .height(350)
+        .height(360)
         .slicesCap(8)
         .innerRadius(95)
         .dimension(dim)
@@ -249,7 +254,7 @@ function show_severity_distribution(ndx) {
 
     dc.barChart("#severity-distribution")
         .width(400)
-        .height(380)
+        .height(360)
         .dimension(dim)
         .group(fatalBySpeeed, "Fatal")
         .stack(seriousBySpeeed, "Serious")
@@ -275,7 +280,7 @@ function show_severity_distribution(ndx) {
             return d.key + " mph: " + percent.toFixed(1) + "% of slight accidents";
         })
         .legend(dc.legend().x(320).y(20).itemHeight(15).gap(5))
-        .margins({ top: 10, right: 100, bottom: 60, left: 50 })
+        .margins({ top: 10, right: 100, bottom: 40, left: 50 })
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .xAxisLabel("Speed limit (mph)", 25)
