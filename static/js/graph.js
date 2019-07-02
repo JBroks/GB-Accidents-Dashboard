@@ -44,11 +44,15 @@ function show_region_selector(ndx) {
     var dim = ndx.dimension(dc.pluck('region'));
     var group = dim.group();
 
+
     dc.selectMenu("#region-selector")
         .dimension(dim)
         .group(group)
         .promptText('All regions')
-        .multiple(false); //change to true if you decide to allow multiple selection
+        .multiple(false) //change to true if you decide to allow multiple selection
+        .title(function(d) {
+            return d.key;
+        });
 }
 
 function show_accidents_total(ndx) {
