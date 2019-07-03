@@ -79,10 +79,11 @@ function show_sparkline_acc(ndx_16) {
                 chart.filter(null);
             }); // code suggesting how to disable click for sparkline charts found in here: https://groups.google.com/forum/#!msg/dc-js-user-group/Fxg4vykNSqI/hgdj2PEomHsJ
             chart.selectAll(".bar")
-                .style('pointer-events', 'none')
-                .attr("fill", "#d9534f");
+                .style('pointer-events', 'none');
         }))
         .on("pretransition", (function(chart) {
+            chart.selectAll(".bar")
+                .style("fill", "#d9534f");
             chart.selectAll('.domain')
                 .style("stroke", "none");
             chart.selectAll('line')
@@ -117,10 +118,11 @@ function show_sparkline_cas(ndx_16) {
                 chart.filter(null);
             });
             chart.selectAll(".bar")
-                .style('pointer-events', 'none')
-                .attr("fill", "#fd8c3d");
+                .style('pointer-events', 'none');
         }))
         .on("pretransition", (function(chart) {
+            chart.selectAll(".bar")
+                .style("fill", "#fd8c3d");
             chart.selectAll('.domain')
                 .style("stroke", "none");
             chart.selectAll('line')
@@ -314,7 +316,7 @@ function show_severity_distribution(ndx) {
         .xUnits(dc.units.ordinal)
         .xAxisLabel("Speed limit (mph)", 25)
         //   .yAxisLabel("Percentage of accidents", 20)
-        .yAxis().tickFormat(function(d) { return d + "%"; }); 
+        .yAxis().tickFormat(function(d) { return d + "%"; });
 
 }
 
