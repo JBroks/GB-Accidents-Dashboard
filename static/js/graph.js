@@ -82,7 +82,7 @@ function show_sparkline_acc(ndx_16) {
                 .style('pointer-events', 'none')
                 .attr("fill", "#d9534f");
         }))
-         .on("pretransition", (function(chart) {
+        .on("pretransition", (function(chart) {
             chart.selectAll('.domain')
                 .style("stroke", "none");
             chart.selectAll('line')
@@ -120,7 +120,7 @@ function show_sparkline_cas(ndx_16) {
                 .style('pointer-events', 'none')
                 .attr("fill", "#fd8c3d");
         }))
-         .on("pretransition", (function(chart) {
+        .on("pretransition", (function(chart) {
             chart.selectAll('.domain')
                 .style("stroke", "none");
             chart.selectAll('line')
@@ -305,14 +305,16 @@ function show_severity_distribution(ndx) {
                 .style("stroke", "#ffffff");
             chart.selectAll('.domain')
                 .style("stroke", "#ffffff");
+            chart.selectAll('.x-axis-label')
+                .attr("font-size", "12px");
         })
-        .legend(dc.legend().x(320).y(20).itemHeight(15).gap(5))
-        .margins({ top: 10, right: 100, bottom: 40, left: 50 })
+        .legend(dc.legend().x(100).y(345).itemHeight(15).gap(5).horizontal(true))
+        .margins({ top: 10, right: 30, bottom: 40, left: 50 })
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .xAxisLabel("Speed limit (mph)", 25)
         //   .yAxisLabel("Percentage of accidents", 20)
-        .yAxis().tickFormat(function(d) { return d + "%"; }); //- why it doesn't work? 
+        .yAxis().tickFormat(function(d) { return d + "%"; }); 
 
 }
 
@@ -328,7 +330,7 @@ function show_accidents_month(ndx) {
     dc.lineChart("#accidents-month")
         .width(700)
         .height(300)
-        .margins({ top: 10, right: 50, bottom: 60, left: 50 })
+        .margins({ top: 20, right: 70, bottom: 60, left: 70 })
         .dimension(dim)
         .group(totalAccByMonth)
         .transitionDuration(500)
@@ -369,7 +371,7 @@ function show_accidents_hour(ndx) {
     dc.lineChart("#accidents-hour")
         .width(700)
         .height(300)
-        .margins({ top: 10, right: 50, bottom: 60, left: 50 })
+        .margins({ top: 20, right: 70, bottom: 60, left: 70 })
         .dimension(dim)
         .group(totalAccByHour)
         .transitionDuration(500)
