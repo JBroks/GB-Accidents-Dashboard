@@ -330,10 +330,15 @@ function show_accidents_month(ndx) {
             chart.selectAll('.domain')
                 .style("stroke", "#ffffff");
         })
-        //.yAxisLabel("Total number of accidents")
-        //.yAxis().ticks(5) - why i cant display it?
         .x(d3.time.scale().domain([minDate, maxDate]))
-        .xAxis().ticks(12).tickFormat(d3.time.format("%b"));
+        .xAxis().ticks(12).tickFormat(d3.time.format("%b"))
+    /*.yAxis().ticks(10).tickFormat(function(d) {
+        if (d >= 1000) {
+            return d / 1000 + "K";
+        }
+        else { return d; }
+    })*/
+    ;
 
 }
 
@@ -374,13 +379,18 @@ function show_accidents_hour(ndx) {
             chart.selectAll('.domain')
                 .style("stroke", "#ffffff");
         })
-        //.yAxisLabel("Total number of accidents")
-        //.yAxis().ticks(6).tickFormat(d3.format(".1s"))
         .x(d3.scale.linear().domain([0, 23]))
         .xAxis().ticks(24).tickFormat(function(d) {
             if (d < 10) {
                 return "0" + d + ':00';
             }
             else { return d + ':00'; }
-        });
+        })
+    /*.yAxis().ticks(10).tickFormat(function(d) {
+        if (d >= 1000) {
+            return d / 1000 + "K";
+        }
+        else { return d; }
+    })  why it causes erroor??*/
+    ;
 }
