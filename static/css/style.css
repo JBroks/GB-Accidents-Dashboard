@@ -44,6 +44,16 @@ select {
     font-size: 1.5rem;
 }
 
+/* Shadow added to the chart tiles */
+
+.shadow-box {
+    -webkit-box-shadow: 4px 4px 7px 0px rgba(61,78,94,1);
+    -moz-box-shadow: 4px 4px 7px 0px rgba(61,78,94,1);
+    -o-box-shadow: 4px 4px 7px 0px rgba(61,78,94,1);
+    -ms-box-shadow: 4px 4px 7px 0px rgba(61,78,94,1);
+    box-shadow: 4px 4px 7px 0px rgba(61,78,94,1);
+}
+
 
 /* MEDIA QUERIES */
 
@@ -86,7 +96,7 @@ select {
     .card-header {
         font-size: 0.85rem;
     }
-    
+
     .navbar-brand {
         font-size: 1rem;
     }
