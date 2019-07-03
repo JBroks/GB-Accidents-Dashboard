@@ -8,6 +8,7 @@ html {
 
 
 /* Styling main heading and chart titles to make them smaller */
+
 h2 {
     font-size: 1em;
 }
@@ -20,6 +21,9 @@ h1 {
     margin-bottom: 15px;
     margin-top: 15px;
 }
+
+
+/* Region selector menu styling */
 
 #region-selector {
     margin-top: 10px;
@@ -34,3 +38,43 @@ select {
     color: #ebebeb;
 }
 
+/* Number box font size increased to make it more prominent */
+
+.number-box span {
+    font-size: 1.5rem;
+}
+
+
+/* MEDIA QUERIES */
+@media only screen and (max-width: 1200px) {
+    h1 {
+        font-size: 1.9rem;
+    }
+}
+
+/* media query created to make number display element look better, to add more space between the chart and the number */
+@media only screen and (max-width: 768px) {
+    .card-body {
+        padding: 20px 10px;
+    }
+
+    .number-box span {
+        font-size: 1.2rem;
+    }
+    
+    .card-header {
+        font-size: 0.85rem;
+    }
+
+}
+
+/* Adjustments to font sizes to avoid line break */
+@media only screen and (max-width: 576px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+ .card-header {
+        font-size: 1rem;
+    }
+}
