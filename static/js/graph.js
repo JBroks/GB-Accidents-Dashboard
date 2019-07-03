@@ -71,7 +71,7 @@ function show_sparkline_acc(ndx_16) {
     dc.barChart("#sparkline-acc")
         .width(120)
         .height(30)
-        .margins({ left: 0, top: 6, right: 10, bottom: -1 })
+        .margins({ left: 0, top: 6, right: 10, bottom: 0 })
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .on("renderlet", (function(chart) {
@@ -81,6 +81,12 @@ function show_sparkline_acc(ndx_16) {
             chart.selectAll(".bar")
                 .style('pointer-events', 'none')
                 .attr("fill", "#d9534f");
+        }))
+         .on("pretransition", (function(chart) {
+            chart.selectAll('.domain')
+                .style("stroke", "none");
+            chart.selectAll('line')
+                .style("stroke", "none");
         }))
         .dimension(dim)
         .group(group);
@@ -103,7 +109,7 @@ function show_sparkline_cas(ndx_16) {
     dc.barChart("#sparkline-cas")
         .width(120)
         .height(30)
-        .margins({ left: 0, top: 6, right: 10, bottom: -1 })
+        .margins({ left: 0, top: 6, right: 10, bottom: 0 })
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .on("renderlet", (function(chart) {
@@ -113,6 +119,12 @@ function show_sparkline_cas(ndx_16) {
             chart.selectAll(".bar")
                 .style('pointer-events', 'none')
                 .attr("fill", "#fd8c3d");
+        }))
+         .on("pretransition", (function(chart) {
+            chart.selectAll('.domain')
+                .style("stroke", "none");
+            chart.selectAll('line')
+                .style("stroke", "none");
         }))
         .dimension(dim)
         .group(group);
@@ -135,7 +147,7 @@ function show_sparkline_veh(ndx_16) {
     dc.barChart("#sparkline-veh")
         .width(120)
         .height(30)
-        .margins({ left: 0, top: 6, right: 10, bottom: -1 })
+        .margins({ left: 0, top: 6, right: 10, bottom: 0 })
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .on("renderlet", (function(chart) {
@@ -144,6 +156,12 @@ function show_sparkline_veh(ndx_16) {
             });
             chart.selectAll(".bar")
                 .style('pointer-events', 'none');
+        }))
+        .on("pretransition", (function(chart) {
+            chart.selectAll('.domain')
+                .style("stroke", "none");
+            chart.selectAll('line')
+                .style("stroke", "none");
         }))
         .dimension(dim)
         .group(group);
