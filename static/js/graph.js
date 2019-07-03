@@ -65,13 +65,13 @@ function show_accidents_total(ndx) {
 }
 
 function show_sparkline_acc(ndx_16) {
-    var dim = ndx_16.dimension(dc.pluck("day_of_week"));
+    var dim = ndx_16.dimension(dc.pluck("month"));
     var group = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
     dc.barChart("#sparkline-acc")
-        .width(80)
+        .width(120)
         .height(30)
-        .margins({ left: -10, top: 6, right: 10, bottom: -1 })
+        .margins({ left: 0, top: 6, right: 10, bottom: -1 })
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .on("renderlet", (function(chart) {
@@ -97,13 +97,13 @@ function show_casualties_total(ndx) {
 }
 
 function show_sparkline_cas(ndx_16) {
-    var dim = ndx_16.dimension(dc.pluck("day_of_week"));
+    var dim = ndx_16.dimension(dc.pluck("month"));
     var group = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
     dc.barChart("#sparkline-cas")
-        .width(80)
+        .width(120)
         .height(30)
-        .margins({ left: -10, top: 6, right: 10, bottom: -1 })
+        .margins({ left: 0, top: 6, right: 10, bottom: -1 })
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .on("renderlet", (function(chart) {
@@ -129,13 +129,13 @@ function show_vehicles_total(ndx) {
 }
 
 function show_sparkline_veh(ndx_16) {
-    var dim = ndx_16.dimension(dc.pluck("day_of_week"));
+    var dim = ndx_16.dimension(dc.pluck("month"));
     var group = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
     dc.barChart("#sparkline-veh")
-        .width(80)
+        .width(120)
         .height(30)
-        .margins({ left: -10, top: 6, right: 10, bottom: -1 })
+        .margins({ left: 0, top: 6, right: 10, bottom: -1 })
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .on("renderlet", (function(chart) {
