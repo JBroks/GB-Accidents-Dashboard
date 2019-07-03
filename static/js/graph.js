@@ -79,12 +79,8 @@ function show_sparkline_acc(ndx_16) {
                 chart.filter(null);
             }); // code suggesting how to disable click for sparkline charts found in here: https://groups.google.com/forum/#!msg/dc-js-user-group/Fxg4vykNSqI/hgdj2PEomHsJ
             chart.selectAll(".bar")
-                .style('pointer-events', 'none');
-        }))
-        .on("renderlet", (function(chart) {
-            chart.selectAll("g.x text")
-                .attr('dx', '-30')
-                .attr('transform', "rotate(-45)");
+                .style('pointer-events', 'none')
+                .attr("fill", "#d9534f");
         }))
         .dimension(dim)
         .group(group);
@@ -115,7 +111,8 @@ function show_sparkline_cas(ndx_16) {
                 chart.filter(null);
             });
             chart.selectAll(".bar")
-                .style('pointer-events', 'none');
+                .style('pointer-events', 'none')
+                .attr("fill", "#fd8c3d");
         }))
         .dimension(dim)
         .group(group);
@@ -177,6 +174,7 @@ function show_accidents_severity(ndx) {
                 }
             }); // solution suggested by CI Tutor: https://github.com/dc-js/dc.js/blob/master/web/examples/pie.html
             chart.selectAll('.dc-legend-item text')
+                .attr("fill", "#ffffff")
                 .text('')
                 .append('tspan')
                 .text(function(d) { return d.name; })
@@ -184,7 +182,7 @@ function show_accidents_severity(ndx) {
                 .attr('x', 100)
                 .attr('text-anchor', 'end')
                 .text(function(d) { return d.data.toLocaleString(); });
-        }); //toLocalString() method found in here: https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+        }); //toLocalString() method, used to format number, found in here: https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
 
 }
 
@@ -212,13 +210,16 @@ function show_accidents_road(ndx) {
                 }
             });
             chart.selectAll('.dc-legend-item text')
+                .attr("fill", "#ffffff")
                 .text('')
                 .append('tspan')
                 .text(function(d) { return d.name; })
                 .append('tspan')
                 .attr('x', 150)
                 .attr('text-anchor', 'end')
-                .text(function(d) { return d.data.toLocaleString(); });
+                .text(function(d) {
+                    return d.data.toLocaleString();
+                });
         });
 
 }
@@ -279,13 +280,21 @@ function show_severity_distribution(ndx) {
             var percent = (d.value.by_severity / d.value.total) * 100;
             return d.key + " mph: " + percent.toFixed(1) + "% of slight accidents";
         })
+        .on('pretransition', function(chart) {
+            chart.selectAll('.dc-chart text')
+                .attr("fill", "#ffffff");
+            chart.selectAll('line')
+                .style("stroke", "#ffffff");
+            chart.selectAll('.domain')
+                .style("stroke", "#ffffff");
+        })
         .legend(dc.legend().x(320).y(20).itemHeight(15).gap(5))
         .margins({ top: 10, right: 100, bottom: 40, left: 50 })
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .xAxisLabel("Speed limit (mph)", 25)
         //   .yAxisLabel("Percentage of accidents", 20)
-        .yAxis().tickFormat(function(d) { return d + "%"; }); //- why it doesn't work? ;
+        .yAxis().tickFormat(function(d) { return d + "%"; }); //- why it doesn't work? 
 
 }
 
@@ -312,6 +321,14 @@ function show_accidents_month(ndx) {
         .title(function(d) {
             var numberWithCommas = d.value.toLocaleString();
             return numberWithCommas + " accidents";
+        })
+        .on('pretransition', function(chart) {
+            chart.selectAll('.dc-chart text')
+                .attr("fill", "#ffffff");
+            chart.selectAll('line')
+                .style("stroke", "#ffffff");
+            chart.selectAll('.domain')
+                .style("stroke", "#ffffff");
         })
         //.yAxisLabel("Total number of accidents")
         //.yAxis().ticks(5) - why i cant display it?
@@ -349,6 +366,14 @@ function show_accidents_hour(ndx) {
                 .attr('dx', '-30')
                 .attr('transform', "rotate(-45)");
         })) // solution that enabled label rotation found in here: https://groups.google.com/forum/#!msg/dc-js-user-group/TjXkTTbOhsQ/7WU14__RGoIJ
+        .on('pretransition', function(chart) {
+            chart.selectAll('.dc-chart text')
+                .attr("fill", "#ffffff");
+            chart.selectAll('line')
+                .style("stroke", "#ffffff");
+            chart.selectAll('.domain')
+                .style("stroke", "#ffffff");
+        })
         //.yAxisLabel("Total number of accidents")
         //.yAxis().ticks(6).tickFormat(d3.format(".1s"))
         .x(d3.scale.linear().domain([0, 23]))
