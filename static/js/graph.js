@@ -323,7 +323,7 @@ function show_severity_distribution(ndx) {
                 .attr("font-size", "12px");
         })
         .legend(dc.legend().x(100).y(345).itemHeight(15).gap(5).horizontal(true))
-        .margins({ top: 10, right: 30, bottom: 40, left: 50 })
+        .margins({ top: 10, right: 30, bottom: 40, left: 40 })
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .xAxisLabel("Speed limit (mph)", 25)
