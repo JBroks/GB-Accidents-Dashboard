@@ -81,17 +81,9 @@ select {
 /* media query created to make number display element look better, to add more space between the chart and the number */
 
 @media only screen and (max-width: 768px) {
-    .card-body {
-        padding: 20px 10px;
-    }
 
     .number-box span {
         font-size: 1.5rem;
-    }
-    
-    .sparkline-acc {
-        height: 100px;
-        width: 15px;
     }
 
     .card-header {
