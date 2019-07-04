@@ -7,15 +7,13 @@ html {
 }
 
 
-/* Styling main heading and chart titles to make them smaller */
-
-h2 {
-    font-size: 1em;
-}
+/* Styling of the dashboard title */
 
 h1 {
     margin: 0;
 }
+
+
 
 /* Region selector menu styling */
 
