@@ -17,12 +17,6 @@ h1 {
     margin: 0;
 }
 
-.section {
-    margin-bottom: 0;
-    margin-top: 0;
-}
-
-
 /* Region selector menu styling */
 
 #region-selector {
@@ -64,6 +58,7 @@ select {
     height: 360px;
 }
 
+
 /* MEDIA QUERIES */
 
 @media only screen and (max-width: 1200px) {
@@ -76,6 +71,11 @@ select {
     .card-header {
         font-size: 0.85rem;
     }
+    
+      .number-box span {
+        font-size: 1.2rem;
+    }
+    
 }
 
 /* media query created to make number display element look better, to add more space between the chart and the number */
@@ -86,7 +86,12 @@ select {
     }
 
     .number-box span {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
+    }
+    
+    .sparkline-acc {
+        height: 100px;
+        width: 15px;
     }
 
     .card-header {

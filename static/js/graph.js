@@ -82,6 +82,10 @@ function show_sparkline_acc(ndx_16) {
                 .style('pointer-events', 'none');
         }))
         .on("pretransition", (function(chart) {
+            chart.select("svg")
+                .attr("height", "40%")
+                .attr("width", "40%")
+                .attr("viewBox", "0 0 120 30"); // viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
             chart.selectAll(".bar")
                 .style("fill", "#d9534f");
             chart.selectAll('.domain')
@@ -121,6 +125,10 @@ function show_sparkline_cas(ndx_16) {
                 .style('pointer-events', 'none');
         }))
         .on("pretransition", (function(chart) {
+            chart.select("svg")
+                .attr("height", "40%")
+                .attr("width", "40%")
+                .attr("viewBox", "0 0 120 30"); // viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
             chart.selectAll(".bar")
                 .style("fill", "#fd8c3d");
             chart.selectAll('.domain')
@@ -160,6 +168,10 @@ function show_sparkline_veh(ndx_16) {
                 .style('pointer-events', 'none');
         }))
         .on("pretransition", (function(chart) {
+            chart.select("svg")
+                .attr("height", "40%")
+                .attr("width", "40%")
+                .attr("viewBox", "0 0 120 30"); // viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
             chart.selectAll('.domain')
                 .style("stroke", "none");
             chart.selectAll('line')
