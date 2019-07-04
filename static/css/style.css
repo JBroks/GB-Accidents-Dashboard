@@ -1,3 +1,11 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900&display=swap");
+
+
+body {
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+}
+
 body,
 html {
     width: 100%;
@@ -11,9 +19,14 @@ html {
 
 h1 {
     margin: 0;
+    font-weight: 300;
 }
 
+/* Card titles styled to uppercase */
 
+.card-header {
+    text-transform: uppercase;
+}
 
 /* Region selector menu styling */
 
@@ -26,6 +39,9 @@ h1 {
     background: #5d6b78;
     border: #445360;
     color: #ebebeb;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 300;
 }
 
 /* Select menu styling to match bootstrap theme */
@@ -92,7 +108,7 @@ select {
     }
 
     .card-header {
-        font-size: 0.85rem;
+        font-size: 0.7rem;
     }
 
 }
@@ -102,10 +118,6 @@ select {
 @media only screen and (max-width: 576px) {
     h1 {
         font-size: 2rem;
-    }
-
-    .card-header {
-        font-size: 0.85rem;
     }
 
     .navbar-brand {
