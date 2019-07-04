@@ -24,6 +24,11 @@ h1 {
     margin-bottom: 10px;
 }
 
+#region-selector select {
+    background: #5d6b78;
+    border: #445360;
+    color: #ebebeb;
+}
 
 /* Select menu styling to match bootstrap theme */
 
@@ -49,7 +54,9 @@ select {
 }
 
 /* Charts styling to fix the issue of responsiveness */
-#accidents-hour, #accidents-month {
+
+#accidents-hour,
+#accidents-month {
     height: 300px;
     width: 750px;
 }
@@ -71,11 +78,11 @@ select {
     .card-header {
         font-size: 0.85rem;
     }
-    
-      .number-box span {
+
+    .number-box span {
         font-size: 1.2rem;
     }
-    
+
 }
 
 /* media query created to make number display element look better, to add more space between the chart and the number */
@@ -107,17 +114,15 @@ select {
         font-size: 1rem;
     }
 
-/* height adjusted to reduce space at top and the bottom of the chart (within the card) */
-    #accidents-hour, #accidents-month {
+    /* height adjusted to reduce space at top and the bottom of the chart (within the card) */
+    #accidents-hour,
+    #accidents-month {
         height: 120px;
     }
 }
 
 @media only screen and (max-width: 375px) {
-    #severity-distribution{
+    #severity-distribution {
         height: 250px;
     }
 }
-
-
-
