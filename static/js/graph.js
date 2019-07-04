@@ -193,6 +193,10 @@ function show_accidents_severity(ndx) {
                     return dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) + '%';
                 }
             }); // solution suggested by CI Tutor: https://github.com/dc-js/dc.js/blob/master/web/examples/pie.html
+            chart.select("svg")
+                .attr("height", "100%")
+                .attr("width", "100%")
+                .attr("viewBox", "0 0 320 360"); // viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
             chart.selectAll('.dc-legend-item text')
                 .attr("fill", "#ffffff")
                 .text('')
@@ -229,6 +233,10 @@ function show_accidents_road(ndx) {
                     return dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) + '%';
                 }
             });
+            chart.select("svg")
+                .attr("height", "100%")
+                .attr("width", "100%")
+                .attr("viewBox", "0 0 320 360"); // viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
             chart.selectAll('.dc-legend-item text')
                 .attr("fill", "#ffffff")
                 .text('')
@@ -274,7 +282,7 @@ function show_severity_distribution(ndx) {
     var fatalBySpeeed = severityBySpeed(dim, "Fatal");
 
     dc.barChart("#severity-distribution")
-        .width(400)
+        .width(380)
         .height(360)
         .dimension(dim)
         .group(fatalBySpeeed, "Fatal")
@@ -301,6 +309,10 @@ function show_severity_distribution(ndx) {
             return d.key + " mph: " + percent.toFixed(1) + "% of slight accidents";
         })
         .on('pretransition', function(chart) {
+            chart.select("svg")
+                .attr("height", "100%")
+                .attr("width", "100%")
+                .attr("viewBox", "0 0 380 360"); // viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
             chart.selectAll('.dc-chart text')
                 .attr("fill", "#ffffff");
             chart.selectAll('line')
@@ -330,9 +342,9 @@ function show_accidents_month(ndx) {
     var maxDate = dim.top(1)[0].date;
 
     dc.lineChart("#accidents-month")
-        .width(700)
+        .width(750)
         .height(300)
-        .margins({ top: 20, right: 70, bottom: 60, left: 70 })
+        .margins({ top: 10, right: 60, bottom: 20, left: 40 })
         .dimension(dim)
         .group(totalAccByMonth)
         .transitionDuration(500)
@@ -345,6 +357,10 @@ function show_accidents_month(ndx) {
             return numberWithCommas + " accidents";
         })
         .on('pretransition', function(chart) {
+            chart.select("svg")
+                .attr("height", "100%")
+                .attr("width", "100%")
+                .attr("viewBox", "0 0 700 300"); // viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
             chart.selectAll('.dc-chart text')
                 .attr("fill", "#ffffff");
             chart.selectAll('line')
@@ -353,14 +369,7 @@ function show_accidents_month(ndx) {
                 .style("stroke", "#ffffff");
         })
         .x(d3.time.scale().domain([minDate, maxDate]))
-        .xAxis().ticks(12).tickFormat(d3.time.format("%b"))
-    /*.yAxis().ticks(10).tickFormat(function(d) {
-        if (d >= 1000) {
-            return d / 1000 + "K";
-        }
-        else { return d; }
-    })*/
-    ;
+        .xAxis().ticks(12).tickFormat(d3.time.format("%b"));
 
 }
 
@@ -371,9 +380,9 @@ function show_accidents_hour(ndx) {
     var totalAccByHour = dim.group().reduceSum(dc.pluck('number_of_accidents'));
 
     dc.lineChart("#accidents-hour")
-        .width(700)
+        .width(750)
         .height(300)
-        .margins({ top: 20, right: 70, bottom: 60, left: 70 })
+        .margins({ top: 10, right: 60, bottom: 45, left: 40 })
         .dimension(dim)
         .group(totalAccByHour)
         .transitionDuration(500)
@@ -391,9 +400,13 @@ function show_accidents_hour(ndx) {
         .on("renderlet", (function(chart) {
             chart.selectAll("g.x text")
                 .attr('dx', '-30')
-                .attr('transform', "rotate(-45)");
-        })) // solution that enabled label rotation found in here: https://groups.google.com/forum/#!msg/dc-js-user-group/TjXkTTbOhsQ/7WU14__RGoIJ
+                .attr('transform', "rotate(-45)"); // solution that enabled label rotation found in here: https://groups.google.com/forum/#!msg/dc-js-user-group/TjXkTTbOhsQ/7WU14__RGoIJ
+        }))
         .on('pretransition', function(chart) {
+            chart.select("svg")
+                .attr("height", "100%")
+                .attr("width", "100%")
+                .attr("viewBox", "0 0 700 300"); // viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
             chart.selectAll('.dc-chart text')
                 .attr("fill", "#ffffff");
             chart.selectAll('line')
@@ -407,12 +420,5 @@ function show_accidents_hour(ndx) {
                 return "0" + d + ':00';
             }
             else { return d + ':00'; }
-        })
-    /*.yAxis().ticks(10).tickFormat(function(d) {
-        if (d >= 1000) {
-            return d / 1000 + "K";
-        }
-        else { return d; }
-    })  why it causes erroor??*/
-    ;
+        });
 }
