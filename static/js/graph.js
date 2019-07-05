@@ -374,33 +374,30 @@ function show_accidents_month(ndx) {
 }
 
 function show_accidents_hour(ndx) {
-
     var dim = ndx.dimension(dc.pluck('hour'));
 
     var totalAccByHour = dim.group().reduceSum(dc.pluck('number_of_accidents'));
+    var totalCasByHour = dim.group().reduceSum(dc.pluck('number_of_casualties'));
+    var totalVehByHour = dim.group().reduceSum(dc.pluck('number_of_vehicles'));
 
-    dc.lineChart("#accidents-hour")
+    var composite = dc.compositeChart('#composite-hour');
+
+    composite
         .width(750)
         .height(300)
-        .margins({ top: 10, right: 60, bottom: 45, left: 40 })
+        .margins({ top: 20, right: 60, bottom: 45, left: 40 })
         .dimension(dim)
-        .group(totalAccByHour)
-        .transitionDuration(500)
-        .renderArea(true)
-        .renderDataPoints({ radius: 2.5, fillOpacity: 1.0 })
-        .brushOn(false)
         .elasticY(true)
-        .title(function(d) {
-            var numberWithCommas = d.value.toLocaleString();
-            if (d.key < 10) {
-                return numberWithCommas + " accidents at " + "0" + d.key + ':00';
-            }
-            else { return numberWithCommas + " accidents at " + d.key + ':00'; }
-        })
+        .legend(dc.legend().x(260).y(0).itemHeight(15).gap(5).horizontal(true))
+        .x(d3.scale.linear().domain([0, 23]))
+        .y(d3.scale.linear())
+        .transitionDuration(500)
+        .shareTitle(false)
         .on("renderlet", (function(chart) {
             chart.selectAll("g.x text")
                 .attr('dx', '-30')
                 .attr('transform', "rotate(-45)"); // solution that enabled label rotation found in here: https://groups.google.com/forum/#!msg/dc-js-user-group/TjXkTTbOhsQ/7WU14__RGoIJ
+
         }))
         .on('pretransition', function(chart) {
             chart.select("svg")
@@ -414,7 +411,40 @@ function show_accidents_hour(ndx) {
             chart.selectAll('.domain')
                 .style("stroke", "#ffffff");
         })
-        .x(d3.scale.linear().domain([0, 23]))
+        .compose([
+            dc.lineChart(composite)
+            .group(totalAccByHour, "Accidents")
+            .title(function(d) {
+                var numberWithCommas = d.value.toLocaleString();
+                if (d.key < 10) {
+                    return numberWithCommas + " accidents at " + "0" + d.key + ':00';
+                }
+                else { return numberWithCommas + " accidents at " + d.key + ':00'; }
+            })
+            .colors('#ff7e0e'),
+            dc.lineChart(composite)
+            .group(totalCasByHour, "Casualties")
+            .title(function(d) {
+                var numberWithCommas = d.value.toLocaleString();
+                if (d.key < 10) {
+                    return numberWithCommas + " casualties at " + "0" + d.key + ':00';
+                }
+                else { return numberWithCommas + " casualties at " + d.key + ':00'; }
+            })
+            .colors('#d95350'),
+            dc.lineChart(composite)
+            .group(totalVehByHour, "Vehicles involved")
+            .title(function(d) {
+                var numberWithCommas = d.value.toLocaleString();
+                if (d.key < 10) {
+                    return numberWithCommas + " vehicles involved at " + "0" + d.key + ':00';
+                }
+                else { return numberWithCommas + " vehicles involved at " + d.key + ':00'; }
+            })
+            .colors('#1e77b4')
+
+        ])
+        .brushOn(false)
         .xAxis().ticks(24).tickFormat(function(d) {
             if (d < 10) {
                 return "0" + d + ':00';
