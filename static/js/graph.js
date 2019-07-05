@@ -83,7 +83,7 @@ function show_sparkline_acc(ndx_16) {
         }))
         .on("pretransition", (function(chart) {
             chart.selectAll(".bar")
-                .style("fill", "#d9534f");
+                .style("fill", "#fd8b3e");
             chart.selectAll('.domain')
                 .style("stroke", "none");
             chart.selectAll('line')
@@ -122,7 +122,7 @@ function show_sparkline_cas(ndx_16) {
         }))
         .on("pretransition", (function(chart) {
             chart.selectAll(".bar")
-                .style("fill", "#fd8c3d");
+                .style("fill", "#e6550e");
             chart.selectAll('.domain')
                 .style("stroke", "none");
             chart.selectAll('line')
@@ -182,6 +182,7 @@ function show_accidents_severity(ndx) {
         .dimension(dim)
         .group(totalAccBySeverity)
         .transitionDuration(500)
+        .colors(d3.scale.ordinal().range([ '#3182bc', '#fd8c3d', '#e6550e']))
         .renderLabel(true)
         .legend(dc.legend().x(110).y(150).itemHeight(13).gap(5))
         .title(function(d) {
@@ -285,6 +286,7 @@ function show_severity_distribution(ndx) {
         .width(380)
         .height(360)
         .dimension(dim)
+        .colors(d3.scale.ordinal().range([ '#e6550e', '#fd8c3d', '#3182bc']))
         .group(fatalBySpeeed, "Fatal")
         .stack(seriousBySpeeed, "Serious")
         .stack(slightBySpeeed, "Slight")
@@ -340,7 +342,7 @@ function show_accidents_month(ndx) {
     var totalAccByHour = dim.group().reduceSum(dc.pluck('number_of_accidents'));
     var totalCasByHour = dim.group().reduceSum(dc.pluck('number_of_casualties'));
     var totalVehByHour = dim.group().reduceSum(dc.pluck('number_of_vehicles'));
-    
+
     var minDate = dim.bottom(1)[0].date;
     var maxDate = dim.top(1)[0].date;
 
@@ -375,23 +377,23 @@ function show_accidents_month(ndx) {
             dc.lineChart(composite)
             .group(totalAccByHour, "Accidents")
             .title(function(d) {
-            var numberWithCommas = d.value.toLocaleString();
-            return numberWithCommas + " accidents";
-        })
+                var numberWithCommas = d.value.toLocaleString();
+                return numberWithCommas + " accidents";
+            })
             .colors('#ff7e0e'),
             dc.lineChart(composite)
             .group(totalCasByHour, "Casualties")
             .title(function(d) {
-            var numberWithCommas = d.value.toLocaleString();
-            return numberWithCommas + " casualties";
-        })
+                var numberWithCommas = d.value.toLocaleString();
+                return numberWithCommas + " casualties";
+            })
             .colors('#d95350'),
             dc.lineChart(composite)
             .group(totalVehByHour, "Vehicles involved")
             .title(function(d) {
-            var numberWithCommas = d.value.toLocaleString();
-            return numberWithCommas + " vehicles involved";
-        })
+                var numberWithCommas = d.value.toLocaleString();
+                return numberWithCommas + " vehicles involved";
+            })
             .colors('#1e77b4')
 
         ])
