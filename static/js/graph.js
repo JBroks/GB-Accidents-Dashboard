@@ -359,6 +359,10 @@ function show_accidents_month(ndx) {
         .y(d3.scale.linear())
         .transitionDuration(500)
         .shareTitle(false)
+        .on("renderlet", (function(chart) {
+            chart.selectAll(".dot")
+                .style('cursor', 'pointer');
+        }))
         .on('pretransition', function(chart) {
             chart.select("svg")
                 .attr("height", "100%")
@@ -422,6 +426,8 @@ function show_accidents_hour(ndx) {
         .transitionDuration(500)
         .shareTitle(false)
         .on("renderlet", (function(chart) {
+            chart.selectAll(".dot")
+                .style('cursor', 'pointer');
             chart.selectAll("g.x text")
                 .attr('dx', '-30')
                 .attr('dy', '-5')
