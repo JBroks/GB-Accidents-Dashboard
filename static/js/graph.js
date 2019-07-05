@@ -314,11 +314,13 @@ function show_severity_distribution(ndx) {
                 .attr("width", "100%")
                 .attr("viewBox", "0 0 380 360"); // viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
             chart.selectAll('.dc-chart text')
+                .attr("fill", "#E5E5E5");
+            chart.selectAll('.dc-legend-item text')
                 .attr("fill", "#ffffff");
             chart.selectAll('line')
-                .style("stroke", "#ffffff");
+                .style("stroke", "#E5E5E5");
             chart.selectAll('.domain')
-                .style("stroke", "#ffffff");
+                .style("stroke", "#E5E5E5");
             chart.selectAll('.x-axis-label')
                 .attr("font-size", "12px");
         })
@@ -362,11 +364,13 @@ function show_accidents_month(ndx) {
                 .attr("width", "100%")
                 .attr("viewBox", "0 0 700 300"); // viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
             chart.selectAll('.dc-chart text')
+                .attr("fill", "#E5E5E5");
+            chart.selectAll('.dc-legend-item text')
                 .attr("fill", "#ffffff");
             chart.selectAll('line')
-                .style("stroke", "#ffffff");
+                .style("stroke", "#E5E5E5");
             chart.selectAll('.domain')
-                .style("stroke", "#ffffff");
+                .style("stroke", "#E5E5E5");
         })
         .x(d3.time.scale().domain([minDate, maxDate]))
         .xAxis().ticks(12).tickFormat(d3.time.format("%b"));
@@ -405,11 +409,13 @@ function show_accidents_hour(ndx) {
                 .attr("width", "100%")
                 .attr("viewBox", "0 0 700 300"); // viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
             chart.selectAll('.dc-chart text')
+                .attr("fill", "#E5E5E5");
+            chart.selectAll('.dc-legend-item text')
                 .attr("fill", "#ffffff");
             chart.selectAll('line')
-                .style("stroke", "#ffffff");
+                .style("stroke", "#E5E5E5");
             chart.selectAll('.domain')
-                .style("stroke", "#ffffff");
+                .style("stroke", "#E5E5E5");
         })
         .compose([
             dc.lineChart(composite)
