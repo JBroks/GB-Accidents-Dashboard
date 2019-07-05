@@ -356,7 +356,7 @@ function show_accidents_month(ndx) {
         .margins({ top: 10, right: 60, bottom: 45, left: 40 })
         .dimension(dim)
         .elasticY(true)
-        .legend(dc.legend().x(260).y(320).itemHeight(15).gap(5).horizontal(true))
+        .legend(dc.legend().x(230).y(320).itemHeight(15).gap(5).horizontal(true).itemWidth(100))
         .x(d3.time.scale().domain([minDate, maxDate]))
         .y(d3.scale.linear())
         .transitionDuration(500)
@@ -404,7 +404,7 @@ function show_accidents_month(ndx) {
 
         ])
         .brushOn(false)
-        .yAxisPadding('5%')  //applied to fix the issue with data point cut off
+        .yAxisPadding('5%') //applied to fix the issue with data point cut off
         .elasticX(true) //elasticX and xAxisPadding applied to fix the issue with data point cut off
         .xAxisPadding("4%")
         .xAxis().ticks(12).tickFormat(d3.time.format("%b")).outerTickSize(0); // outerTickSize applied to fix the issue with data point cut off
@@ -425,7 +425,7 @@ function show_accidents_hour(ndx) {
         .margins({ top: 20, right: 60, bottom: 45, left: 40 })
         .dimension(dim)
         .elasticY(true)
-        .legend(dc.legend().x(260).y(320).itemHeight(15).gap(5).horizontal(true))
+        .legend(dc.legend().x(230).y(320).itemHeight(15).gap(5).horizontal(true).itemWidth(100))
         .x(d3.scale.linear().domain([0, 23]))
         .y(d3.scale.linear())
         .transitionDuration(500)
@@ -433,7 +433,7 @@ function show_accidents_hour(ndx) {
         .on("renderlet", (function(chart) {
             chart.selectAll(".dot")
                 .style('cursor', 'pointer');
-            }))
+        }))
         .on('pretransition', function(chart) {
             chart.selectAll("g.x text")
                 .attr('dx', '-30')
@@ -486,7 +486,7 @@ function show_accidents_hour(ndx) {
 
         ])
         .brushOn(false)
-        .yAxisPadding('5%')  //applied to fix the issue with data point cut off
+        .yAxisPadding('5%') //applied to fix the issue with data point cut off
         .elasticX(true) //elasticX and xAxisPadding applied to fix the issue with data point cut off
         .xAxisPadding("2%")
         .xAxis().ticks(24).tickFormat(function(d) {
