@@ -335,34 +335,33 @@ function show_severity_distribution(ndx) {
 }
 
 function show_accidents_month(ndx) {
-
     var dim = ndx.dimension(dc.pluck('date'));
 
-    var totalAccByMonth = dim.group().reduceSum(dc.pluck('number_of_accidents'));
-
+    var totalAccByHour = dim.group().reduceSum(dc.pluck('number_of_accidents'));
+    var totalCasByHour = dim.group().reduceSum(dc.pluck('number_of_casualties'));
+    var totalVehByHour = dim.group().reduceSum(dc.pluck('number_of_vehicles'));
+    
     var minDate = dim.bottom(1)[0].date;
     var maxDate = dim.top(1)[0].date;
 
-    dc.lineChart("#accidents-month")
+    var composite = dc.compositeChart('#composite-month');
+
+    composite
         .width(750)
         .height(300)
-        .margins({ top: 10, right: 60, bottom: 20, left: 40 })
+        .margins({ top: 10, right: 60, bottom: 45, left: 40 })
         .dimension(dim)
-        .group(totalAccByMonth)
-        .transitionDuration(500)
-        .renderArea(true)
-        .renderDataPoints({ radius: 2.5, fillOpacity: 1.0 })
-        .brushOn(false)
         .elasticY(true)
-        .title(function(d) {
-            var numberWithCommas = d.value.toLocaleString();
-            return numberWithCommas + " accidents";
-        })
+        .legend(dc.legend().x(260).y(320).itemHeight(15).gap(5).horizontal(true))
+        .x(d3.time.scale().domain([minDate, maxDate]))
+        .y(d3.scale.linear())
+        .transitionDuration(500)
+        .shareTitle(false)
         .on('pretransition', function(chart) {
             chart.select("svg")
                 .attr("height", "100%")
                 .attr("width", "100%")
-                .attr("viewBox", "0 0 700 300"); // viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
+                .attr("viewBox", "0 0 700 340"); // viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
             chart.selectAll('.dc-chart text')
                 .attr("fill", "#E5E5E5");
             chart.selectAll('.dc-legend-item text')
@@ -372,9 +371,32 @@ function show_accidents_month(ndx) {
             chart.selectAll('.domain')
                 .style("stroke", "#E5E5E5");
         })
-        .x(d3.time.scale().domain([minDate, maxDate]))
-        .xAxis().ticks(12).tickFormat(d3.time.format("%b"));
+        .compose([
+            dc.lineChart(composite)
+            .group(totalAccByHour, "Accidents")
+            .title(function(d) {
+            var numberWithCommas = d.value.toLocaleString();
+            return numberWithCommas + " accidents";
+        })
+            .colors('#ff7e0e'),
+            dc.lineChart(composite)
+            .group(totalCasByHour, "Casualties")
+            .title(function(d) {
+            var numberWithCommas = d.value.toLocaleString();
+            return numberWithCommas + " casualties";
+        })
+            .colors('#d95350'),
+            dc.lineChart(composite)
+            .group(totalVehByHour, "Vehicles involved")
+            .title(function(d) {
+            var numberWithCommas = d.value.toLocaleString();
+            return numberWithCommas + " vehicles involved";
+        })
+            .colors('#1e77b4')
 
+        ])
+        .brushOn(false)
+        .xAxis().ticks(12).tickFormat(d3.time.format("%b"));
 }
 
 function show_accidents_hour(ndx) {
@@ -392,7 +414,7 @@ function show_accidents_hour(ndx) {
         .margins({ top: 20, right: 60, bottom: 45, left: 40 })
         .dimension(dim)
         .elasticY(true)
-        .legend(dc.legend().x(260).y(0).itemHeight(15).gap(5).horizontal(true))
+        .legend(dc.legend().x(260).y(320).itemHeight(15).gap(5).horizontal(true))
         .x(d3.scale.linear().domain([0, 23]))
         .y(d3.scale.linear())
         .transitionDuration(500)
@@ -400,14 +422,15 @@ function show_accidents_hour(ndx) {
         .on("renderlet", (function(chart) {
             chart.selectAll("g.x text")
                 .attr('dx', '-30')
-                .attr('transform', "rotate(-45)"); // solution that enabled label rotation found in here: https://groups.google.com/forum/#!msg/dc-js-user-group/TjXkTTbOhsQ/7WU14__RGoIJ
+                .attr('dy', '-5')
+                .attr('transform', "rotate(-90)"); // solution that enabled label rotation found in here: https://groups.google.com/forum/#!msg/dc-js-user-group/TjXkTTbOhsQ/7WU14__RGoIJ
 
         }))
         .on('pretransition', function(chart) {
             chart.select("svg")
                 .attr("height", "100%")
                 .attr("width", "100%")
-                .attr("viewBox", "0 0 700 300"); // viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
+                .attr("viewBox", "0 0 700 340"); // viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
             chart.selectAll('.dc-chart text')
                 .attr("fill", "#E5E5E5");
             chart.selectAll('.dc-legend-item text')

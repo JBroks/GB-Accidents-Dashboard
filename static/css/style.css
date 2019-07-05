@@ -70,7 +70,7 @@ select {
 /* Charts styling to fix the issue of responsiveness */
 
 #composite-hour,
-#accidents-month {
+#composite-month {
     height: 300px;
     width: 750px;
 }
@@ -126,7 +126,7 @@ select {
 
     /* height adjusted to reduce space at top and the bottom of the chart (within the card) */
     #composite-hour,
-    #accidents-month {
+    #composite-month {
         height: 120px;
     }
 }
