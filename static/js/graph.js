@@ -182,7 +182,7 @@ function show_accidents_severity(ndx) {
         .dimension(dim)
         .group(totalAccBySeverity)
         .transitionDuration(500)
-        .colors(d3.scale.ordinal().range([ '#3182bc', '#fd8c3d', '#e6550e']))
+        .colors(d3.scale.ordinal().range(['#3182bc', '#fd8c3d', '#e6550e']))
         .renderLabel(true)
         .legend(dc.legend().x(110).y(150).itemHeight(13).gap(5))
         .title(function(d) {
@@ -253,6 +253,7 @@ function show_accidents_road(ndx) {
 
 }
 
+
 function show_severity_distribution(ndx) {
 
     function severityBySpeed(dimension, severity) {
@@ -286,7 +287,7 @@ function show_severity_distribution(ndx) {
         .width(380)
         .height(360)
         .dimension(dim)
-        .colors(d3.scale.ordinal().range([ '#e6550e', '#fd8c3d', '#3182bc']))
+        .colors(d3.scale.ordinal().range(['#e6550e', '#fd8c3d', '#3182bc']))
         .group(fatalBySpeeed, "Fatal")
         .stack(seriousBySpeeed, "Serious")
         .stack(slightBySpeeed, "Slight")
@@ -335,6 +336,7 @@ function show_severity_distribution(ndx) {
         .yAxis().tickFormat(function(d) { return d + "%"; });
 
 }
+
 
 function show_accidents_month(ndx) {
     var dim = ndx.dimension(dc.pluck('date'));
@@ -428,13 +430,12 @@ function show_accidents_hour(ndx) {
         .on("renderlet", (function(chart) {
             chart.selectAll(".dot")
                 .style('cursor', 'pointer');
+            }))
+        .on('pretransition', function(chart) {
             chart.selectAll("g.x text")
                 .attr('dx', '-30')
                 .attr('dy', '-5')
-                .attr('transform', "rotate(-90)"); // solution that enabled label rotation found in here: https://groups.google.com/forum/#!msg/dc-js-user-group/TjXkTTbOhsQ/7WU14__RGoIJ
-
-        }))
-        .on('pretransition', function(chart) {
+                .attr('transform', "rotate(-90)"); // solution that enabled label rotation found in here: https://groups.google.com/forum/#!msg/dc-js-user-group/TjXkTTbOhsQ/7WU14__RGoI
             chart.select("svg")
                 .attr("height", "100%")
                 .attr("width", "100%")
