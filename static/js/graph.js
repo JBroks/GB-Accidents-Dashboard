@@ -186,7 +186,7 @@ function show_accidents_severity(ndx) {
         .renderLabel(true)
         .legend(dc.legend().x(110).y(150).itemHeight(13).gap(5))
         .title(function(d) {
-            return ((d.value / d3.sum(totalAccBySeverity.all(), function(d) { return d.value; })) * 100).toFixed(2) + "%";
+            return d.key + ": " + ((d.value / d3.sum(totalAccBySeverity.all(), function(d) { return d.value; })) * 100).toFixed(2) + "%";
         }) // solution inspired by the follwoing code: https://groups.google.com/forum/#!topic/dc-js-user-group/u-zPORy4-2Y
         .on('pretransition', function(chart) {
             chart.selectAll('text.pie-slice').text(function(d) {
@@ -226,7 +226,7 @@ function show_accidents_road(ndx) {
         .renderLabel(true)
         .legend(dc.legend().x(85).y(125).itemHeight(13).gap(5))
         .title(function(d) {
-            return ((d.value / d3.sum(totalAccByRoad.all(), function(d) { return d.value; })) * 100).toFixed(2) + "%";
+            return d.key + ": " + ((d.value / d3.sum(totalAccByRoad.all(), function(d) { return d.value; })) * 100).toFixed(2) + "%";
         })
         .on('pretransition', function(chart) {
             chart.selectAll('text.pie-slice').text(function(d) {
