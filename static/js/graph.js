@@ -404,7 +404,10 @@ function show_accidents_month(ndx) {
 
         ])
         .brushOn(false)
-        .xAxis().ticks(12).tickFormat(d3.time.format("%b"));
+        .yAxisPadding('5%')  //applied to fix the issue with data point cut off
+        .elasticX(true) //elasticX and xAxisPadding applied to fix the issue with data point cut off
+        .xAxisPadding("4%")
+        .xAxis().ticks(12).tickFormat(d3.time.format("%b")).outerTickSize(0); // outerTickSize applied to fix the issue with data point cut off
 }
 
 function show_accidents_hour(ndx) {
@@ -483,10 +486,13 @@ function show_accidents_hour(ndx) {
 
         ])
         .brushOn(false)
+        .yAxisPadding('5%')  //applied to fix the issue with data point cut off
+        .elasticX(true) //elasticX and xAxisPadding applied to fix the issue with data point cut off
+        .xAxisPadding("2%")
         .xAxis().ticks(24).tickFormat(function(d) {
             if (d < 10) {
                 return "0" + d + ':00';
             }
             else { return d + ':00'; }
-        });
+        }).outerTickSize(0);
 }
