@@ -349,7 +349,7 @@ function show_accidents_month(ndx) {
     var maxDate = dim.top(1)[0].date;
 
     var composite = dc.compositeChart('#composite-month');
-    
+
     composite
         .width(750)
         .height(300)
@@ -409,8 +409,10 @@ function show_accidents_month(ndx) {
         .brushOn(false)
         .yAxisPadding('5%') //applied to fix the issue with data point cut off
         .elasticX(true) //elasticX and xAxisPadding applied to fix the issue with data point cut off
-        .xAxisPadding("4%")
+        .xAxisPadding("8%")
         .xAxis().ticks(12).tickFormat(d3.time.format("%b")).outerTickSize(0); // outerTickSize applied to fix the issue with data point cut off
+
+    composite.yAxis().ticks(5).outerTickSize(0);
 }
 
 function show_accidents_hour(ndx) {
@@ -501,4 +503,6 @@ function show_accidents_hour(ndx) {
             }
             else { return d + ':00'; }
         }).outerTickSize(0);
+
+    composite.yAxis().ticks(5).outerTickSize(0);
 }
