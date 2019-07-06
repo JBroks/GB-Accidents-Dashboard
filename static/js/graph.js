@@ -386,14 +386,16 @@ function show_accidents_month(ndx) {
                 var numberWithCommas = d.value.toLocaleString();
                 return numberWithCommas + " accidents";
             })
-            .colors('#ff7e0e'),
+            .colors('#ff7e0e')
+            .renderDataPoints({ radius: 2.5 }),
             dc.lineChart(composite)
             .group(totalCasByHour, "Casualties")
             .title(function(d) {
                 var numberWithCommas = d.value.toLocaleString();
                 return numberWithCommas + " casualties";
             })
-            .colors('#d95350'),
+            .colors('#d95350')
+            .renderDataPoints({ radius: 2.5 }),
             dc.lineChart(composite)
             .group(totalVehByHour, "Vehicles involved")
             .title(function(d) {
@@ -401,6 +403,7 @@ function show_accidents_month(ndx) {
                 return numberWithCommas + " vehicles involved";
             })
             .colors('#1e77b4')
+            .renderDataPoints({ radius: 2.5 })
 
         ])
         .brushOn(false)
@@ -462,7 +465,8 @@ function show_accidents_hour(ndx) {
                 }
                 else { return numberWithCommas + " accidents at " + d.key + ':00'; }
             })
-            .colors('#ff7e0e'),
+            .colors('#ff7e0e')
+            .renderDataPoints({ radius: 2.5 }),
             dc.lineChart(composite)
             .group(totalCasByHour, "Casualties")
             .title(function(d) {
@@ -472,7 +476,8 @@ function show_accidents_hour(ndx) {
                 }
                 else { return numberWithCommas + " casualties at " + d.key + ':00'; }
             })
-            .colors('#d95350'),
+            .colors('#d95350')
+            .renderDataPoints({ radius: 2.5 }),
             dc.lineChart(composite)
             .group(totalVehByHour, "Vehicles involved")
             .title(function(d) {
@@ -483,6 +488,7 @@ function show_accidents_hour(ndx) {
                 else { return numberWithCommas + " vehicles involved at " + d.key + ':00'; }
             })
             .colors('#1e77b4')
+            .renderDataPoints({ radius: 2.5 })
 
         ])
         .brushOn(false)
