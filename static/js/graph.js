@@ -349,7 +349,7 @@ function show_accidents_month(ndx) {
     var maxDate = dim.top(1)[0].date;
 
     var composite = dc.compositeChart('#composite-month');
-
+    
     composite
         .width(750)
         .height(300)
