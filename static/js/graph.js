@@ -7,6 +7,9 @@ function makeGraphs(error, accData, accData16) {
     var ndx = crossfilter(accData);
     var ndx16 = crossfilter(accData16);
 
+
+    // Parse strings to integers
+
     accData16.forEach(function(d) {
         d.number_of_accidents = parseInt(d.number_of_accidents);
     });
@@ -19,10 +22,14 @@ function makeGraphs(error, accData, accData16) {
         d.hour = parseInt(d.hour);
     });
 
+    // Convert date to tdate data types
+    
     var parseDate = d3.time.format("%d/%m/%Y").parse;
     accData.forEach(function(d) {
         d.date = parseDate(d.date);
     });
+
+    // Call functions for each individual chart
 
     showRegionSelector(ndx);
     showAccidentsTotal(ndx);
@@ -37,23 +44,30 @@ function makeGraphs(error, accData, accData16) {
     showAccidentsMonth(ndx);
     showSeverityDistribution(ndx);
 
+    // Render all charts
     dc.renderAll();
 }
+
+// ------------- CHART FUNCTIONS -------------
+
+
+// ------------- Region selecter to enable user to choose region of Great Britain -------------
 
 function showRegionSelector(ndx) {
     var dim = ndx.dimension(dc.pluck("region"));
     var group = dim.group();
 
-
     dc.selectMenu("#region-selector")
         .dimension(dim)
         .group(group)
         .promptText("All regions")
-        .multiple(false) //change to true if you decide to allow multiple selection
+        .multiple(false) //change multiple to true if you decide to allow multiple selection
         .title(function(d) {
             return d.key;
         });
 }
+
+// ------------- Tile showing total number of accidents -------------
 
 function showAccidentsTotal(ndx) {
     var dim = ndx.dimension(dc.pluck("ref"));
@@ -63,6 +77,8 @@ function showAccidentsTotal(ndx) {
         .formatNumber(d3.format(".2s"))
         .group(totalAcc);
 }
+
+// ------------- Sparkline chart for decoration purposes -------------
 
 function showSparklineAcc(ndx16) {
     var dim = ndx16.dimension(dc.pluck("month"));
@@ -79,9 +95,9 @@ function showSparklineAcc(ndx16) {
                 chart.filter(null);
             });
             /* "renderlet" code suggesting how to disable click for sparkline charts found in here:
-            https://groups.google.com/forum/#!msg/dc-js-user-group/Fxg4vykNSqI/hgdj2PEomHsJ */
+                https://groups.google.com/forum/#!msg/dc-js-user-group/Fxg4vykNSqI/hgdj2PEomHsJ */
             chart.selectAll(".bar")
-                .style("pointer-events", "none");
+                .style("pointer-events", "none"); //pointer event removed 
         }))
         .on("pretransition", (function(chart) {
             chart.selectAll(".bar")
@@ -95,6 +111,8 @@ function showSparklineAcc(ndx16) {
         .group(group);
 }
 
+// ------------- Tile showing total number of casualties -------------
+
 function showCasualtiesTotal(ndx) {
     var dim = ndx.dimension(dc.pluck("ref"));
     var totalCas = dim.group().reduceSum(dc.pluck("number_of_casualties"));
@@ -103,6 +121,8 @@ function showCasualtiesTotal(ndx) {
         .formatNumber(d3.format(".2s"))
         .group(totalCas);
 }
+
+// ------------- Sparkline chart for decoration purposes -------------
 
 function showSparklineCas(ndx16) {
     var dim = ndx16.dimension(dc.pluck("month"));
@@ -133,6 +153,7 @@ function showSparklineCas(ndx16) {
         .group(group);
 }
 
+// ------------- Tile showing total number of vehicles involved in accidents -------------
 
 function showVehiclesTotal(ndx) {
     var dim = ndx.dimension(dc.pluck("ref"));
@@ -142,6 +163,8 @@ function showVehiclesTotal(ndx) {
         .formatNumber(d3.format(".2s"))
         .group(totalVeh);
 }
+
+// ------------- Sparkline chart for decoration purposes -------------
 
 function showSparklineVeh(ndx16) {
     var dim = ndx16.dimension(dc.pluck("month"));
@@ -170,6 +193,7 @@ function showSparklineVeh(ndx16) {
         .group(group);
 }
 
+// ------------- Pie chart presenting accidents split by severity -------------
 
 function showAccidentsSeverity(ndx) {
     var dim = ndx.dimension(dc.pluck("accident_severity"));
@@ -184,23 +208,33 @@ function showAccidentsSeverity(ndx) {
         .group(totalAccBySeverity)
         .transitionDuration(500)
         .colors(d3.scale.ordinal().range(["#3182bc", "#fd8c3d", "#e6550e"]))
+        /* pie slices colors changed to express data categories better visually
+        and highlight seriousness of an accident i.e. fatal accidents in red,
+        serious in orange and slight in blue*/
         .renderLabel(true)
         .legend(dc.legend().x(110).y(150).itemHeight(13).gap(5))
         .title(function(d) {
-            return d.key + ": " + ((d.value / d3.sum(totalAccBySeverity.all(), function(d) { return d.value; })) * 100).toFixed(2) + "%";
-        }) // solution inspired by the follwoing code: https://groups.google.com/forum/#!topic/dc-js-user-group/u-zPORy4-2Y
+            return d.key + ": " + ((d.value / d3.sum(totalAccBySeverity.all(),
+                function(d) { return d.value; })) * 100).toFixed(2) + "%";
+        })
+        /* solution for title inspired by the follwoing code: 
+        https://groups.google.com/forum/#!topic/dc-js-user-group/u-zPORy4-2Y */
         .on("pretransition", function(chart) {
             chart.selectAll("text.pie-slice").text(function(d) {
-                if (dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) >= 5) {
-                    return dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) + "%";
+                if (dc.utils.printSingleValue(
+                        (d.endAngle - d.startAngle) /
+                        (2 * Math.PI) * 100) >= 5) {
+                    return dc.utils.printSingleValue(
+                        (d.endAngle - d.startAngle) /
+                        (2 * Math.PI) * 100) + "%";
                 }
-            }); // solution suggested by CI Tutor: https://github.com/dc-js/dc.js/blob/master/web/examples/pie.html
+            }); // solution suggested by CI Tutor: https://github.com/dc-js/dc.js/blob/master/web/examples/pie.html */
             chart.select("svg")
                 .attr("height", "100%")
                 .attr("width", "100%")
                 .attr("viewBox", "0 0 320 360");
-                /* viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here:
-                https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox*/
+            /* viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here:
+            https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox */
             chart.selectAll(".dc-legend-item text")
                 .attr("fill", "#ffffff")
                 .text("")
@@ -211,10 +245,12 @@ function showAccidentsSeverity(ndx) {
                 .attr("text-anchor", "end")
                 .text(function(d) { return d.data.toLocaleString(); });
         });
-        /* toLocalString() method, used to format number, found in here:
-        https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript*/
+    /* toLocalString() method, used to format number, found in here:
+    https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript */
 
 }
+
+// ------------- Pie chart presenting accidents split by road type -------------
 
 function showAccidentsRoad(ndx) {
     var dim = ndx.dimension(dc.pluck("road_type"));
@@ -231,20 +267,26 @@ function showAccidentsRoad(ndx) {
         .renderLabel(true)
         .legend(dc.legend().x(85).y(125).itemHeight(13).gap(5))
         .title(function(d) {
-            return d.key + ": " + ((d.value / d3.sum(totalAccByRoad.all(), function(d) { return d.value; })) * 100).toFixed(2) + "%";
-        })
+            return d.key + ": " + ((d.value / d3.sum(totalAccByRoad.all(),
+                function(d) { return d.value; })) * 100).toFixed(2) + "%";
+        }) //function added to display text on slices large enough to fit in all text
         .on("pretransition", function(chart) {
             chart.selectAll("text.pie-slice").text(function(d) {
-                if (dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) >= 5) {
-                    return dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) + "%";
+                if (dc.utils.printSingleValue(
+                        (d.endAngle - d.startAngle) /
+                        (2 * Math.PI) * 100) >= 5) {
+                    return dc.utils.printSingleValue(
+                        (d.endAngle - d.startAngle) /
+                        (2 * Math.PI) * 100) + "%";
                 }
             });
             chart.select("svg")
                 .attr("height", "100%")
                 .attr("width", "100%")
                 .attr("viewBox", "0 0 320 360");
-                /* viewbox solution applied to resolve issue of responsiveness on mobile devices,
-                solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox */
+            /* viewbox solution applied to resolve issue of responsiveness
+            on mobile devices, solution found here:
+            https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox*/
             chart.selectAll(".dc-legend-item text")
                 .attr("fill", "#ffffff")
                 .text("")
@@ -255,10 +297,11 @@ function showAccidentsRoad(ndx) {
                 .attr("text-anchor", "end")
                 .text(function(d) {
                     return d.data.toLocaleString();
-                });
+                }); // editing text displayed in the legend
         });
 }
 
+// ------------- Stacked bar chart presenting accident severity by speed limit -------------
 
 function showSeverityDistribution(ndx) {
 
@@ -305,25 +348,30 @@ function showSeverityDistribution(ndx) {
                 return 0;
             }
         })
+        /* title function specified to display % value
+        and more descriptive information */
         .title("Fatal", function(d) {
             var percent = (d.value.by_severity / d.value.total) * 100;
-            return d.key + " mph: " + percent.toFixed(1) + "% of fatal accidents";
+            return d.key + " mph: " + percent.toFixed(1) +
+                "% of fatal accidents";
         })
         .title("Serious", function(d) {
             var percent = (d.value.by_severity / d.value.total) * 100;
-            return d.key + " mph: " + percent.toFixed(1) + "% of serious accidents";
+            return d.key + " mph: " + percent.toFixed(1) +
+                "% of serious accidents";
         })
         .title("Slight", function(d) {
             var percent = (d.value.by_severity / d.value.total) * 100;
-            return d.key + " mph: " + percent.toFixed(1) + "% of slight accidents";
+            return d.key + " mph: " + percent.toFixed(1) +
+                "% of slight accidents";
         })
         .on("pretransition", function(chart) {
             chart.select("svg")
                 .attr("height", "100%")
                 .attr("width", "100%")
                 .attr("viewBox", "0 0 380 360");
-                /* viewbox solution applied to resolve issue of responsiveness on mobile devices,
-                solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox */
+            /* viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here:
+            https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox*/
             chart.selectAll(".dc-chart text")
                 .attr("fill", "#E5E5E5");
             chart.selectAll(".dc-legend-item text")
@@ -335,7 +383,8 @@ function showSeverityDistribution(ndx) {
             chart.selectAll(".x-axis-label")
                 .attr("font-size", "12px");
         })
-        .legend(dc.legend().x(100).y(345).itemHeight(15).gap(5).horizontal(true))
+        .legend(dc.legend().x(100).y(345).itemHeight(15).gap(5)
+            .horizontal(true))
         .margins({ top: 10, right: 30, bottom: 40, left: 40 })
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
@@ -343,6 +392,7 @@ function showSeverityDistribution(ndx) {
         .yAxis().tickFormat(function(d) { return d + "%"; });
 }
 
+// ------------- Composite line chart presenting total number of accidents by month -------------
 
 function showAccidentsMonth(ndx) {
     var dim = ndx.dimension(dc.pluck("date"));
@@ -362,11 +412,12 @@ function showAccidentsMonth(ndx) {
         .margins({ top: 10, right: 60, bottom: 45, left: 40 })
         .dimension(dim)
         .elasticY(true)
-        .legend(dc.legend().x(230).y(320).itemHeight(15).gap(5).horizontal(true).itemWidth(100))
+        .legend(dc.legend().x(230).y(320).itemHeight(15).gap(5)
+            .horizontal(true).itemWidth(100))
         .x(d3.time.scale().domain([minDate, maxDate]))
         .y(d3.scale.linear())
         .transitionDuration(500)
-        .shareTitle(false)
+        .shareTitle(false) //shared title disabled to display category specific title
         .on("renderlet", (function(chart) {
             chart.selectAll(".dot")
                 .style("cursor", "pointer");
@@ -376,8 +427,8 @@ function showAccidentsMonth(ndx) {
                 .attr("height", "100%")
                 .attr("width", "100%")
                 .attr("viewBox", "0 0 700 340");
-/* viewbox solution applied to resolve issue of responsiveness on mobile devices,
-solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox */
+            /* viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here:
+            https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox */
             chart.selectAll(".dc-chart text")
                 .attr("fill", "#E5E5E5");
             chart.selectAll(".dc-legend-item text")
@@ -390,10 +441,11 @@ solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/
         .compose([
             dc.lineChart(composite)
             .group(totalAccByHour, "Accidents")
+
             .title(function(d) {
                 var numberWithCommas = d.value.toLocaleString();
                 return numberWithCommas + " accidents";
-            })
+            }) //title function applied to display more explanatory text and edit number format
             .colors("#ff7e0e")
             .renderDataPoints({ radius: 2.5 }),
             dc.lineChart(composite)
@@ -401,7 +453,7 @@ solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/
             .title(function(d) {
                 var numberWithCommas = d.value.toLocaleString();
                 return numberWithCommas + " casualties";
-            })
+            }) //title function applied to display more explanatory text and edit number format
             .colors("#d95350")
             .renderDataPoints({ radius: 2.5 }),
             dc.lineChart(composite)
@@ -409,18 +461,22 @@ solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/
             .title(function(d) {
                 var numberWithCommas = d.value.toLocaleString();
                 return numberWithCommas + " vehicles involved";
-            })
+            }) //title function applied to display more explanatory text and edit number format
             .colors("#1e77b4")
             .renderDataPoints({ radius: 2.5 })
         ])
         .brushOn(false)
-        .yAxisPadding("5%") //applied to fix the issue with data point cut off
-        .elasticX(true) //elasticX and xAxisPadding applied to fix the issue with data point cut off
+        .yAxisPadding("5%")
+        .elasticX(true)
         .xAxisPadding("8%")
-        .xAxis().ticks(12).tickFormat(d3.time.format("%b")).outerTickSize(0); //outerTickSize applied to fix the issue with data point cut off
+        .xAxis().ticks(12).tickFormat(d3.time.format("%b")).outerTickSize(0);
+        /* elasticX, outerTickSize and xAxisPadding applied to fix the issue with data point cut off
+        (the same solution applied for yAxis) */
 
     composite.yAxis().ticks(5).outerTickSize(0);
 }
+
+// ------------- Composite line chart presenting total number of accidents by hour -------------
 
 function showAccidentsHour(ndx) {
     var dim = ndx.dimension(dc.pluck("hour"));
@@ -437,7 +493,8 @@ function showAccidentsHour(ndx) {
         .margins({ top: 20, right: 60, bottom: 45, left: 40 })
         .dimension(dim)
         .elasticY(true)
-        .legend(dc.legend().x(230).y(320).itemHeight(15).gap(5).horizontal(true).itemWidth(100))
+        .legend(dc.legend().x(230).y(320).itemHeight(15).gap(5)
+            .horizontal(true).itemWidth(100))
         .x(d3.scale.linear().domain([0, 23]))
         .y(d3.scale.linear())
         .transitionDuration(500)
@@ -451,14 +508,14 @@ function showAccidentsHour(ndx) {
                 .attr("dx", "-30")
                 .attr("dy", "-5")
                 .attr("transform", "rotate(-90)");
-                /* solution that enabled label rotation found in here:
-                https://groups.google.com/forum/#!msg/dc-js-user-group/TjXkTTbOhsQ/7WU14__RGoI */
+            /* solution that enabled label rotation found in here: 
+            https://groups.google.com/forum/#!msg/dc-js-user-group/TjXkTTbOhsQ/7WU14__RGoI */
             chart.select("svg")
                 .attr("height", "100%")
                 .attr("width", "100%")
                 .attr("viewBox", "0 0 700 340");
-                /* viewbox solution applied to resolve issue of responsiveness on mobile devices,
-                solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox */
+            /* viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here:
+            https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox*/
             chart.selectAll(".dc-chart text")
                 .attr("fill", "#E5E5E5");
             chart.selectAll(".dc-legend-item text")
@@ -474,10 +531,14 @@ function showAccidentsHour(ndx) {
             .title(function(d) {
                 var numberWithCommas = d.value.toLocaleString();
                 if (d.key < 10) {
-                    return numberWithCommas + " accidents at " + "0" + d.key + ":00";
+                    return numberWithCommas + " accidents at " + "0" +
+                        d.key + ":00";
                 }
-                else { return numberWithCommas + " accidents at " + d.key + ":00"; }
-            })
+                else {
+                    return numberWithCommas + " accidents at " +
+                        d.key + ":00";
+                }
+            }) // title function applied to display more explanatory text
             .colors("#ff7e0e")
             .renderDataPoints({ radius: 2.5 }),
             dc.lineChart(composite)
@@ -485,27 +546,36 @@ function showAccidentsHour(ndx) {
             .title(function(d) {
                 var numberWithCommas = d.value.toLocaleString();
                 if (d.key < 10) {
-                    return numberWithCommas + " casualties at " + "0" + d.key + ":00";
+                    return numberWithCommas + " casualties at " + "0" +
+                        d.key + ":00";
                 }
-                else { return numberWithCommas + " casualties at " + d.key + ":00"; }
-            })
+                else {
+                    return numberWithCommas + " casualties at " +
+                        d.key + ":00";
+                }
+            }) // title function applied to display more explanatory text
             .colors("#d95350")
             .renderDataPoints({ radius: 2.5 }),
             dc.lineChart(composite)
             .group(totalVehByHour, "Vehicles involved")
+            // title function applied to display more explanatory text
             .title(function(d) {
                 var numberWithCommas = d.value.toLocaleString();
                 if (d.key < 10) {
-                    return numberWithCommas + " vehicles involved at " + "0" + d.key + ":00";
+                    return numberWithCommas + " vehicles involved at " + "0" +
+                        d.key + ":00";
                 }
-                else { return numberWithCommas + " vehicles involved at " + d.key + ":00"; }
+                else {
+                    return numberWithCommas + " vehicles involved at " +
+                        d.key + ":00";
+                }
             })
             .colors("#1e77b4")
             .renderDataPoints({ radius: 2.5 })
         ])
         .brushOn(false)
-        .yAxisPadding("5%") //applied to fix the issue with data point cut off
-        .elasticX(true) //elasticX and xAxisPadding applied to fix the issue with data point cut off
+        .yAxisPadding("5%")
+        .elasticX(true)
         .xAxisPadding("2%")
         .xAxis().ticks(24).tickFormat(function(d) {
             if (d < 10) {
@@ -513,6 +583,7 @@ function showAccidentsHour(ndx) {
             }
             else { return d + ":00"; }
         }).outerTickSize(0);
-
+    /* elasticX, outerTickSize and xAxisPadding applied to fix the issue with data point cut off
+    (the same solution applied for yAxis) */
     composite.yAxis().ticks(5).outerTickSize(0);
 }
