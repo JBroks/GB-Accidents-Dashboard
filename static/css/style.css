@@ -22,6 +22,16 @@ h1 {
     font-weight: 300;
 }
 
+/* Styles for tiles/cards */
+
+.tile-s1, .tile-s2 {
+    max-width: 45rem;
+}
+
+.tile-s3 {
+    max-width: 70rem;
+}
+
 /* Card titles styled to uppercase */
 
 .card-header {
@@ -82,15 +92,25 @@ select {
 
 /* MEDIA QUERIES */
 
+@media only screen and (min-width: 1200px) {
+    .tile-s2 {
+        max-height: 25rem;
+    }
+}
+
 @media only screen and (max-width: 1200px) {
     h1 {
         font-size: 1.9rem;
+    }
+    
+    #stacked-chart {
+        max-width: 70rem;
     }
 }
 
 @media only screen and (max-width: 992px) {
     .card-header {
-        font-size: 0.85rem;
+        font-size: 0.80rem;
     }
 
     .number-box span {
