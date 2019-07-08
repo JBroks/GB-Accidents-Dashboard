@@ -602,7 +602,7 @@ function showAccidentsAvg(ndx) {
     var totalAcc = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
     dc.numberDisplay("#accidents-average")
-        .formatNumber(d3.format(".3n"))
+        .formatNumber(d3.format(",.0f"))
         .group(totalAcc)
         .valueAccessor(function(d) {
             return (d.value / 365);
@@ -614,7 +614,7 @@ function showCasualtiesAvg(ndx) {
     var totalAcc = dim.group().reduceSum(dc.pluck("number_of_casualties"));
 
     dc.numberDisplay("#casualties-average")
-        .formatNumber(d3.format(".3n"))
+        .formatNumber(d3.format(",.0f"))
         .group(totalAcc)
         .valueAccessor(function(d) {
             return (d.value / 365);
@@ -643,6 +643,7 @@ function showPeakHrAccValue(ndx) {
     var totalAccByHour = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
     dc.numberDisplay('#accidents-peak-value')
+        .formatNumber(d3.format(",.0f"))
         .group(totalAccByHour)
         .valueAccessor(function(d) {
             return totalAccByHour.top(1)[0].value;
@@ -669,6 +670,7 @@ function showPeakHrCasValue(ndx) {
     var totalCasByHour = dim.group().reduceSum(dc.pluck("number_of_casualties"));
 
     dc.numberDisplay('#casualties-peak-value')
+        .formatNumber(d3.format(",.0f"))
         .group(totalCasByHour)
         .valueAccessor(function(d) {
             return totalCasByHour.top(1)[0].value;
