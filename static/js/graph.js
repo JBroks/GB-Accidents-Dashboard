@@ -45,6 +45,11 @@ function makeGraphs(error, accData, accData16) {
     showSeverityDistribution(ndx);
     showAccidentsAvg(ndx);
     showCasualtiesAvg(ndx);
+    showPeakHrAcc(ndx);
+    showPeakHrAccValue(ndx);
+    showPeakHrCas(ndx);
+    showPeakHrCasValue(ndx);
+
 
     // Render all charts
     dc.renderAll();
@@ -613,5 +618,59 @@ function showCasualtiesAvg(ndx) {
         .group(totalAcc)
         .valueAccessor(function(d) {
             return (d.value / 365);
+        });
+}
+
+// ------------- Tile showing peak hours and its values -------------
+
+
+// ------------- Peak Accidents -------------
+function showPeakHrAcc(ndx) {
+    var dim = ndx.dimension(dc.pluck("hour"));
+
+    var totalAccByHour = dim.group().reduceSum(dc.pluck("number_of_accidents"));
+
+    dc.numberDisplay('#accidents-peak-hr')
+        .group(totalAccByHour)
+        .valueAccessor(function(d) {
+            return totalAccByHour.top(1)[0].key;
+        });
+}
+
+function showPeakHrAccValue(ndx) {
+    var dim = ndx.dimension(dc.pluck("hour"));
+
+    var totalAccByHour = dim.group().reduceSum(dc.pluck("number_of_accidents"));
+
+    dc.numberDisplay('#accidents-peak-value')
+        .group(totalAccByHour)
+        .valueAccessor(function(d) {
+            return totalAccByHour.top(1)[0].value;
+        });
+}
+
+// ------------- Peak Casualties -------------
+
+function showPeakHrCas(ndx) {
+    var dim = ndx.dimension(dc.pluck("hour"));
+
+    var totalCasByHour = dim.group().reduceSum(dc.pluck("number_of_casualties"));
+
+    dc.numberDisplay('#casualties-peak-hr')
+        .group(totalCasByHour)
+        .valueAccessor(function(d) {
+            return totalCasByHour.top(1)[0].key;
+        });
+}
+
+function showPeakHrCasValue(ndx) {
+    var dim = ndx.dimension(dc.pluck("hour"));
+
+    var totalCasByHour = dim.group().reduceSum(dc.pluck("number_of_casualties"));
+
+    dc.numberDisplay('#casualties-peak-value')
+        .group(totalCasByHour)
+        .valueAccessor(function(d) {
+            return totalCasByHour.top(1)[0].value;
         });
 }
