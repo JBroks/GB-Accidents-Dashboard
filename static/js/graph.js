@@ -23,7 +23,7 @@ function makeGraphs(error, accData, accData16) {
     });
 
     // Convert date to tdate data types
-    
+
     var parseDate = d3.time.format("%d/%m/%Y").parse;
     accData.forEach(function(d) {
         d.date = parseDate(d.date);
@@ -43,6 +43,8 @@ function makeGraphs(error, accData, accData16) {
     showAccidentsHour(ndx);
     showAccidentsMonth(ndx);
     showSeverityDistribution(ndx);
+    showAccidentsAvg(ndx);
+    showCasualtiesAvg(ndx);
 
     // Render all charts
     dc.renderAll();
@@ -245,7 +247,7 @@ function showAccidentsSeverity(ndx) {
                 .attr("text-anchor", "end")
                 .text(function(d) { return d.data.toLocaleString(); });
         });
-    /* toLocalString() method, used to format number, found in here:
+    /* toLocaleString() method, used to format number, found in here:
     https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript */
 
 }
@@ -470,8 +472,8 @@ function showAccidentsMonth(ndx) {
         .elasticX(true)
         .xAxisPadding("8%")
         .xAxis().ticks(12).tickFormat(d3.time.format("%b")).outerTickSize(0);
-        /* elasticX, outerTickSize and xAxisPadding applied to fix the issue with data point cut off
-        (the same solution applied for yAxis) */
+    /* elasticX, outerTickSize and xAxisPadding applied to fix the issue with data point cut off
+    (the same solution applied for yAxis) */
 
     composite.yAxis().ticks(5).outerTickSize(0);
 }
@@ -586,4 +588,30 @@ function showAccidentsHour(ndx) {
     /* elasticX, outerTickSize and xAxisPadding applied to fix the issue with data point cut off
     (the same solution applied for yAxis) */
     composite.yAxis().ticks(5).outerTickSize(0);
+}
+
+// ------------- Tile showing average numbers of accidents / casualties per day -------------
+
+function showAccidentsAvg(ndx) {
+    var dim = ndx.dimension(dc.pluck("ref"));
+    var totalAcc = dim.group().reduceSum(dc.pluck("number_of_accidents"));
+
+    dc.numberDisplay("#accidents-average")
+        .formatNumber(d3.format(".3n"))
+        .group(totalAcc)
+        .valueAccessor(function(d) {
+            return (d.value / 365);
+        });
+}
+
+function showCasualtiesAvg(ndx) {
+    var dim = ndx.dimension(dc.pluck("ref"));
+    var totalAcc = dim.group().reduceSum(dc.pluck("number_of_casualties"));
+
+    dc.numberDisplay("#casualties-average")
+        .formatNumber(d3.format(".3n"))
+        .group(totalAcc)
+        .valueAccessor(function(d) {
+            return (d.value / 365);
+        });
 }
