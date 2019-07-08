@@ -444,6 +444,8 @@ function showAccidentsMonth(ndx) {
                 .style("stroke", "#E5E5E5");
             chart.selectAll(".domain")
                 .style("stroke", "#E5E5E5");
+            chart.selectAll(".line")
+                .style("stroke-width", "2.5");
         })
         .compose([
             dc.lineChart(composite)
@@ -454,7 +456,8 @@ function showAccidentsMonth(ndx) {
                 return numberWithCommas + " accidents";
             }) //title function applied to display more explanatory text and edit number format
             .colors("#ff7e0e")
-            .renderDataPoints({ radius: 2.5 }),
+            .dotRadius(10)
+            .renderDataPoints({ radius: 4 }),
             dc.lineChart(composite)
             .group(totalCasByHour, "Casualties")
             .title(function(d) {
@@ -462,7 +465,8 @@ function showAccidentsMonth(ndx) {
                 return numberWithCommas + " casualties";
             }) //title function applied to display more explanatory text and edit number format
             .colors("#d95350")
-            .renderDataPoints({ radius: 2.5 }),
+            .dotRadius(10)
+            .renderDataPoints({ radius: 4 }),
             dc.lineChart(composite)
             .group(totalVehByHour, "Vehicles involved")
             .title(function(d) {
@@ -470,7 +474,8 @@ function showAccidentsMonth(ndx) {
                 return numberWithCommas + " vehicles involved";
             }) //title function applied to display more explanatory text and edit number format
             .colors("#1e77b4")
-            .renderDataPoints({ radius: 2.5 })
+            .dotRadius(10)
+            .renderDataPoints({ radius: 4 })
         ])
         .brushOn(false)
         .yAxisPadding("5%")
@@ -531,6 +536,8 @@ function showAccidentsHour(ndx) {
                 .style("stroke", "#E5E5E5");
             chart.selectAll(".domain")
                 .style("stroke", "#E5E5E5");
+            chart.selectAll(".line")
+                .style("stroke-width", "2.5");
         })
         .compose([
             dc.lineChart(composite)
@@ -547,7 +554,8 @@ function showAccidentsHour(ndx) {
                 }
             }) // title function applied to display more explanatory text
             .colors("#ff7e0e")
-            .renderDataPoints({ radius: 2.5 }),
+            .dotRadius(10)
+            .renderDataPoints({ radius: 4 }),
             dc.lineChart(composite)
             .group(totalCasByHour, "Casualties")
             .title(function(d) {
@@ -562,7 +570,8 @@ function showAccidentsHour(ndx) {
                 }
             }) // title function applied to display more explanatory text
             .colors("#d95350")
-            .renderDataPoints({ radius: 2.5 }),
+            .dotRadius(10)
+            .renderDataPoints({ radius: 4 }),
             dc.lineChart(composite)
             .group(totalVehByHour, "Vehicles involved")
             // title function applied to display more explanatory text
@@ -578,7 +587,8 @@ function showAccidentsHour(ndx) {
                 }
             })
             .colors("#1e77b4")
-            .renderDataPoints({ radius: 2.5 })
+            .dotRadius(10)
+            .renderDataPoints({ radius: 4 })
         ])
         .brushOn(false)
         .yAxisPadding("5%")
@@ -673,6 +683,6 @@ function showPeakHrCasValue(ndx) {
         .formatNumber(d3.format(",.0f"))
         .group(totalCasByHour)
         .valueAccessor(function(d) {
-            return totalCasByHour.top(1)[0].value /365 ;
+            return totalCasByHour.top(1)[0].value / 365;
         });
 }
