@@ -646,7 +646,7 @@ function showPeakHrAccValue(ndx) {
         .formatNumber(d3.format(",.0f"))
         .group(totalAccByHour)
         .valueAccessor(function(d) {
-            return totalAccByHour.top(1)[0].value;
+            return totalAccByHour.top(1)[0].value / 365;
         });
 }
 
@@ -673,6 +673,6 @@ function showPeakHrCasValue(ndx) {
         .formatNumber(d3.format(",.0f"))
         .group(totalCasByHour)
         .valueAccessor(function(d) {
-            return totalCasByHour.top(1)[0].value;
+            return totalCasByHour.top(1)[0].value /365 ;
         });
 }
