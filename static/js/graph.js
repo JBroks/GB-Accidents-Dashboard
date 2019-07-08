@@ -450,7 +450,7 @@ function showAccidentsMonth(ndx) {
         .compose([
             dc.lineChart(composite)
             .group(totalAccByHour, "Accidents")
-
+            .interpolate("monotone")
             .title(function(d) {
                 var numberWithCommas = d.value.toLocaleString();
                 return numberWithCommas + " accidents";
@@ -459,6 +459,7 @@ function showAccidentsMonth(ndx) {
             .dotRadius(10)
             .renderDataPoints({ radius: 4 }),
             dc.lineChart(composite)
+            .interpolate("monotone")
             .group(totalCasByHour, "Casualties")
             .title(function(d) {
                 var numberWithCommas = d.value.toLocaleString();
@@ -469,6 +470,7 @@ function showAccidentsMonth(ndx) {
             .renderDataPoints({ radius: 4 }),
             dc.lineChart(composite)
             .group(totalVehByHour, "Vehicles involved")
+            .interpolate("monotone")
             .title(function(d) {
                 var numberWithCommas = d.value.toLocaleString();
                 return numberWithCommas + " vehicles involved";
@@ -542,6 +544,7 @@ function showAccidentsHour(ndx) {
         .compose([
             dc.lineChart(composite)
             .group(totalAccByHour, "Accidents")
+            .interpolate("monotone")
             .title(function(d) {
                 var numberWithCommas = d.value.toLocaleString();
                 if (d.key < 10) {
@@ -558,6 +561,7 @@ function showAccidentsHour(ndx) {
             .renderDataPoints({ radius: 4 }),
             dc.lineChart(composite)
             .group(totalCasByHour, "Casualties")
+            .interpolate("monotone")
             .title(function(d) {
                 var numberWithCommas = d.value.toLocaleString();
                 if (d.key < 10) {
@@ -574,7 +578,7 @@ function showAccidentsHour(ndx) {
             .renderDataPoints({ radius: 4 }),
             dc.lineChart(composite)
             .group(totalVehByHour, "Vehicles involved")
-            // title function applied to display more explanatory text
+            .interpolate("monotone")
             .title(function(d) {
                 var numberWithCommas = d.value.toLocaleString();
                 if (d.key < 10) {
@@ -585,7 +589,7 @@ function showAccidentsHour(ndx) {
                     return numberWithCommas + " vehicles involved at " +
                         d.key + ":00";
                 }
-            })
+            }) // title function applied to display more explanatory text
             .colors("#1e77b4")
             .dotRadius(10)
             .renderDataPoints({ radius: 4 })
