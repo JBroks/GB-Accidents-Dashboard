@@ -31,6 +31,12 @@ h2 {
     margin-top: 15px;
 }
 
+/* Increasing size of font awesome icons */
+.fa {
+    font-size: 3rem;
+}
+
+
 /* Styles for tiles/cards */
 
 .tile-s1,
@@ -39,10 +45,13 @@ h2 {
     max-width: 45rem;
 }
 
+.tile-s3 span {
+    font-size: 1.5rem;
+}
+
 .tile-s4 {
     max-width: 70rem;
 }
-
 
 /* Card titles styled to uppercase */
 
