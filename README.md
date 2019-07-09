@@ -8,11 +8,15 @@ Statistics are published annually by [Department for Transport (DfT)](https://ww
 Dashboard consists of the following sections:
 
 1. Dashbord heading - first section consists of dashbord title and region selector;
+
 2. Summary totals - second section presents tiles showing annual number of accidents, casualties and vehicles involved;
+
 3. Accident data analysis - third section shows split of annual accident totals by severity level,
    accident totals by road type, and accident severity by road speed limit;
+
 4. Average daily values - fourth section presents average daily figures (accidents and casualties), as well as peak hours
    and peak hour values (accidents and casualties) on an average day;
+
 5. Monthly and hourly profiles - last section presents monthly and hourly distribution of annual number of accidents / casualties / vehicles involved in an accident.
 
 ## Demo
@@ -46,39 +50,74 @@ a monthly and hourly accident profiles for the whole year as well as average dai
 ### User Stories
 
 The following user stories were used to design this data dashboard:
+
 - As a transport planner I would like to gain an understanding into accident and safety data in order to 
      include this analysis into my transport model;
+
 - As a transport planner I would like to understand likelihood of incident occurence on a certain road type to include
      valid recommendations for road safety improvements;
+
 - As a road designer I want to understand likelihood of incident occurence on a certain road type to include
      appropriate safety measures into my road design;
+
 - As a transport representative in a local council I would like to gain an understanding into the safety situation in my region
      so I can decide if any safety measures should be implemented in the future;
+
 - As a transport planner I would make a use of the accident statistics in Transport Scheme Business Case preparation,
      precisely in cost benefit analysis;
+
 - As a road safety auditor I would like to review the accident data to understand which road types are the most critical so I can
      pay extra attention to them during my audits;
+
 - As a transport researcher I would use the statistics in my thesis / paper to describe the current safety situation in Great Britain
      and each region separately;
+
 - As a planner / policy maker I would use analysis coming from the dashboard to include it in regional development plans to describe
      the current safety situation;
+
+- As a user I would like to know what was the original dataset so I can quote it in my thesis / report / analysis;
 
 ### Mockups & Wireframes
 
 The follwoing wireframe sketches were created to design the dashboard layout options:
-   - [Mobile display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/Wireframes%20%26%20mockups/Mobile_Display_Wireframe.pdf)
-   - [Medium display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/Wireframes%20%26%20mockups/Medium_Display_Wireframe.pdf)
-   - [Desktop display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/Wireframes%20%26%20mockups/Desktop_Display_Wireframe.pdf)
+
+- [Mobile display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/Wireframes%20%26%20mockups/Mobile_Display_Wireframe.pdf)
+   
+- [Medium display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/Wireframes%20%26%20mockups/Medium_Display_Wireframe.pdf)
+
+- [Desktop display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/Wireframes%20%26%20mockups/Desktop_Display_Wireframe.pdf)
 
 Additionally [this](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/Wireframes%20%26%20mockups/Dashboard_mockup.png) mockup for a desktop display was created using **Adobe XD**.
 
 ## Features
 
 ### Existing Features
-......
+
+The dashboard consists of the following charts:
+
+- **Region selector** - this feature allows users to filtering out data for a particular region of Great Britain by selecting it from the list;
+
+- **Summary statistics number displays** - dc.js numberDisplay feature presenting summary statistics of total annual accidents / casualties / vehicles involved figures;
+
+- **Pie charts** - two pie charts show analysis of accidnets by severity level and road type. By clicking on a given slice whole dashboard is recalculated
+to filter out only the chosen category.
+
+- **Stacked bar chart** - bar chart presents percentage split of accidents by severity by road speed limit. Each bar represents data for different speed limit, and each stack
+represents accident severity category. By clicking on a given bar whole dashboard is recalculated to filter out only the chosen category.
+
+- **Average per day and peak time number displays** - dc.js numberDisplay feature used to calcualate average accidents / casualties per day, and accidents / casualties peak hour
+and peak value calculated for an average day;
+
+- **Line charts** - line charts presenting monthly and hourly distribution of annual accidents / casualties / vehicles involved totals;
 
 ### Features left to implement
+arrows add to end of x and y axis of line charts
 
+add % change in comparison to previous year to summary statistics number displays
+
+add years selector and add datasets for previous years
+
+implement dc. geoChoroplethChart feature by using GeoJson data to present stats on a map
 .....
 
 ## Technologies used
@@ -105,6 +144,10 @@ Additionally [this](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master
 
 - [Bootswatch](https://bootswatch.com/) - The project used **Bootswatch** "Superhero" theme for setting color pallete and card element to contain each chart
 
+- [Font Awesome (4.7.0)](https://fontawesome.com/v4.7.0/) - **Font Awesome** calendar and clock icons were used for the project
+
+- [Google Fonts](https://fonts.google.com/) - **Google Fonts** library was used to set up font type for the document
+
 ### Frameworks
 
 - [Bootstrap](https://getbootstrap.com/) - The project used **Bootstrap** to create nice grid layout, and position elements within grids
@@ -123,32 +166,53 @@ Additionally [this](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master
 
 ## Testing
 
-css validator: https://jigsaw.w3.org/css-validator/
-html validator: https://validator.w3.org/
-js validator: https://jshint.com and http://beautifytools.com/javascript-validator.php
+### Code validation
 
-chrome developer tools - inspect tool
+CSS code was validatad using [the W3C CSS Validation Service - Jigsaw](https://jigsaw.w3.org/css-validator/).
+
+HTML code was validated using [The W3C Markup Validation Service](https://validator.w3.org/).
+
+JavaScript code was validated using [JSHint](https://jshint.com/) and [Beautify Tools](http://beautifytools.com/javascript-validator.php).
+
+#### Responsivness testing
+
+chrome developer tools - inspect tool ....
+
+testing on actual two mobile devices ipad mini, mac air, and larger screen ( Full HD 1920 x 1080p)
 .....
+
+### User stories testing
+
+........
+
+### Chart testing
+.........
 
 ## Deployment
 
-This site is hosted using GitHub pages, deployed directly from the master branch. The deployed site will update automatically upon new commits to the master branch. In order for the site to deploy correctly on GitHub pages, the landing page must be named `index.html`.
+This site is hosted using GitHub pages, deployed directly from the master branch. The deployed site will update automatically upon new commits to the master branch.
+In order for the site to deploy correctly on GitHub pages, the landing page must be named `index.html`.
 
-To run locally, you can clone this repository directly into the editor of your choice by pasting `git clone https://github.com/JBroks/GB-Accidents-Dashboard.git into your terminal`. To cut ties with this GitHub repository, type `git remote rm origin` into the terminal.
+To run locally, you can clone this repository directly into the editor of your choice by pasting `git clone https://github.com/JBroks/GB-Accidents-Dashboard.git` into your terminal.
+To cut ties with this GitHub repository, type `git remote rm origin` into the terminal.
 
 ## Credits
 
 ### Content
 
-- Accident datasets were downloaded from the [DfT website](https://data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data)
+Accident datasets were downloaded from the [DfT website](https://data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data).
+
+### Data manipulation
+
+......
 
 ### Media
 
-- Photo used in demo gif preparation was sourced from [here](https://214.co/case-study/batsu/laptop-module-template/)
+Photo used in demo gif preparation was sourced from [here](https://214.co/case-study/batsu/laptop-module-template/).
 
 ### Acknowledgements
 
-Viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found [here](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox)
+Viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found [here](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox).
 
 Calculation of pie chart slice percentage value was inspired by [this](https://github.com/dc-js/dc.js/blob/master/web/examples/pie.html) code.
 
@@ -156,7 +220,7 @@ Function to disable sparkline charts was inspired by [this](https://groups.googl
 
 Solution for a chart title edit inspired by [this](https://groups.google.com/forum/#!topic/dc-js-user-group/u-zPORy4-2Y) code. 
 
-Solution that enabled label rotation can be found in [here](https://groups.google.com/forum/#!msg/dc-js-user-group/TjXkTTbOhsQ/7WU14__RGoI)
+Solution that enabled label rotation can be found in [here](https://groups.google.com/forum/#!msg/dc-js-user-group/TjXkTTbOhsQ/7WU14__RGoI).
 
 Many thanks to my mentor **Maranatha Ilesanmi** for support and advice throughout the project.
 
