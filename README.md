@@ -3,7 +3,17 @@
 Stream Two Project: Interactive Frontend Development - Milestone Project.
 
 This is a data dashboard presenting analysis of 2017 road safety statistics for Great Britain and each region separately. 
-Statistics are published annually by Department for Transport (DfT).
+Statistics are published annually by [Department for Transport (DfT)](https://www.gov.uk/government/organisations/department-for-transport).
+
+Dashboard consists of the following sections:
+
+1. Dashbord heading - first section consists of dashbord title and region selector;
+2. Summary totals - second section presents tiles showing annual number of accidents, casualties and vehicles involved;
+3. Accident data analysis - third section shows split of annual accident totals by severity level,
+   accident totals by road type, and accident severity by road speed limit;
+4. Average daily values - fourth section presents average daily figures (accidents and casualties), as well as peak hours
+   and peak hour values (accidents and casualties) on an average day;
+5. Monthly and hourly profiles - last section presents monthly and hourly distribution of annual number of accidents / casualties / vehicles involved in an accident.
 
 ## Demo
 
@@ -65,17 +75,6 @@ Additionally [this](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master
 ## Features
 
 ### Existing Features
-
-Dashboard presents accident data analysis in the following four sections:
-
-1. Dashbord heading - first section consists of dashbord title and region selector;
-2. Summary totals - second section presents tiles showing annual number of accidents, casualties and vehicles involved;
-3. Accident data analysis - third section shows split of annual accident totals by severity level,
-   accident totals by road type, and accident severity by road speed limit;
-4. Average daily values - fourth section presents average daily figures (accidents and casualties), as well as peak hours
-   and peak hour values (accidents and casualties) on an average day;
-5. Monthly and hourly profiles - last section presents monthly and hourly distribution of annual number of accidents / casualties / vehicles involved in an accident.
-
 ......
 
 ### Features left to implement
@@ -116,7 +115,11 @@ Dashboard presents accident data analysis in the following four sections:
 
 - [Photopea](https://www.photopea.com) - Online tool was used to edit the .gif, namely to add it onto a photo
 
-- [Adobe XD](https://www.adobe.com/ie/products/xd.html) - Software was used to create a project mockup **Cloud9** system
+- [Adobe XD](https://www.adobe.com/ie/products/xd.html) - Software was used to create a project mockup
+
+- MS Excel 
+    - **MS Excel** was used to aggregate the original dataset as it was too big to upload to **AWS Cloud9** system
+    - Software was also used to make validation checks to calculations performed and presented on the dashboard
 
 ## Testing
 
@@ -145,6 +148,16 @@ To run locally, you can clone this repository directly into the editor of your c
 
 ### Acknowledgements
 
-.......
+Viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found [here](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox)
+
+Calculation of pie chart slice percentage value was inspired by [this](https://github.com/dc-js/dc.js/blob/master/web/examples/pie.html) code.
+
+Function to disable sparkline charts was inspired by [this](https://groups.google.com/forum/#!msg/dc-js-user-group/Fxg4vykNSqI/hgdj2PEomHsJ) code.
+
+Solution for a chart title edit inspired by [this](https://groups.google.com/forum/#!topic/dc-js-user-group/u-zPORy4-2Y) code. 
+
+Solution that enabled label rotation can be found in [here](https://groups.google.com/forum/#!msg/dc-js-user-group/TjXkTTbOhsQ/7WU14__RGoI)
+
+Many thanks to my mentor **Maranatha Ilesanmi** for support and advice throughout the project.
 
 **This is for educational use.**
