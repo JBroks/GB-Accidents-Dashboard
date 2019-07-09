@@ -113,6 +113,12 @@ This section is also where you would share links to any wireframes, mockups, dia
 9. [Bootswatch](https://bootswatch.com/)
    - The project used **Bootswatch** "Superhero" theme for setting color pallete and card element to contain each chart
 
+10. [Gifox](https://gifox.io/)
+   - Tool was used to record a .gif presented in the demo secion of this README files
+
+11. [Photopea](https://www.photopea.com)
+   - Online tool was used to edit the .gif, namely to add it onto a photo
+
 ## Testing
 
 css validator: https://jigsaw.w3.org/css-validator/
