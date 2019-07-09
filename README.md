@@ -50,17 +50,17 @@ The following user stories were used to design this data dashboard:
      include this analysis into my transport model;
 - As a transport planner I would like to understand likelihood of incident occurence on a certain road type to include
      valid recommendations for road safety improvements;
-   - As a road designer I want to understand likelihood of incident occurence on a certain road type to include
+- As a road designer I want to understand likelihood of incident occurence on a certain road type to include
      appropriate safety measures into my road design;
-   - As a transport representative in a local council I would like to gain an understanding into the safety situation in my region
+- As a transport representative in a local council I would like to gain an understanding into the safety situation in my region
      so I can decide if any safety measures should be implemented in the future;
-   - As a transport planner I would make a use of the accident statistics in Transport Scheme Business Case preparation,
+- As a transport planner I would make a use of the accident statistics in Transport Scheme Business Case preparation,
      precisely in cost benefit analysis;
-   - As a road safety auditor I would like to review the accident data to understand which road types are the most critical so I can
+- As a road safety auditor I would like to review the accident data to understand which road types are the most critical so I can
      pay extra attention to them during my audits;
-   - As a transport researcher I would use the statistics in my thesis / paper to describe the current safety situation in Great Britain
+- As a transport researcher I would use the statistics in my thesis / paper to describe the current safety situation in Great Britain
      and each region separately;
-   - As a planner / policy maker I would use analysis coming from the dashboard to include it in regional development plans to describe
+- As a planner / policy maker I would use analysis coming from the dashboard to include it in regional development plans to describe
      the current safety situation;
 
 ### Mockups & Wireframes
