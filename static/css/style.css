@@ -32,6 +32,7 @@ h2 {
 }
 
 /* Increasing size of font awesome icons */
+
 .fa {
     font-size: 3rem;
 }
@@ -44,6 +45,7 @@ h2 {
 .tile-s3 {
     max-width: 45rem;
 }
+
 .tile-s3 {
     min-height: 20rem;
 }
@@ -109,8 +111,17 @@ select {
     width: 750px;
 }
 
+/* Increasing the size of a viewbox so charts are bigger */
+
+#accidents-severity,
+#rd-type-split {
+    height: 400px;
+    width: 460px;
+}
+
 #severity-distribution {
-    height: 360px;
+    height: 400px;
+    width: 380px;
 }
 
 
@@ -155,6 +166,17 @@ select {
         font-size: 0.7rem;
     }
 
+    #accidents-severity,
+    #rd-type-split {
+        height: 360px;
+        width: 440px;
+    }
+
+    #severity-distribution {
+        height: 370px;
+        width: 360px;
+    }
+
 }
 
 /* Adjustments to font sizes to avoid line break */
@@ -172,6 +194,11 @@ select {
     #composite-hour,
     #composite-month {
         height: 120px;
+    }
+
+    #accidents-severity,
+    #rd-type-split {
+        height: 260px;
     }
 }
 

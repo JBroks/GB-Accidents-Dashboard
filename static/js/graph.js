@@ -414,8 +414,8 @@ function showAccidentsMonth(ndx) {
     var composite = dc.compositeChart("#composite-month");
 
     composite
-        .width(750)
-        .height(300)
+        .width(840)
+        .height(310)
         .margins({ top: 10, right: 60, bottom: 45, left: 40 })
         .dimension(dim)
         .elasticY(true)
@@ -433,7 +433,7 @@ function showAccidentsMonth(ndx) {
             chart.select("svg")
                 .attr("height", "100%")
                 .attr("width", "100%")
-                .attr("viewBox", "0 0 700 340");
+                .attr("viewBox", "0 0 840 340");
             /* viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here:
             https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox */
             chart.selectAll(".dc-chart text")
@@ -502,8 +502,8 @@ function showAccidentsHour(ndx) {
     var composite = dc.compositeChart("#composite-hour");
 
     composite
-        .width(750)
-        .height(300)
+        .width(840)
+        .height(310)
         .margins({ top: 20, right: 60, bottom: 45, left: 40 })
         .dimension(dim)
         .elasticY(true)
@@ -527,7 +527,7 @@ function showAccidentsHour(ndx) {
             chart.select("svg")
                 .attr("height", "100%")
                 .attr("width", "100%")
-                .attr("viewBox", "0 0 700 340");
+                .attr("viewBox", "0 0 840 340");
             /* viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here:
             https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox*/
             chart.selectAll(".dc-chart text")
@@ -589,7 +589,7 @@ function showAccidentsHour(ndx) {
                     return numberWithCommas + " vehicles involved at " +
                         d.key + ":00";
                 }
-            }) // title function applied to display more explanatory text
+            })
             .colors("#1e77b4")
             .dotRadius(10)
             .renderDataPoints({ radius: 4 })
