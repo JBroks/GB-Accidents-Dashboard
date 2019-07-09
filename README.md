@@ -51,29 +51,21 @@ a monthly and hourly accident profiles for the whole year as well as average dai
 
 The following user stories were used to design this data dashboard:
 
-- As a transport planner I would like to gain an understanding into accident and safety data in order to 
-     include this analysis into my transport model;
+- As a transport planner I would like to gain an understanding into accident and safety data in order to include this analysis into my transport model;
 
-- As a transport planner I would like to understand likelihood of incident occurence on a certain road type to include
-     valid recommendations for road safety improvements;
+- As a transport planner I would like to understand likelihood of incident occurence on a certain road type to include valid recommendations for road safety improvements;
 
-- As a road designer I want to understand likelihood of incident occurence on a certain road type to include
-     appropriate safety measures into my road design;
+- As a road designer I want to understand likelihood of incident occurence on a certain road type to include appropriate safety measures into my road design;
 
-- As a transport representative in a local council I would like to gain an understanding into the safety situation in my region
-     so I can decide if any safety measures should be implemented in the future;
+- As a transport representative in a local council I would like to gain an understanding into the safety situation in my region so I can decide if any safety measures should be implemented in the future;
 
-- As a transport planner I would make a use of the accident statistics in Transport Scheme Business Case preparation,
-     precisely in cost benefit analysis;
+- As a transport planner I would make a use of the accident statistics in Transport Scheme Business Case preparation, precisely in cost benefit analysis;
 
-- As a road safety auditor I would like to review the accident data to understand which road types are the most critical so I can
-     pay extra attention to them during my audits;
+- As a road safety auditor I would like to review the accident data to understand which road types are the most critical so I can pay extra attention to them during my audits;
 
-- As a transport researcher I would use the statistics in my thesis / paper to describe the current safety situation in Great Britain
-     and each region separately;
+- As a transport researcher I would use the statistics in my thesis / paper to describe the current safety situation in Great Britain and each region separately;
 
-- As a planner / policy maker I would use analysis coming from the dashboard to include it in regional development plans to describe
-     the current safety situation;
+- As a planner / policy maker I would use analysis coming from the dashboard to include it in regional development plans to describe the current safety situation;
 
 - As a user I would like to know what was the original dataset so I can quote it in my thesis / report / analysis;
 
@@ -95,30 +87,29 @@ Additionally [this](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master
 
 The dashboard consists of the following charts:
 
-- **Region selector** - this feature allows users to filtering out data for a particular region of Great Britain by selecting it from the list;
+- **Region selector** - this `dc.selectMenu` feature allows users to filtering out data for a particular region of Great Britain by selecting it from the list;
 
-- **Summary statistics number displays** - dc.js numberDisplay feature presenting summary statistics of total annual accidents / casualties / vehicles involved figures;
+- **Summary statistics number displays** - `dc.numberDisplay` feature presenting summary statistics of total annual accidents / casualties / vehicles involved figures;
 
-- **Pie charts** - two pie charts show analysis of accidnets by severity level and road type. By clicking on a given slice whole dashboard is recalculated
-to filter out only the chosen category.
+- **Pie charts** - two pie charts (`dc.pieChart`) show analysis of accidents by severity level and road type. By clicking on a given slice whole dashboard is recalculated to filter out only the chosen category.
 
-- **Stacked bar chart** - bar chart presents percentage split of accidents by severity by road speed limit. Each bar represents data for different speed limit, and each stack
-represents accident severity category. By clicking on a given bar whole dashboard is recalculated to filter out only the chosen category.
+- **Stacked bar chart** - `dc.barChart` presents percentage split of accidents by severity by road speed limit. Each bar represents data for different speed limit, and each stack represents accident severity category. By clicking on a given bar whole dashboard is recalculated to filter out only the chosen category.
 
-- **Average per day and peak time number displays** - dc.js numberDisplay feature used to calcualate average accidents / casualties per day, and accidents / casualties peak hour
-and peak value calculated for an average day;
+- **Average per day and peak time number displays** - `dc.numberDisplay` features used to calcualate average accidents / casualties per day, and accidents / casualties peak hour and peak value calculated for an average day;
 
-- **Line charts** - line charts presenting monthly and hourly distribution of annual accidents / casualties / vehicles involved totals;
+- **Line charts** - `dc.lineChart` features presenting monthly and hourly distribution of annual accidents / casualties / vehicles involved totals;
 
 ### Features left to implement
-arrows add to end of x and y axis of line charts
 
-add % change in comparison to previous year to summary statistics number displays
+List of features to be implemented in the future:
 
-add years selector and add datasets for previous years
+- Percentage change figure added under each summary total to express a change between current and the previous year;
 
-implement dc. geoChoroplethChart feature by using GeoJson data to present stats on a map
-.....
+- Add arrows at the end of x and y axis for both line charts;
+
+- Add available datasets for other years and add a year selector to the dashboard;
+
+- Implement `dc.geoChoroplethChart` feature using GeoJson data to present statistics on the GB regional map.
 
 ## Technologies used
 
@@ -161,7 +152,7 @@ implement dc. geoChoroplethChart feature by using GeoJson data to present stats 
 - [Adobe XD](https://www.adobe.com/ie/products/xd.html) - Software was used to create a project mockup
 
 - MS Excel 
-    - **MS Excel** was used to aggregate the original dataset as it was too big to upload to **AWS Cloud9** system
+    - **MS Excel** was used to aggregate the original dataset, using PivotTable tool, as it was too big to upload to **AWS Cloud9** system
     - Software was also used to make validation checks to calculations performed and presented on the dashboard
 
 ## Testing
@@ -174,7 +165,7 @@ HTML code was validated using [The W3C Markup Validation Service](https://valida
 
 JavaScript code was validated using [JSHint](https://jshint.com/) and [Beautify Tools](http://beautifytools.com/javascript-validator.php).
 
-#### Responsivness testing
+### Responsivness testing
 
 chrome developer tools - inspect tool ....
 
@@ -201,10 +192,6 @@ To cut ties with this GitHub repository, type `git remote rm origin` into the te
 ### Content
 
 Accident datasets were downloaded from the [DfT website](https://data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data).
-
-### Data manipulation
-
-......
 
 ### Media
 
