@@ -5,6 +5,9 @@ Stream Two Project: Interactive Frontend Development - Milestone Project.
 This is a data dashboard presenting 2017 road safety statistics for Great Britain.
 Statistics are published annually by Department for Transport (DfT).
 
+The dashboard can constitute a useful analytical tool for transport planners, modellers and road desing engineers
+in a private as well as public sector.
+
 Dashboard presents accident data analysis in the following four sections:
 
 1. Dashbord heading - first section consists of dashbord title and region selector;
@@ -40,11 +43,33 @@ Website demo is available [here](https://jbroks.github.io/GB-Accidents-Dashboard
 ## Technologies used
 
 1. HTML
+   - The project used HTML to define structure and layout of the web page
+
 2. CSS
+   - The project used CSS stylesheets to specify style of the web document elements
+
 3. JavaScript
-4.
-5.
-6.
+   - The project used JS to implement interactive elemets to the web document
+
+4. Crossfilter library (1.3.12)
+   - The project used the Crossfilter library to explore the accidents dataset
+   and create dimensions and groups for charts prepared using dc.js
+
+5. DC.js and DC.css (2.1.8)
+   - The project used DC library to set up charts from prebuilt chart types available in the DC library
+   - Together with Crossfilter library it was used to create interactive charts
+
+6. D3.js (3.5.17)
+   - D3 library was used to edit and style prebuilt charts provided by DC.js library
+
+7. Queue.js (1.0.7)
+   - The project used queue.js to bind external datasets (saved in the project folder) to the charts
+
+8. Bootstrap
+   - The project used Bootstrap to create nice grid layout, and position elements within grids
+
+9. Bootswatch (themes for Bootstrap)
+   - The project used "Superhero" theme for setting color pallete and card element to contain each chart
 
 ## Testing
 
