@@ -216,6 +216,8 @@ Sparkline charts were created for decoration of summary statistics cards. Howeve
         }))
 ```
 
+Initially I have tried to make the sparkline chart not to interact with other charts by using **DC.js** `chartGroup` parameter but I was unable to make it work correctly. Therefore the current solution to this bug will have to be revisited in the future if datasets for other years are added (i.e. 2016 dataset will be used).
+
 #### Reset All
 
 Reset all button was tested to confirm that is brings all chart results and regional selection to the default (i.e. 'All Regions' selection without filters applied).
@@ -241,6 +243,7 @@ Chrome developer tools were used to additionally inspect responsiveness for the 
 - iPhone X.
 
 #### Bugs:
+
 Bugs that were noticed during the testing were fixed using **Bootstrap** classes and **CSS** styling applied to the `divs` containing charts (i.e. `max-height`, `min-height`).
 
 Initially dashboard was not responsive on mobile devices, however I was able to find the `viewBox` solution on [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox) that helped me to fix that issue.
