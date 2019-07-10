@@ -49,6 +49,7 @@ function makeGraphs(error, accData, accData16) {
     showPeakHrAccValue(ndx);
     showPeakHrCas(ndx);
     showPeakHrCasValue(ndx);
+    showRecordsCount(ndx);
 
 
     // Render all charts
@@ -206,7 +207,9 @@ function showAccidentsSeverity(ndx) {
     var dim = ndx.dimension(dc.pluck("accident_severity"));
     var totalAccBySeverity = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
-    dc.pieChart("#accidents-severity")
+    var severityChart = dc.pieChart("#accidents-severity");
+    
+        severityChart
         .width(320)
         .height(360)
         .slicesCap(3)
@@ -224,7 +227,7 @@ function showAccidentsSeverity(ndx) {
             return d.key + ": " + ((d.value / d3.sum(totalAccBySeverity.all(),
                 function(d) { return d.value; })) * 100).toFixed(2) + "%";
         })
-        /* solution for title inspired by the follwoing code: 
+        /* solution for title inspired by the following code: 
         https://groups.google.com/forum/#!topic/dc-js-user-group/u-zPORy4-2Y */
         .on("pretransition", function(chart) {
             chart.selectAll("text.pie-slice").text(function(d) {
@@ -689,4 +692,16 @@ function showPeakHrCasValue(ndx) {
         .valueAccessor(function(d) {
             return totalCasByHour.top(1)[0].value / 365;
         });
+}
+
+// ------------- Data Count -------------
+
+function showRecordsCount(ndx) {
+
+    var dim = ndx;
+    var allRecords = ndx.groupAll();
+
+    dc.dataCount('.dc-data-count')
+        .group(allRecords)
+        .dimension(dim);
 }
