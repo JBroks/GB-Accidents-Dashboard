@@ -192,6 +192,30 @@ Peak time charts were validated against hourly profile charts to confirm that th
 
 Data count was tested to confirm that with any selection number decreases. It was also tested if the initial figure is consistent with number of rows (excluding row containing column headings) in the 2017 dataset.
 
+**Bugs:**
+
+While creating line charts I was rendering data points but some of these points were cut off. I resolved this bug by applying `elasticX` / `elasticY` and `xAxisPadding` / `yAxisPadding`.
+
+Another bug associated with line charts was overlapping hour tick labels. This issue was resolved by rotating them as follows:
+```
+chart.selectAll("g.x text")
+                .style("font-size", "12px")
+                .attr("dx", "-30")
+                .attr("dy", "-5")
+                .attr("transform", "rotate(-90)");
+```
+
+Sparkline charts were created for decoration of summary statistics cards. However when connected to 2017 dataset they were interacting with other charts. In order to disable them data from 2016 dataset was used and the following code was applied to disable `pointer-event` and click function:
+```
+.on("renderlet", (function(chart) {
+            chart.selectAll(".bar").on("click", function(d) {
+                chart.filter(null);
+            });
+            chart.selectAll(".bar")
+                .style("pointer-events", "none");
+        }))
+```
+
 #### Reset All
 
 Reset all button was tested to confirm that is brings all chart results and regional selection to the default (i.e. 'All Regions' selection without filters applied).
@@ -216,6 +240,7 @@ Chrome developer tools were used to additionally inspect responsiveness for the 
 
 - iPhone X.
 
+**Bugs:**
 Bugs that were noticed during the testing were fixed using **Bootstrap** classes and **CSS** styling applied to the `divs` containing charts (i.e. `max-height`, `min-height`).
 
 Initially dashboard was not responsive on mobile devices, however I was able to find the `viewBox` solution on [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox) that helped me to fix that issue.
