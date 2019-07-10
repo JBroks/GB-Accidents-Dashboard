@@ -192,7 +192,7 @@ Peak time charts were validated against hourly profile charts to confirm that th
 
 Data count was tested to confirm that with any selection number decreases. It was also tested if the initial figure is consistent with number of rows (excluding row containing column headings) in the 2017 dataset.
 
-**Bugs:**
+##### Bugs:
 
 While creating line charts I was rendering data points but some of these points were cut off. I resolved this bug by applying `elasticX` / `elasticY` and `xAxisPadding` / `yAxisPadding`.
 
@@ -240,7 +240,7 @@ Chrome developer tools were used to additionally inspect responsiveness for the 
 
 - iPhone X.
 
-**Bugs:**
+#### Bugs:
 Bugs that were noticed during the testing were fixed using **Bootstrap** classes and **CSS** styling applied to the `divs` containing charts (i.e. `max-height`, `min-height`).
 
 Initially dashboard was not responsive on mobile devices, however I was able to find the `viewBox` solution on [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox) that helped me to fix that issue.
