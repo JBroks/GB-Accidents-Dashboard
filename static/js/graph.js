@@ -387,7 +387,7 @@ function showSeverityDistribution(ndx) {
             chart.selectAll(".dc-chart text")
                 .attr("fill", "#E5E5E5");
             chart.selectAll(".dc-legend-item text")
-                .attr("font-size", "15px")
+                .attr("font-size", "12px")
                 .attr("fill", "#ffffff");
             chart.selectAll("line")
                 .style("stroke", "#E5E5E5");
