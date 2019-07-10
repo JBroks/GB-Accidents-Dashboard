@@ -704,4 +704,5 @@ function showRecordsCount(ndx) {
     dc.dataCount('.dc-data-count')
         .group(allRecords)
         .dimension(dim);
+    // feature implemented so a user is able reset all their selection. Solution inspired by this code: https://codepen.io/danshultz11/pen/ZBvjGV
 }

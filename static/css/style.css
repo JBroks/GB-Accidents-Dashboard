@@ -124,6 +124,16 @@ select {
     width: 380px;
 }
 
+/* Changing default margins to create some space between count feature and other sections */
+.dc-data-count {
+    margin: 10px 0;
+}
+
+/* adding margin so footer ellements have some space inbetween on smaller devices */
+
+.footer-item {
+    margin-bottom: 10px;
+}
 
 /* MEDIA QUERIES */
 
