@@ -2,7 +2,7 @@
 
 Stream Two Project: Interactive Frontend Development - Milestone Project.
 
-This is a data dashboard presenting analysis of 2017 road safety statistics for Great Britain and each region separately. 
+This is a data dashboard presenting analysis of 2017 road safety statistics for Great Britain.
 Statistics are published annually by [Department for Transport (DfT)](https://www.gov.uk/government/organisations/department-for-transport).
 
 Dashboard consists of the following sections:
@@ -51,23 +51,23 @@ a monthly and hourly accident profiles for the whole year as well as average dai
 
 The following user stories were used to design this data dashboard:
 
-User Story 1: As a transport planner I would like to gain an understanding into accident volumes and severity in order to include this analysis into my transport model.
+**User Story 1:** As a transport planner I would like to gain an understanding into accident volumes and severity in order to include this analysis into my transport model.
 
-User Story 2: As a transport planner I would like to understand likelihood of incident occurence on a certain road type to include valid recommendations for road safety improvements.
+**User Story 2:** As a transport planner I would like to understand likelihood of incident occurence on a certain road type to include valid recommendations for road safety improvements.
 
-User Story 3: As a road designer I want to understand likelihood of incident occurence on a certain road type to include appropriate safety measures into my road design.
+**User Story 3:** As a road designer I want to understand likelihood of incident occurence on a certain road type to include appropriate safety measures into my road design.
 
-User Story 4: As a transport representative in a local council I would like to gain an understanding into the safety situation in my region so I can decide if any safety measures should be implemented in the future.
+**User Story 4:** As a transport representative in a local council I would like to gain an understanding into the safety situation in my region so I can decide if any safety measures should be implemented in the future.
 
-User Story 5: As a transport planner I would make a use of the accident statistics in Transport Scheme Business Case preparation, precisely in cost benefit analysis.
+**User Story 5:** As a transport planner I would make a use of the accident statistics in Transport Scheme Business Case preparation, precisely in cost benefit analysis.
 
-User Story 6: As a road safety auditor I would like to review the accident data to understand which road types are the most critical so I can pay extra attention to them during my audits.
+**User Story 6:** As a road safety auditor I would like to review the accident data to understand which road types are the most critical so I can pay extra attention to them during my audits.
 
-User Story 7: As a transport researcher I would use the statistics in my thesis / paper to describe the current safety situation in Great Britain and each region separately.
+**User Story 7:** As a transport researcher I would use the statistics in my thesis / paper to describe the current safety situation in Great Britain and each region separately.
 
-User Story 8: As a planner / policy maker I would use analysis coming from the dashboard to include it in regional development plans to describe the current safety situation.
+**User Story 8:** As a planner / policy maker I would use analysis coming from the dashboard to include it in regional development plans to describe the current safety situation.
 
-User Story 9: As a user I would like to know what was the original dataset so I can quote it in my thesis / report / analysis.
+**User Story 9:** As a user I would like to know what was the original dataset so I can quote it in my thesis / report / analysis.
 
 ### Mockups & Wireframes
 
@@ -166,7 +166,7 @@ List of features to be implemented in the future:
 
 ### Code validation
 
-CSS code was validatad using [the W3C CSS Validation Service - Jigsaw](https://jigsaw.w3.org/css-validator/).
+CSS code was validated using [the W3C CSS Validation Service - Jigsaw](https://jigsaw.w3.org/css-validator/).
 
 HTML code was validated using [The W3C Markup Validation Service](https://validator.w3.org/).
 
@@ -182,7 +182,7 @@ Test to check if charts are interactive was conducted as follows:
 
 i. Chart slice / bar / region was selected and all other charts results were checked to confirm that filter was applied;
 ii. Results were compared against the **MS Excel** pivot table results;
-iii. In case where any errors occured, it was investigated and fixed;
+iii. In case where any errors occurred, it was investigated and fixed;
 
 Peak time charts were validated against hourly profile charts to confirm that the peak hour and value (i.e. value from the line chart divided by number of 365 days in a year) is consistent with what is shown on the line chart.
 
@@ -200,41 +200,41 @@ Source and copyrights links were tested and will open in a new tab using `target
 
 This site was tested across multiple browsers (Chrome, Safari, Internet Explorer) and on multiple mobile devices (iPad Mini, iPad, Sony Xperia) to ensure compatibility and responsiveness. 
 
-Chrome developer tools were used to additionally inspect responsivness for the following devices:
+Chrome developer tools were used to additionally inspect responsiveness for the following devices:
 
 - iPad Pro / iPad / iPad Mini;
-- 
+
 - iPhone 5/SE;
-- 
+
 - iPhone 6/7/8;
-- 
+
 - iPhone 6/7/8 Plus;
-- 
+
 - iPhone X.
 
-Bugs that were noticed during the testing were fixed using **Bootstrap** classes and css styling applied to the `divs` containing charts (i.e. `max-height`, `min-height`).
+Bugs that were noticed during the testing were fixed using **Bootstrap** classes and **CSS** styling applied to the `divs` containing charts (i.e. `max-height`, `min-height`).
 
-Initially dashobard was not responsive on mobile devices, however I was able to find the `viewBox` solution on [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox) that helped me to fix that issue.
+Initially dashboard was not responsive on mobile devices, however I was able to find the `viewBox` solution on [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox) that helped me to fix that issue.
 
 ### User stories testing
 
-User Story 1:
+**User Story 1:** 
 
-User Story 2:
+**User Story 2:** 
 
-User Story 3:
+**User Story 3:** 
 
-User Story 4:
+**User Story 4:** 
 
-User Story 5:
+**User Story 5:** 
 
-User Story 6:
+**User Story 6:** 
 
-User Story 7:
+**User Story 7:** 
 
-User Story 8:
+**User Story 8:** 
 
-User Story 9:
+**User Story 9:** 
 
 ## Deployment
 
@@ -258,7 +258,7 @@ Photo used in demo gif preparation was sourced from [here](https://214.co/case-s
 
 ### Acknowledgements
 
-Viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found [here](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox).
+`Viewbox` solution applied to resolve issue of responsiveness on mobile devices, solution found [here](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox).
 
 Calculation of pie chart slice percentage value was inspired by [this](https://github.com/dc-js/dc.js/blob/master/web/examples/pie.html) code.
 
