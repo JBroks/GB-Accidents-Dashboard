@@ -119,6 +119,8 @@ List of features to be implemented in the future:
 
 - Add available datasets for other years and add a year selector to the dashboard;
 
+- **Bootstrap** `popovers` containing explanation / user instruction attached to each chart tile;
+
 - Implement `dc.geoChoroplethChart` feature using GeoJson data to present statistics on the GB regional map.
 
 ## Technologies used
