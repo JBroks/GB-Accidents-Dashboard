@@ -374,6 +374,10 @@ function showSeverityDistribution(ndx) {
                 "% of slight accidents";
         })
         .on("pretransition", function(chart) {
+            chart.selectAll("g.y text")
+                .style("font-size", "12px");
+            chart.selectAll("g.x text")
+                .style("font-size", "12px");
             chart.select("svg")
                 .attr("height", "100%")
                 .attr("width", "100%")
@@ -383,13 +387,14 @@ function showSeverityDistribution(ndx) {
             chart.selectAll(".dc-chart text")
                 .attr("fill", "#E5E5E5");
             chart.selectAll(".dc-legend-item text")
+                .attr("font-size", "15px")
                 .attr("fill", "#ffffff");
             chart.selectAll("line")
                 .style("stroke", "#E5E5E5");
             chart.selectAll(".domain")
                 .style("stroke", "#E5E5E5");
             chart.selectAll(".x-axis-label")
-                .attr("font-size", "12px");
+                .attr("font-size", "14px");
         })
         .legend(dc.legend().x(100).y(345).itemHeight(15).gap(5)
             .horizontal(true))
@@ -417,7 +422,7 @@ function showAccidentsMonth(ndx) {
     composite
         .width(840)
         .height(310)
-        .margins({ top: 10, right: 60, bottom: 45, left: 40 })
+        .margins({ top: 10, right: 60, bottom: 50, left: 45 })
         .dimension(dim)
         .elasticY(true)
         .legend(dc.legend().x(230).y(320).itemHeight(15).gap(5)
@@ -431,6 +436,10 @@ function showAccidentsMonth(ndx) {
                 .style("cursor", "pointer");
         }))
         .on("pretransition", function(chart) {
+            chart.selectAll("g.y text")
+                .style("font-size", "12px");
+            chart.selectAll("g.x text")
+                .style("font-size", "12px");
             chart.select("svg")
                 .attr("height", "100%")
                 .attr("width", "100%")
@@ -440,6 +449,7 @@ function showAccidentsMonth(ndx) {
             chart.selectAll(".dc-chart text")
                 .attr("fill", "#E5E5E5");
             chart.selectAll(".dc-legend-item text")
+                .attr("font-size", "15px")
                 .attr("fill", "#ffffff");
             chart.selectAll("line")
                 .style("stroke", "#E5E5E5");
@@ -505,7 +515,7 @@ function showAccidentsHour(ndx) {
     composite
         .width(840)
         .height(310)
-        .margins({ top: 20, right: 60, bottom: 45, left: 40 })
+        .margins({ top: 20, right: 60, bottom: 50, left: 45 })
         .dimension(dim)
         .elasticY(true)
         .legend(dc.legend().x(230).y(320).itemHeight(15).gap(5)
@@ -519,7 +529,10 @@ function showAccidentsHour(ndx) {
                 .style("cursor", "pointer");
         }))
         .on("pretransition", function(chart) {
+            chart.selectAll("g.y text")
+                .style("font-size", "12px");
             chart.selectAll("g.x text")
+                .style("font-size", "12px")
                 .attr("dx", "-30")
                 .attr("dy", "-5")
                 .attr("transform", "rotate(-90)");
@@ -534,6 +547,7 @@ function showAccidentsHour(ndx) {
             chart.selectAll(".dc-chart text")
                 .attr("fill", "#E5E5E5");
             chart.selectAll(".dc-legend-item text")
+                .attr("font-size", "15px")
                 .attr("fill", "#ffffff");
             chart.selectAll("line")
                 .style("stroke", "#E5E5E5");
