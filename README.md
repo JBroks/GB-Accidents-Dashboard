@@ -65,11 +65,11 @@ The following user stories were used to design this data dashboard:
 
 **User Story 7:** As a transport researcher I would use the statistics in my thesis / paper to describe the current safety situation on British roads on both national and regional level.
 
-**User Story 8:** As a planner / policy maker I would like to use analysis coming from the dashboard to include it in regional development plans to describe the current safety situation.
+**User Story 8:** As a planner / policy maker I would like to include some figures regarding accidents (without preparing all calculations myself), to include it in regional development plans to describe the current safety situation.
 
 **User Story 9:** As a user I would like to know what was the original dataset so I can quote it in my thesis / report / analysis;
 
-**User Story 9:** As a user I would like to be able to easily reset my selection of filters in order to anayse the data using different filters.
+**User Story 10:** As a user I would like to be able to easily reset my selection of filters in order to anayse the data using different filters.
 
 ### Mockups & Wireframes
 
@@ -222,23 +222,45 @@ Initially dashboard was not responsive on mobile devices, however I was able to 
 
 ### User stories testing
 
-**User Story 1:** 
+**User Story 1:**
+
+- Solution: Dashboard provides summary of accidents, casualties and vehicles involved volumes. Dashboard also includes accident volumes analysis by a month and hour. Furthermore, it includes a pie chart presenting accidents split by severity.
 
 **User Story 2:** 
 
+- Solution: Dashboard provides user with an insight into incidents split by a road type, in a form of a pie chart.
+
 **User Story 3:** 
+
+- Solution: Dashboard provides user with an insight into incidents split by a road type, in a form of a pie chart.
 
 **User Story 4:** 
 
+- Solution: Dashboard includes `dc.selectMenu` that enables user to filter out data for a particular region of Great Britain. Upon selection all charts are recalculated to present statistics for that given region.
+
 **User Story 5:** 
+
+- Solution: Dashboard provides a user with information about average daily, peak hour and annual total figures which are useful in the cost benefit analysis calcualtions.
 
 **User Story 6:** 
 
+- Solution: Dashboard provides user with an insight into incidents split by a road type, in a form of a pie chart.
+
 **User Story 7:** 
+
+- Solution: Dashboard summarises accident data in a form of annual, daily average, and peak time values. Furthermore `dc.selectMenu` feature enables users to check statistics on national (all regions) and regional level.
 
 **User Story 8:** 
 
+- Solution: Dashboard is a great source of information about road safety situation in Great Britain. User is able to apply several different filters, as charts are interactive, and quote figures in their reports. The footer contains information about the source and a link to the original dataset.
+
 **User Story 9:** 
+
+- Solution: The footer contains information about the source and a link to the original dataset.
+
+**User Story 10:**
+
+- Solution: Reset all feature was included at the bootom of the dashboard to enable users to reset all filters at once.
 
 ## Deployment
 
