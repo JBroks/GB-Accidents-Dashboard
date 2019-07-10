@@ -34,13 +34,13 @@ My goal in this design was to create a dashboard that would make a maximum use o
 The project aim was to create a dashboard with a simple and modern feel by implementing tile design where each charts is placed in a separate tile.
 
 Color pallete also strives for simplicity implementing dark background colors, off-white fonts, and bright and colorful charts.
-In most of the cases chart colors were adjusted to emphasise importance / seriousness of each category i.e. casualties / fatal accidents category was represented by red thoughout the dashboard,
-accidents /  serious accidents category was represented by orange, and vehicles involved / slight accidents category was represented by more neutral blue.
+In most of the cases chart colors were adjusted to emphasise importance / seriousness of each category i.e. casualties / fatal accidents category was represented by red (`#e6562e`) thoughout the dashboard,
+accidents /  serious accidents category was represented by orange (`#f2893c`), and vehicles involved / slight accidents category was represented by more neutral blue (`#2477b4`).
 
 ### Target Audience
 
 This dashboard constitutes a useful analytical tool for transport planners, transport modellers and road desing engineers
-in a private as well as planners and policy makers in a public sector. The main objective of this particular dashboard is to 
+in a private sector as well as planners and policy makers in a public sector. The main objective of this particular dashboard is to 
 provide an insight into accident data to transport planning professionals.
 
 This dashboard provides a user with understanding of the road safety situation in Great Britain as a whole as well as in each region separately.
@@ -51,11 +51,11 @@ a monthly and hourly accident profiles for the whole year as well as average dai
 
 The following user stories were used to design this data dashboard:
 
-**User Story 1:** As a transport planner I would like to gain an understanding into accident volumes and severity in order to include this analysis into my transport model.
+**User Story 1:** As a transport planner I would like to gain an understanding into accident volumes and severity in order to include this analysis into my traffic model.
 
-**User Story 2:** As a transport planner I would like to understand likelihood of incident occurence on a certain road type to include valid recommendations for road safety improvements.
+**User Story 2:** As a transport planner I would like to understand distribution of incident occurence on a certain road types to include valid recommendations for road safety improvements.
 
-**User Story 3:** As a road designer I want to understand likelihood of incident occurence on a certain road type to include appropriate safety measures into my road design.
+**User Story 3:** As a road designer I want to understand volumes of incident occurence on a certain road type to include appropriate safety measures into my road design.
 
 **User Story 4:** As a transport representative in a local council I would like to gain an understanding into the safety situation in my region so I can decide if any safety measures should be implemented in the future.
 
@@ -63,23 +63,25 @@ The following user stories were used to design this data dashboard:
 
 **User Story 6:** As a road safety auditor I would like to review the accident data to understand which road types are the most critical so I can pay extra attention to them during my audits.
 
-**User Story 7:** As a transport researcher I would use the statistics in my thesis / paper to describe the current safety situation in Great Britain and each region separately.
+**User Story 7:** As a transport researcher I would use the statistics in my thesis / paper to describe the current safety situation on British roads on both national and regional level.
 
-**User Story 8:** As a planner / policy maker I would use analysis coming from the dashboard to include it in regional development plans to describe the current safety situation.
+**User Story 8:** As a planner / policy maker I would like to use analysis coming from the dashboard to include it in regional development plans to describe the current safety situation.
 
-**User Story 9:** As a user I would like to know what was the original dataset so I can quote it in my thesis / report / analysis.
+**User Story 9:** As a user I would like to know what was the original dataset so I can quote it in my thesis / report / analysis;
+
+**User Story 9:** As a user I would like to be able to easily reset my selection of filters in order to anayse the data using different filters.
 
 ### Mockups & Wireframes
 
 The following wireframe sketches were created to design the dashboard layout options:
 
-- [Mobile display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/Wireframes%20%26%20mockups/Mobile_Display_Wireframe.pdf)
+- [Mobile display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/wireframes%20%26%20mockups/Mobile_Display_Wireframe.pdf)
    
-- [Medium display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/Wireframes%20%26%20mockups/Medium_Display_Wireframe.pdf)
+- [Medium display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/wireframes%20%26%20mockups/Medium_Display_Wireframe.pdf)
 
-- [Desktop display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/Wireframes%20%26%20mockups/Desktop_Display_Wireframe.pdf)
+- [Desktop display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/wireframes%20%26%20mockups/Desktop_Display_Wireframe.pdf)
 
-Additionally [this](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/Wireframes%20%26%20mockups/Dashboard_mockup.png) mockup for a desktop display was created using **Adobe XD**.
+Additionally [this](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/wireframes%20%26%20mockups/Dashboard_mockup.png) mockup for a desktop display was created using **Adobe XD**.
 
 ## Features
 
@@ -89,21 +91,21 @@ The dashboard consists of the following features:
 
 - **Navbar** - navbar contains the dashboard name;
 
-- **Region selector** - this `dc.selectMenu` feature allows users to filtering out data for a particular region of Great Britain by selecting it from the list;
+- **Region selector** - this `dc.selectMenu` feature allows users to filter out data for a particular region of Great Britain by selecting it from the list;
 
 - **Summary statistics number displays** - `dc.numberDisplay` feature presenting summary statistics of total annual accidents / casualties / vehicles involved figures;
 
-- **Pie charts** - two pie charts (`dc.pieChart`) show analysis of accidents by severity level and road type. By clicking on a given slice whole dashboard is recalculated to filter out only the chosen category.
+- **Pie charts** - two pie charts (`dc.pieChart`) show analysis of accidents by severity level and road type. By clicking on a given slice, all dashboard results are recalculated to filter out only the chosen category.
 
-- **Stacked bar chart** - `dc.barChart` presents percentage split of accidents by severity by road speed limit. Each bar represents data for different speed limit, and each stack represents accident severity category. By clicking on a given bar whole dashboard is recalculated to filter out only the chosen category.
+- **Stacked bar chart** - `dc.barChart` presents percentage split of accidents by severity by road speed limit. Each bar represents data for different speed limit, and each stack represents accident severity category. By clicking on a given bar, all dashboard results are recalculated to filter out only the chosen category.
 
 - **Average per day and peak time number displays** - `dc.numberDisplay` features used to calcualate average accidents / casualties per day, and accidents / casualties peak hour and peak value calculated for an average day;
 
 - **Line charts** - `dc.lineChart` features presenting monthly and hourly distribution of annual accidents / casualties / vehicles involved totals;
 
-- **Records count** - `dc.dataCount` feature presenting count of records selected from the dataset;
+- **Records count** - `dc.dataCount` feature presenting count of records selected from the 2017 dataset;
 
-- **Reset all** - feature ithat enables users to reset all their selection;
+- **Reset all** - feature that enables users to reset all their selection;
 
 - **Footer** - simple footer containing link to the original **DfT** dataset and link to the data copyrights.
 
@@ -132,7 +134,7 @@ List of features to be implemented in the future:
 ### Libraries
 - [Crossfilter library (1.3.12)](https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js) - The project used the **Crossfilter.js** library to explore the accidents dataset and create dimensions and groups for charts prepared using **DC.js**;
 
-- [DC.js (2.1.8)](https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.js) and [DC.css (2.1.8)](https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.cs)
+- [DC.js (2.1.8)](https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.js) and [DC.css (2.1.8)](https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.css)
    - The project used **DC.js** library to set up charts from prebuilt chart types available in the DC library;
    - Together with **Crossfilter.js** library it was used to create interactive charts;
 
@@ -152,23 +154,23 @@ List of features to be implemented in the future:
 
 ### Other
 
-- [Gifox](https://gifox.io/) - Tool was used to record a .gif presented in the demo secion of this README files;
+- [Gifox](https://gifox.io/) - Tool was used to record the gif presented in the demo secion of this README files;
 
-- [Photopea](https://www.photopea.com) - Online tool was used to edit the .gif, namely to add it onto a photo;
+- [Photopea](https://www.photopea.com) - Online tool was used to edit the gif, namely to add it onto a photo;
 
 - [Adobe XD](https://www.adobe.com/ie/products/xd.html) - Software was used to create a project mockup;
 
 - MS Excel 
-    - **MS Excel** was used to aggregate the original dataset, using PivotTable tool, as it was too big to upload to **AWS Cloud9** system;
+    - **MS Excel** was used to aggregate the original dataset, using PivotTable tool, as it was too big to upload to the **AWS Cloud9** system;
     - Software was also used to make validation checks to calculations performed and presented on the dashboard.
 
 ## Testing
 
 ### Code validation
 
-CSS code was validated using [the W3C CSS Validation Service - Jigsaw](https://jigsaw.w3.org/css-validator/).
+CSS code was validated using the [W3C CSS Validation Service - Jigsaw](https://jigsaw.w3.org/css-validator/).
 
-HTML code was validated using [The W3C Markup Validation Service](https://validator.w3.org/).
+HTML code was validated using the [W3C Markup Validation Service](https://validator.w3.org/).
 
 JavaScript code was validated using [JSHint](https://jshint.com/) and [Beautify Tools](http://beautifytools.com/javascript-validator.php).
 
@@ -180,9 +182,11 @@ Selector menu and all charts results were tested and validated against the pivot
 
 Test to check if charts are interactive was conducted as follows:
 
-i. Chart slice / bar / region was selected and all other charts results were checked to confirm that filter was applied;
-ii. Results were compared against the **MS Excel** pivot table results;
-iii. In case where any errors occurred, it was investigated and fixed;
+- Chart slice / bar / region was selected and all other charts results were checked to confirm that filter was applied;
+
+- Results were compared against the **MS Excel** pivot table results;
+
+- In case where any errors occurred, it was investigated and fixed;
 
 Peak time charts were validated against hourly profile charts to confirm that the peak hour and value (i.e. value from the line chart divided by number of 365 days in a year) is consistent with what is shown on the line chart.
 
