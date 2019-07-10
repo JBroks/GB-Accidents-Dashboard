@@ -207,9 +207,7 @@ function showAccidentsSeverity(ndx) {
     var dim = ndx.dimension(dc.pluck("accident_severity"));
     var totalAccBySeverity = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
-    var severityChart = dc.pieChart("#accidents-severity");
-    
-        severityChart
+    dc.pieChart("#accidents-severity")
         .width(320)
         .height(360)
         .slicesCap(3)
