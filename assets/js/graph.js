@@ -1,6 +1,6 @@
 queue()
-    .defer(d3.csv, "data/Accidents_2017_aggregated_v2.csv")
-    .defer(d3.csv, "data/Accidents_2016_aggregated_v2.csv")
+    .defer(d3.csv, "assets/data/Accidents2017.csv")
+    .defer(d3.csv, "assets/data/Accidents2016.csv")
     .await(makeGraphs);
 
 function makeGraphs(error, accData, accData16) {

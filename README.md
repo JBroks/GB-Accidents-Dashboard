@@ -2,6 +2,8 @@
 
 Stream Two Project: Interactive Frontend Development - Milestone Project.
 
+![alt text](https://jbroks.github.io/GB-Accidents-Dashboard/gif/mackbook-dashboard.gif "Gif")
+
 This is a data dashboard presenting analysis of 2017 road safety statistics for Great Britain.
 Statistics are published annually by [Department for Transport (DfT)](https://www.gov.uk/government/organisations/department-for-transport).
 
@@ -22,8 +24,6 @@ Dashboard consists of the following sections:
 ## Demo
 
 Website demo is available [here](https://jbroks.github.io/GB-Accidents-Dashboard/ "GB_Accidents_Dashboard").
-
-![alt text](https://jbroks.github.io/GB-Accidents-Dashboard/static/images/mackbook_dashboard.gif "Gif")
 
 ## UX
 
@@ -75,13 +75,13 @@ The following user stories were used to design this data dashboard:
 
 The following wireframe sketches were created to design the dashboard layout options:
 
-- [Mobile display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/wireframes%20%26%20mockups/Mobile_Display_Wireframe.pdf)
+- [Mobile display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/wireframes/Mobile-Display-Wireframe.pdf)
    
-- [Medium display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/wireframes%20%26%20mockups/Medium_Display_Wireframe.pdf)
+- [Medium display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/wireframes/Medium-Display-Wireframe.pdf)
 
-- [Desktop display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/wireframes%20%26%20mockups/Desktop_Display_Wireframe.pdf)
+- [Desktop display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/wireframes/Desktop-Display-Wireframe.pdf)
 
-Additionally [this](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/wireframes%20%26%20mockups/Dashboard_mockup.png) mockup for a desktop display was created using **Adobe XD**.
+Additionally [this](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/wireframes/Dashboard-mockup.png) mockup for a desktop display was created using **Adobe XD**.
 
 ## Features
 
@@ -134,19 +134,19 @@ List of features to be implemented in the future:
 - JavaScript - The project used **Javascript** to implement interactive elemets to the web document.
 
 ### Libraries
-- [Crossfilter library (1.3.12)](https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js) - The project used the **Crossfilter.js** library to explore the accidents dataset and create dimensions and groups for charts prepared using **DC.js**;
+- [Crossfilter library](https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js) - The project used the **Crossfilter.js** library to explore the accidents dataset and create dimensions and groups for charts prepared using **DC.js**;
 
-- [DC.js (2.1.8)](https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.js) and [DC.css (2.1.8)](https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.css)
+- [DC.js](https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.js) and [DC.css (2.1.8)](https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.css)
    - The project used **DC.js** library to set up charts from prebuilt chart types available in the DC library;
    - Together with **Crossfilter.js** library it was used to create interactive charts;
 
-- [D3.js (3.5.17)](https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js) - **D3.js** library was used to edit and style prebuilt charts provided by **DC.js** library;
+- [D3.js](https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js) - **D3.js** library was used to edit and style prebuilt charts provided by **DC.js** library;
 
-- [Queue.js (1.0.7)](https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js) - The project used **Queue.js** to bind external datasets (saved in the project folder) to the charts;
+- [Queue.js](https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js) - The project used **Queue.js** to bind external datasets (saved in the project folder) to the charts;
 
 - [Bootswatch](https://bootswatch.com/) - The project used **Bootswatch** "Superhero" theme for setting color pallete and card element to contain each chart;
 
-- [Font Awesome (4.7.0)](https://fontawesome.com/v4.7.0/) - **Font Awesome** calendar and clock icons were used for the project;
+- [Font Awesome](https://fontawesome.com/v4.7.0/) - **Font Awesome** calendar and clock icons were used for the project;
 
 - [Google Fonts](https://fonts.google.com/) - **Google Fonts** library was used to set up font type for the document;
 
@@ -341,5 +341,9 @@ Solution that enabled label rotation can be found in [here](https://groups.googl
 Reset all and data count solution inspired by [this](https://codepen.io/danshultz11/pen/ZBvjGV) code.
 
 Many thanks to my mentor **Maranatha Ilesanmi** for support and advice throughout the project.
+
+Many thanks to Simen Daehlin mentor at Code Institute for useful comments on my project.
+
+#### Disclamer
 
 **This is for educational use.**
