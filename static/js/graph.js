@@ -4,8 +4,8 @@ queue()
     .await(makeGraphs);
 
 function makeGraphs(error, accData, accData16) {
-    var ndx = crossfilter(accData);
-    var ndx16 = crossfilter(accData16);
+    let dataFor2017 = crossfilter(accData);
+    let dataFor2016 = crossfilter(accData16);
 
 
     // Parse strings to integers
@@ -24,73 +24,89 @@ function makeGraphs(error, accData, accData16) {
 
     // Convert date to tdate data types
 
-    var parseDate = d3.time.format("%d/%m/%Y").parse;
+    let parseDate = d3.time.format("%d/%m/%Y").parse;
     accData.forEach(function(d) {
         d.date = parseDate(d.date);
     });
 
     // Call functions for each individual chart
 
-    showRegionSelector(ndx);
-    showAccidentsTotal(ndx);
-    showSparklineAcc(ndx16);
-    showSparklineCas(ndx16);
-    showSparklineVeh(ndx16);
-    showCasualtiesTotal(ndx);
-    showVehiclesTotal(ndx);
-    showAccidentsSeverity(ndx);
-    showAccidentsRoad(ndx);
-    showAccidentsHour(ndx);
-    showAccidentsMonth(ndx);
-    showSeverityDistribution(ndx);
-    showAccidentsAvg(ndx);
-    showCasualtiesAvg(ndx);
-    showPeakHrAcc(ndx);
-    showPeakHrAccValue(ndx);
-    showPeakHrCas(ndx);
-    showPeakHrCasValue(ndx);
-    showRecordsCount(ndx);
+    showRegionSelector(dataFor2017);
+    showAccidentsTotal(dataFor2017);
+    showSparklineAcc(dataFor2016);
+    showSparklineCas(dataFor2016);
+    showSparklineVeh(dataFor2016);
+    showCasualtiesTotal(dataFor2017);
+    showVehiclesTotal(dataFor2017);
+    showAccidentsSeverity(dataFor2017);
+    showAccidentsRoad(dataFor2017);
+    showAccidentsHour(dataFor2017);
+    showAccidentsMonth(dataFor2017);
+    showSeverityDistribution(dataFor2017);
+    showAccidentsAvg(dataFor2017);
+    showCasualtiesAvg(dataFor2017);
+    showPeakHrAcc(dataFor2017);
+    showPeakHrAccValue(dataFor2017);
+    showPeakHrCas(dataFor2017);
+    showPeakHrCasValue(dataFor2017);
+    showRecordsCount(dataFor2017);
 
 
     // Render all charts
     dc.renderAll();
 }
 
-// ------------- CHART FUNCTIONS -------------
+// CHART FUNCTIONS
 
 
-// ------------- Region selecter to enable user to choose region of Great Britain -------------
+/**
+ * Region selecter to enable user to choose region of Great Britain
+ * This function takes 2017 data and groups it by region 
+ * If in the future you decide to allow multiple selection you will need to set multiple() to true
+ * Title was edited to avoid showing values and only show region name (key)
+ */
 
-function showRegionSelector(ndx) {
-    var dim = ndx.dimension(dc.pluck("region"));
-    var group = dim.group();
+function showRegionSelector(dataFor2017) {
+    let dim = dataFor2017.dimension(dc.pluck("region"));
+    let group = dim.group();
 
     dc.selectMenu("#region-selector")
         .dimension(dim)
         .group(group)
         .promptText("All regions")
-        .multiple(false) //change multiple to true if you decide to allow multiple selection
+        .multiple(false)
         .title(function(d) {
             return d.key;
         });
 }
 
-// ------------- Tile showing total number of accidents -------------
+// Tile showing total number of accidents
 
-function showAccidentsTotal(ndx) {
-    var dim = ndx.dimension(dc.pluck("ref"));
-    var totalAcc = dim.group().reduceSum(dc.pluck("number_of_accidents"));
+/**
+ * This function uses sums column containing number of accidents and displays the total
+ */
+function showAccidentsTotal(dataFor2017) {
+    let dim = dataFor2017.dimension(dc.pluck("ref"));
+    let totalAcc = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
     dc.numberDisplay("#accidents-total")
         .formatNumber(d3.format(".2s"))
         .group(totalAcc);
 }
 
-// ------------- Sparkline chart for decoration purposes -------------
+// Sparkline chart for decoration purposes
 
-function showSparklineAcc(ndx16) {
-    var dim = ndx16.dimension(dc.pluck("month"));
-    var group = dim.group().reduceSum(dc.pluck("number_of_accidents"));
+/**
+ * This function uses 2016 data to create non-responsive chart for decoration purposes
+ * Chart is placed in the same tile as accident totals
+ * Renderlet was edited to disable click for sparkline chart
+ * This code was use to edit renderlet: https://groups.google.com/forum/#!msg/dc-js-user-group/Fxg4vykNSqI/hgdj2PEomHsJ
+ * Pointer event was removed
+ */
+
+function showSparklineAcc(dataFor2016) {
+    let dim = dataFor2016.dimension(dc.pluck("month"));
+    let group = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
     dc.barChart("#sparkline-acc")
         .width(120)
@@ -102,10 +118,8 @@ function showSparklineAcc(ndx16) {
             chart.selectAll(".bar").on("click", function(d) {
                 chart.filter(null);
             });
-            /* "renderlet" code suggesting how to disable click for sparkline charts found in here:
-                https://groups.google.com/forum/#!msg/dc-js-user-group/Fxg4vykNSqI/hgdj2PEomHsJ */
             chart.selectAll(".bar")
-                .style("pointer-events", "none"); //pointer event removed 
+                .style("pointer-events", "none");
         }))
         .on("pretransition", (function(chart) {
             chart.selectAll(".bar")
@@ -119,22 +133,34 @@ function showSparklineAcc(ndx16) {
         .group(group);
 }
 
-// ------------- Tile showing total number of casualties -------------
+// Tile showing total number of casualties
 
-function showCasualtiesTotal(ndx) {
-    var dim = ndx.dimension(dc.pluck("ref"));
-    var totalCas = dim.group().reduceSum(dc.pluck("number_of_casualties"));
+/**
+ * This function uses sums column containing number of casualties and displays the total
+ */
+
+function showCasualtiesTotal(dataFor2017) {
+    let dim = dataFor2017.dimension(dc.pluck("ref"));
+    let totalCas = dim.group().reduceSum(dc.pluck("number_of_casualties"));
 
     dc.numberDisplay("#casualties-total")
         .formatNumber(d3.format(".2s"))
         .group(totalCas);
 }
 
-// ------------- Sparkline chart for decoration purposes -------------
+// Sparkline chart for decoration purposes
 
-function showSparklineCas(ndx16) {
-    var dim = ndx16.dimension(dc.pluck("month"));
-    var group = dim.group().reduceSum(dc.pluck("number_of_accidents"));
+/**
+ * This function uses 2016 data to create non-responsive chart for decoration purposes
+ * Chart is placed in the same tile as casualties totals
+ * Renderlet was edited to disable click for sparkline chart
+ * This code was use to edit renderlet: https://groups.google.com/forum/#!msg/dc-js-user-group/Fxg4vykNSqI/hgdj2PEomHsJ
+ * Pointer event was removed
+ */
+
+function showSparklineCas(dataFor2016) {
+    let dim = dataFor2016.dimension(dc.pluck("month"));
+    let group = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
     dc.barChart("#sparkline-cas")
         .width(120)
@@ -161,22 +187,34 @@ function showSparklineCas(ndx16) {
         .group(group);
 }
 
-// ------------- Tile showing total number of vehicles involved in accidents -------------
+// Tile showing total number of vehicles involved in accidents
 
-function showVehiclesTotal(ndx) {
-    var dim = ndx.dimension(dc.pluck("ref"));
-    var totalVeh = dim.group().reduceSum(dc.pluck("number_of_vehicles"));
+/**
+ * This function uses sums column containing number of vehicles involved and displays the total
+ */
+
+function showVehiclesTotal(dataFor2017) {
+    let dim = dataFor2017.dimension(dc.pluck("ref"));
+    let totalVeh = dim.group().reduceSum(dc.pluck("number_of_vehicles"));
 
     dc.numberDisplay("#vehicles-total")
         .formatNumber(d3.format(".2s"))
         .group(totalVeh);
 }
 
-// ------------- Sparkline chart for decoration purposes -------------
+// Sparkline chart for decoration purposes
 
-function showSparklineVeh(ndx16) {
-    var dim = ndx16.dimension(dc.pluck("month"));
-    var group = dim.group().reduceSum(dc.pluck("number_of_accidents"));
+/**
+ * This function uses 2016 data to create non-responsive chart for decoration purposes
+ * Chart is placed in the same tile as vehicles involved
+ * Renderlet was edited to disable click for sparkline chart
+ * This code was use to edit renderlet: https://groups.google.com/forum/#!msg/dc-js-user-group/Fxg4vykNSqI/hgdj2PEomHsJ
+ * Pointer event was removed
+ */
+
+function showSparklineVeh(dataFor2016) {
+    let dim = dataFor2016.dimension(dc.pluck("month"));
+    let group = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
     dc.barChart("#sparkline-veh")
         .width(120)
@@ -201,11 +239,24 @@ function showSparklineVeh(ndx16) {
         .group(group);
 }
 
-// ------------- Pie chart presenting accidents split by severity -------------
+// Pie chart presenting accidents split by severity
 
-function showAccidentsSeverity(ndx) {
-    var dim = ndx.dimension(dc.pluck("accident_severity"));
-    var totalAccBySeverity = dim.group().reduceSum(dc.pluck("number_of_accidents"));
+/**
+ * Pie chart presents accident % split by severity level
+ * Function used to add up all accidents and group them by severity
+ * Function uses crossfilter reduceSum function to sum accidents
+ * Pie slices colors changed to express data categories better visually and highlight seriousness of an accident (fatal - red, serious - orange, slight - blue)
+ * Title was edited as per following suggestion: https://groups.google.com/forum/#!topic/dc-js-user-group/u-zPORy4-2Y
+ * Each pie slices displays % value as per the following example: https://github.com/dc-js/dc.js/blob/master/web/examples/pie.html
+ * Viewbox solution applied to resolve issue of responsiveness on mobile devices,
+ * solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
+ * toLocaleString() method, used to format number, found in here: https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+ * Legend display edited to show each category and total number of accidents per category
+ */
+
+function showAccidentsSeverity(dataFor2017) {
+    let dim = dataFor2017.dimension(dc.pluck("accident_severity"));
+    let totalAccBySeverity = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
     dc.pieChart("#accidents-severity")
         .width(320)
@@ -216,68 +267,12 @@ function showAccidentsSeverity(ndx) {
         .group(totalAccBySeverity)
         .transitionDuration(500)
         .colors(d3.scale.ordinal().range(["#3182bc", "#fd8c3d", "#e6550e"]))
-        /* pie slices colors changed to express data categories better visually
-        and highlight seriousness of an accident i.e. fatal accidents in red,
-        serious in orange and slight in blue*/
         .renderLabel(true)
         .legend(dc.legend().x(110).y(150).itemHeight(13).gap(5))
         .title(function(d) {
             return d.key + ": " + ((d.value / d3.sum(totalAccBySeverity.all(),
                 function(d) { return d.value; })) * 100).toFixed(2) + "%";
         })
-        /* solution for title inspired by the following code: 
-        https://groups.google.com/forum/#!topic/dc-js-user-group/u-zPORy4-2Y */
-        .on("pretransition", function(chart) {
-            chart.selectAll("text.pie-slice").text(function(d) {
-                if (dc.utils.printSingleValue(
-                        (d.endAngle - d.startAngle) /
-                        (2 * Math.PI) * 100) >= 5) {
-                    return dc.utils.printSingleValue(
-                        (d.endAngle - d.startAngle) /
-                        (2 * Math.PI) * 100) + "%";
-                }
-            }); // solution suggested by CI Tutor: https://github.com/dc-js/dc.js/blob/master/web/examples/pie.html */
-            chart.select("svg")
-                .attr("height", "100%")
-                .attr("width", "100%")
-                .attr("viewBox", "0 0 320 360");
-            /* viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here:
-            https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox */
-            chart.selectAll(".dc-legend-item text")
-                .attr("fill", "#ffffff")
-                .text("")
-                .append("tspan")
-                .text(function(d) { return d.name; })
-                .append("tspan")
-                .attr("x", 100)
-                .attr("text-anchor", "end")
-                .text(function(d) { return d.data.toLocaleString(); });
-        });
-    /* toLocaleString() method, used to format number, found in here:
-    https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript */
-
-}
-
-// ------------- Pie chart presenting accidents split by road type -------------
-
-function showAccidentsRoad(ndx) {
-    var dim = ndx.dimension(dc.pluck("road_type"));
-    var totalAccByRoad = dim.group().reduceSum(dc.pluck("number_of_accidents"));
-
-    dc.pieChart("#rd-type-split")
-        .width(320)
-        .height(360)
-        .slicesCap(8)
-        .innerRadius(95)
-        .dimension(dim)
-        .group(totalAccByRoad)
-        .transitionDuration(500)
-        .renderLabel(true)
-        .legend(dc.legend().x(85).y(125).itemHeight(13).gap(5))
-        .title(function(d) {
-            return d.key + ": " + ((d.value / d3.sum(totalAccByRoad.all(),
-                function(d) { return d.value; })) * 100).toFixed(2) + "%";
-        }) //function added to display text on slices large enough to fit in all text
         .on("pretransition", function(chart) {
             chart.selectAll("text.pie-slice").text(function(d) {
                 if (dc.utils.printSingleValue(
@@ -292,9 +287,65 @@ function showAccidentsRoad(ndx) {
                 .attr("height", "100%")
                 .attr("width", "100%")
                 .attr("viewBox", "0 0 320 360");
-            /* viewbox solution applied to resolve issue of responsiveness
-            on mobile devices, solution found here:
-            https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox*/
+            chart.selectAll(".dc-legend-item text")
+                .attr("fill", "#ffffff")
+                .text("")
+                .append("tspan")
+                .text(function(d) { return d.name; })
+                .append("tspan")
+                .attr("x", 100)
+                .attr("text-anchor", "end")
+                .text(function(d) { return d.data.toLocaleString(); });
+        });
+
+}
+
+// Pie chart presenting accidents split by road type
+
+/**
+ * Pie chart presents accident % split by road type
+ * Function used to add up all accidents and group them by road type
+ * Function uses crossfilter reduceSum function to sum accidents
+ * Title was edited as per following suggestion: https://groups.google.com/forum/#!topic/dc-js-user-group/u-zPORy4-2Y
+ * Each pie slices displays % value as per the following example: https://github.com/dc-js/dc.js/blob/master/web/examples/pie.html
+ * Viewbox solution applied to resolve issue of responsiveness on mobile devices,
+ * solution found here: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
+ * toLocaleString() method, used to format number, found in here: https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+ * Legend display edited to show each category and total number of accidents per category
+ */
+
+function showAccidentsRoad(dataFor2017) {
+    let dim = dataFor2017.dimension(dc.pluck("road_type"));
+    let totalAccByRoad = dim.group().reduceSum(dc.pluck("number_of_accidents"));
+
+    dc.pieChart("#rd-type-split")
+        .width(320)
+        .height(360)
+        .slicesCap(8)
+        .innerRadius(95)
+        .dimension(dim)
+        .group(totalAccByRoad)
+        .transitionDuration(500)
+        .renderLabel(true)
+        .legend(dc.legend().x(85).y(125).itemHeight(13).gap(5))
+        .title(function(d) {
+            return d.key + ": " + ((d.value / d3.sum(totalAccByRoad.all(),
+                function(d) { return d.value; })) * 100).toFixed(2) + "%";
+        })
+        .on("pretransition", function(chart) {
+            chart.selectAll("text.pie-slice").text(function(d) {
+                if (dc.utils.printSingleValue(
+                        (d.endAngle - d.startAngle) /
+                        (2 * Math.PI) * 100) >= 5) {
+                    return dc.utils.printSingleValue(
+                        (d.endAngle - d.startAngle) /
+                        (2 * Math.PI) * 100) + "%";
+                }
+            });
+            chart.select("svg")
+                .attr("height", "100%")
+                .attr("width", "100%")
+                .attr("viewBox", "0 0 320 360");
             chart.selectAll(".dc-legend-item text")
                 .attr("fill", "#ffffff")
                 .text("")
@@ -305,13 +356,20 @@ function showAccidentsRoad(ndx) {
                 .attr("text-anchor", "end")
                 .text(function(d) {
                     return d.data.toLocaleString();
-                }); // editing text displayed in the legend
+                });
         });
 }
 
-// ------------- Stacked bar chart presenting accident severity by speed limit -------------
+// Stacked bar chart presenting accident severity by speed limit
 
-function showSeverityDistribution(ndx) {
+/**
+ * This function sums accidents and groups them by severity level and road speed limit categories
+ * Each bar represents speed limit category that is broken into accident severity stacks 
+ * Title function applied to display more informative text
+ * Viewbox solution applied to resolve issue of responsiveness on mobile devices
+ */
+
+function showSeverityDistribution(dataFor2017) {
 
     function severityBySpeed(dimension, severity) {
         return dimension.group().reduce(
@@ -335,10 +393,10 @@ function showSeverityDistribution(ndx) {
         );
     }
 
-    var dim = ndx.dimension(dc.pluck("speed_limit"));
-    var slightBySpeeed = severityBySpeed(dim, "Slight");
-    var seriousBySpeeed = severityBySpeed(dim, "Serious");
-    var fatalBySpeeed = severityBySpeed(dim, "Fatal");
+    let dim = dataFor2017.dimension(dc.pluck("speed_limit"));
+    let slightBySpeeed = severityBySpeed(dim, "Slight");
+    let seriousBySpeeed = severityBySpeed(dim, "Serious");
+    let fatalBySpeeed = severityBySpeed(dim, "Fatal");
 
     dc.barChart("#severity-distribution")
         .width(380)
@@ -356,20 +414,18 @@ function showSeverityDistribution(ndx) {
                 return 0;
             }
         })
-        /* title function specified to display % value
-        and more descriptive information */
         .title("Fatal", function(d) {
-            var percent = (d.value.by_severity / d.value.total) * 100;
+            let percent = (d.value.by_severity / d.value.total) * 100;
             return d.key + " mph: " + percent.toFixed(1) +
                 "% of fatal accidents";
         })
         .title("Serious", function(d) {
-            var percent = (d.value.by_severity / d.value.total) * 100;
+            let percent = (d.value.by_severity / d.value.total) * 100;
             return d.key + " mph: " + percent.toFixed(1) +
                 "% of serious accidents";
         })
         .title("Slight", function(d) {
-            var percent = (d.value.by_severity / d.value.total) * 100;
+            let percent = (d.value.by_severity / d.value.total) * 100;
             return d.key + " mph: " + percent.toFixed(1) +
                 "% of slight accidents";
         })
@@ -382,8 +438,6 @@ function showSeverityDistribution(ndx) {
                 .attr("height", "100%")
                 .attr("width", "100%")
                 .attr("viewBox", "0 0 380 360");
-            /* viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here:
-            https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox*/
             chart.selectAll(".dc-chart text")
                 .attr("fill", "#E5E5E5");
             chart.selectAll(".dc-legend-item text")
@@ -405,19 +459,139 @@ function showSeverityDistribution(ndx) {
         .yAxis().tickFormat(function(d) { return d + "%"; });
 }
 
-// ------------- Composite line chart presenting total number of accidents by month -------------
+// Tile showing average numbers of accidents / casualties per day
 
-function showAccidentsMonth(ndx) {
-    var dim = ndx.dimension(dc.pluck("date"));
+/**
+ * Two functions below sum all accidents and divide them by number of days per year (365) in order to calculate daily average
+ */
 
-    var totalAccByHour = dim.group().reduceSum(dc.pluck("number_of_accidents"));
-    var totalCasByHour = dim.group().reduceSum(dc.pluck("number_of_casualties"));
-    var totalVehByHour = dim.group().reduceSum(dc.pluck("number_of_vehicles"));
+function showAccidentsAvg(dataFor2017) {
+    let dim = dataFor2017.dimension(dc.pluck("ref"));
+    let totalAcc = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
-    var minDate = dim.bottom(1)[0].date;
-    var maxDate = dim.top(1)[0].date;
+    dc.numberDisplay("#accidents-average")
+        .formatNumber(d3.format(",.0f"))
+        .group(totalAcc)
+        .valueAccessor(function(d) {
+            let numberOfDaysPerYear = 365;
+            return (d.value / numberOfDaysPerYear);
+        });
+}
 
-    var composite = dc.compositeChart("#composite-month");
+function showCasualtiesAvg(dataFor2017) {
+    let dim = dataFor2017.dimension(dc.pluck("ref"));
+    let totalAcc = dim.group().reduceSum(dc.pluck("number_of_casualties"));
+
+    dc.numberDisplay("#casualties-average")
+        .formatNumber(d3.format(",.0f"))
+        .group(totalAcc)
+        .valueAccessor(function(d) {
+            let numberOfDaysPerYear = 365;
+            return (d.value / numberOfDaysPerYear);
+        });
+}
+
+// Tile showing peak hours and its values
+
+// Peak Accidents
+
+/**
+ * This function adds up all accidents and groups them by hour
+ * it then evaluates which hour in a day shows the highest number of accidents and displays that hour (key)
+ */
+
+function showPeakHrAcc(dataFor2017) {
+    let dim = dataFor2017.dimension(dc.pluck("hour"));
+
+    let totalAccByHour = dim.group().reduceSum(dc.pluck("number_of_accidents"));
+
+    dc.numberDisplay('#accidents-peak-hr')
+        .group(totalAccByHour)
+        .valueAccessor(function(d) {
+            return totalAccByHour.top(1)[0].key;
+        });
+}
+
+/**
+ * This function adds up all accidents and groups them by hour
+ * it then evaluates which hour in a day shows the highest number of accidents and displays that value divided by number of days per year
+ * The final result instead of showing annual total shows daily average for a peak hour
+ */
+function showPeakHrAccValue(dataFor2017) {
+    let dim = dataFor2017.dimension(dc.pluck("hour"));
+
+    let totalAccByHour = dim.group().reduceSum(dc.pluck("number_of_accidents"));
+
+    dc.numberDisplay('#accidents-peak-value')
+        .formatNumber(d3.format(",.0f"))
+        .group(totalAccByHour)
+        .valueAccessor(function(d) {
+            let numberOfDaysPerYear = 365;
+            return totalAccByHour.top(1)[0].value / numberOfDaysPerYear;
+        });
+}
+
+// Peak Casualties
+
+/**
+ * This function adds up all casualties and groups them by hour
+ * it then evaluates which hour in a day shows the highest number of casualties and displays that hour (key)
+ */
+function showPeakHrCas(dataFor2017) {
+    let dim = dataFor2017.dimension(dc.pluck("hour"));
+
+    let totalCasByHour = dim.group().reduceSum(dc.pluck("number_of_casualties"));
+
+    dc.numberDisplay('#casualties-peak-hr')
+        .group(totalCasByHour)
+        .valueAccessor(function(d) {
+            return totalCasByHour.top(1)[0].key;
+        });
+}
+
+/**
+ * This function adds up all casualties and groups them by hour
+ * it then evaluates which hour in a day shows the highest number of casualties and displays that value divided by number of days per year
+ * The final result instead of showing annual total shows daily average for a peak hour
+ */
+ 
+function showPeakHrCasValue(dataFor2017) {
+    let dim = dataFor2017.dimension(dc.pluck("hour"));
+
+    let totalCasByHour = dim.group().reduceSum(dc.pluck("number_of_casualties"));
+
+    dc.numberDisplay('#casualties-peak-value')
+        .formatNumber(d3.format(",.0f"))
+        .group(totalCasByHour)
+        .valueAccessor(function(d) {
+            let numberOfDaysPerYear = 365;
+            return totalCasByHour.top(1)[0].value / numberOfDaysPerYear;
+        });
+}
+
+// Composite line chart presenting total number of accidents by month
+
+/**
+ * This composite line chart presents annual total number of accidents, casualties and vehicles involved distributed by month
+ * This function sums each category and groups them by month
+ * minDate and maxDate used to arrange months in the correct order using d3.domain()
+ * Shared title was disabled to display unique titles for each data category (accidents, casualties, vehicles involved)
+ * Title method applied to display more explanatory text and edit number format
+ * Viewbox solution applied to resolve issue of responsiveness on mobile devices
+ * Data points cut off issue was resolved by applying elasticX / elasticY and xAxisPadding / yAxisPadding
+ */
+
+function showAccidentsMonth(dataFor2017) {
+    let dim = dataFor2017.dimension(dc.pluck("date"));
+
+    let totalAccByHour = dim.group().reduceSum(dc.pluck("number_of_accidents"));
+    let totalCasByHour = dim.group().reduceSum(dc.pluck("number_of_casualties"));
+    let totalVehByHour = dim.group().reduceSum(dc.pluck("number_of_vehicles"));
+
+    let minDate = dim.bottom(1)[0].date;
+    let maxDate = dim.top(1)[0].date;
+
+    let composite = dc.compositeChart("#composite-month");
 
     composite
         .width(840)
@@ -430,7 +604,7 @@ function showAccidentsMonth(ndx) {
         .x(d3.time.scale().domain([minDate, maxDate]))
         .y(d3.scale.linear())
         .transitionDuration(500)
-        .shareTitle(false) //shared title disabled to display category specific title
+        .shareTitle(false)
         .on("renderlet", (function(chart) {
             chart.selectAll(".dot")
                 .style("cursor", "pointer");
@@ -444,8 +618,6 @@ function showAccidentsMonth(ndx) {
                 .attr("height", "100%")
                 .attr("width", "100%")
                 .attr("viewBox", "0 0 840 340");
-            /* viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here:
-            https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox */
             chart.selectAll(".dc-chart text")
                 .attr("fill", "#E5E5E5");
             chart.selectAll(".dc-legend-item text")
@@ -463,9 +635,9 @@ function showAccidentsMonth(ndx) {
             .group(totalAccByHour, "Accidents")
             .interpolate("monotone")
             .title(function(d) {
-                var numberWithCommas = d.value.toLocaleString();
+                let numberWithCommas = d.value.toLocaleString();
                 return numberWithCommas + " accidents";
-            }) //title function applied to display more explanatory text and edit number format
+            })
             .colors("#ff7e0e")
             .dotRadius(10)
             .renderDataPoints({ radius: 4 }),
@@ -473,9 +645,9 @@ function showAccidentsMonth(ndx) {
             .interpolate("monotone")
             .group(totalCasByHour, "Casualties")
             .title(function(d) {
-                var numberWithCommas = d.value.toLocaleString();
+                let numberWithCommas = d.value.toLocaleString();
                 return numberWithCommas + " casualties";
-            }) //title function applied to display more explanatory text and edit number format
+            })
             .colors("#d95350")
             .dotRadius(10)
             .renderDataPoints({ radius: 4 }),
@@ -483,9 +655,9 @@ function showAccidentsMonth(ndx) {
             .group(totalVehByHour, "Vehicles involved")
             .interpolate("monotone")
             .title(function(d) {
-                var numberWithCommas = d.value.toLocaleString();
+                let numberWithCommas = d.value.toLocaleString();
                 return numberWithCommas + " vehicles involved";
-            }) //title function applied to display more explanatory text and edit number format
+            })
             .colors("#1e77b4")
             .dotRadius(10)
             .renderDataPoints({ radius: 4 })
@@ -495,22 +667,31 @@ function showAccidentsMonth(ndx) {
         .elasticX(true)
         .xAxisPadding("8%")
         .xAxis().ticks(12).tickFormat(d3.time.format("%b")).outerTickSize(0);
-    /* elasticX, outerTickSize and xAxisPadding applied to fix the issue with data point cut off
-    (the same solution applied for yAxis) */
 
     composite.yAxis().ticks(5).outerTickSize(0);
 }
 
-// ------------- Composite line chart presenting total number of accidents by hour -------------
+// Composite line chart presenting total number of accidents by hour
 
-function showAccidentsHour(ndx) {
-    var dim = ndx.dimension(dc.pluck("hour"));
+/**
+ * This composite line chart presents annual total number of accidents, casualties and vehicles involved distributed by hour
+ * This function sums each category and groups them by hour
+ * Shared title was disabled to display unique titles for each data category (accidents, casualties, vehicles involved)
+ * Title method applied to display more explanatory text and edit number format
+ * Viewbox solution applied to resolve issue of responsiveness on mobile devices
+ * Data points cut off issue was resolved by applying elasticX / elasticY and xAxisPadding / yAxisPadding
+ * Since the hour labels in their initial position were overlapping, rotation transformation was applied
+ */
 
-    var totalAccByHour = dim.group().reduceSum(dc.pluck("number_of_accidents"));
-    var totalCasByHour = dim.group().reduceSum(dc.pluck("number_of_casualties"));
-    var totalVehByHour = dim.group().reduceSum(dc.pluck("number_of_vehicles"));
 
-    var composite = dc.compositeChart("#composite-hour");
+function showAccidentsHour(dataFor2017) {
+    let dim = dataFor2017.dimension(dc.pluck("hour"));
+
+    let totalAccByHour = dim.group().reduceSum(dc.pluck("number_of_accidents"));
+    let totalCasByHour = dim.group().reduceSum(dc.pluck("number_of_casualties"));
+    let totalVehByHour = dim.group().reduceSum(dc.pluck("number_of_vehicles"));
+
+    let composite = dc.compositeChart("#composite-hour");
 
     composite
         .width(840)
@@ -536,14 +717,10 @@ function showAccidentsHour(ndx) {
                 .attr("dx", "-30")
                 .attr("dy", "-5")
                 .attr("transform", "rotate(-90)");
-            /* solution that enabled label rotation found in here: 
-            https://groups.google.com/forum/#!msg/dc-js-user-group/TjXkTTbOhsQ/7WU14__RGoI */
             chart.select("svg")
                 .attr("height", "100%")
                 .attr("width", "100%")
                 .attr("viewBox", "0 0 840 340");
-            /* viewbox solution applied to resolve issue of responsiveness on mobile devices, solution found here:
-            https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox*/
             chart.selectAll(".dc-chart text")
                 .attr("fill", "#E5E5E5");
             chart.selectAll(".dc-legend-item text")
@@ -561,7 +738,7 @@ function showAccidentsHour(ndx) {
             .group(totalAccByHour, "Accidents")
             .interpolate("monotone")
             .title(function(d) {
-                var numberWithCommas = d.value.toLocaleString();
+                let numberWithCommas = d.value.toLocaleString();
                 if (d.key < 10) {
                     return numberWithCommas + " accidents at " + "0" +
                         d.key + ":00";
@@ -570,7 +747,7 @@ function showAccidentsHour(ndx) {
                     return numberWithCommas + " accidents at " +
                         d.key + ":00";
                 }
-            }) // title function applied to display more explanatory text
+            })
             .colors("#ff7e0e")
             .dotRadius(10)
             .renderDataPoints({ radius: 4 }),
@@ -578,7 +755,7 @@ function showAccidentsHour(ndx) {
             .group(totalCasByHour, "Casualties")
             .interpolate("monotone")
             .title(function(d) {
-                var numberWithCommas = d.value.toLocaleString();
+                let numberWithCommas = d.value.toLocaleString();
                 if (d.key < 10) {
                     return numberWithCommas + " casualties at " + "0" +
                         d.key + ":00";
@@ -587,7 +764,7 @@ function showAccidentsHour(ndx) {
                     return numberWithCommas + " casualties at " +
                         d.key + ":00";
                 }
-            }) // title function applied to display more explanatory text
+            })
             .colors("#d95350")
             .dotRadius(10)
             .renderDataPoints({ radius: 4 }),
@@ -595,7 +772,7 @@ function showAccidentsHour(ndx) {
             .group(totalVehByHour, "Vehicles involved")
             .interpolate("monotone")
             .title(function(d) {
-                var numberWithCommas = d.value.toLocaleString();
+                let numberWithCommas = d.value.toLocaleString();
                 if (d.key < 10) {
                     return numberWithCommas + " vehicles involved at " + "0" +
                         d.key + ":00";
@@ -619,102 +796,24 @@ function showAccidentsHour(ndx) {
             }
             else { return d + ":00"; }
         }).outerTickSize(0);
-    /* elasticX, outerTickSize and xAxisPadding applied to fix the issue with data point cut off
-    (the same solution applied for yAxis) */
     composite.yAxis().ticks(5).outerTickSize(0);
 }
 
-// ------------- Tile showing average numbers of accidents / casualties per day -------------
+// Data Count
 
-function showAccidentsAvg(ndx) {
-    var dim = ndx.dimension(dc.pluck("ref"));
-    var totalAcc = dim.group().reduceSum(dc.pluck("number_of_accidents"));
+/**
+ * Data count was implemented to show how many records are selected
+ * Function counts all selected records
+ * Additionally feature that enables reset of all selection was added
+ * Solution inspired by this code: https://codepen.io/danshultz11/pen/ZBvjGV
+ */
 
-    dc.numberDisplay("#accidents-average")
-        .formatNumber(d3.format(",.0f"))
-        .group(totalAcc)
-        .valueAccessor(function(d) {
-            return (d.value / 365);
-        });
-}
+function showRecordsCount(dataFor2017) {
 
-function showCasualtiesAvg(ndx) {
-    var dim = ndx.dimension(dc.pluck("ref"));
-    var totalAcc = dim.group().reduceSum(dc.pluck("number_of_casualties"));
-
-    dc.numberDisplay("#casualties-average")
-        .formatNumber(d3.format(",.0f"))
-        .group(totalAcc)
-        .valueAccessor(function(d) {
-            return (d.value / 365);
-        });
-}
-
-// ------------- Tile showing peak hours and its values -------------
-
-
-// ------------- Peak Accidents -------------
-function showPeakHrAcc(ndx) {
-    var dim = ndx.dimension(dc.pluck("hour"));
-
-    var totalAccByHour = dim.group().reduceSum(dc.pluck("number_of_accidents"));
-
-    dc.numberDisplay('#accidents-peak-hr')
-        .group(totalAccByHour)
-        .valueAccessor(function(d) {
-            return totalAccByHour.top(1)[0].key;
-        });
-}
-
-function showPeakHrAccValue(ndx) {
-    var dim = ndx.dimension(dc.pluck("hour"));
-
-    var totalAccByHour = dim.group().reduceSum(dc.pluck("number_of_accidents"));
-
-    dc.numberDisplay('#accidents-peak-value')
-        .formatNumber(d3.format(",.0f"))
-        .group(totalAccByHour)
-        .valueAccessor(function(d) {
-            return totalAccByHour.top(1)[0].value / 365;
-        });
-}
-
-// ------------- Peak Casualties -------------
-
-function showPeakHrCas(ndx) {
-    var dim = ndx.dimension(dc.pluck("hour"));
-
-    var totalCasByHour = dim.group().reduceSum(dc.pluck("number_of_casualties"));
-
-    dc.numberDisplay('#casualties-peak-hr')
-        .group(totalCasByHour)
-        .valueAccessor(function(d) {
-            return totalCasByHour.top(1)[0].key;
-        });
-}
-
-function showPeakHrCasValue(ndx) {
-    var dim = ndx.dimension(dc.pluck("hour"));
-
-    var totalCasByHour = dim.group().reduceSum(dc.pluck("number_of_casualties"));
-
-    dc.numberDisplay('#casualties-peak-value')
-        .formatNumber(d3.format(",.0f"))
-        .group(totalCasByHour)
-        .valueAccessor(function(d) {
-            return totalCasByHour.top(1)[0].value / 365;
-        });
-}
-
-// ------------- Data Count -------------
-
-function showRecordsCount(ndx) {
-
-    var dim = ndx;
-    var allRecords = ndx.groupAll();
+    let dim = dataFor2017;
+    let allRecords = dataFor2017.groupAll();
 
     dc.dataCount('.dc-data-count')
         .group(allRecords)
         .dimension(dim);
-    // feature implemented so a user is able reset all their selection. Solution inspired by this code: https://codepen.io/danshultz11/pen/ZBvjGV
 }
