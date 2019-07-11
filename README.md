@@ -244,6 +244,8 @@ Chrome developer tools were used to additionally inspect responsiveness for the 
 
 - iPhone X.
 
+Furthermore, [Responsinator](https://www.responsinator.com/) was used to test responsivness of the final version of the project. The website is fully responsive and working well on mobile devices.
+
 #### Bugs:
 
 Bugs that were noticed during the testing were fixed using **Bootstrap** classes and **CSS** styling applied to the `divs` containing charts (i.e. `max-height`, `min-height`).
