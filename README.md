@@ -170,11 +170,23 @@ List of features to be implemented in the future:
 
 ### Code validation
 
+#### CSS
+
 CSS code was validated using the [W3C CSS Validation Service - Jigsaw](https://jigsaw.w3.org/css-validator/).
 
+While validating CSS code the following warrning appeared: "Imported style sheets are not checked in direct input and file upload modes". Warning was investigated and [this](https://stackoverflow.com/questions/25946111/importing-css-is-ending-up-with-an-error) Stack Overflow thread explained that it is just an information that imported style sheet will not be validated.
+
+#### HTML
 HTML code was validated using the [W3C Markup Validation Service](https://validator.w3.org/).
 
+All errors and warning were addressed except the following: "Section lacks heading. Consider using h2-h6 elements to add identifying headings to all sections." The warning appears in four instances due to lack of a heading. Since each charts has a title placed in the `card-header` I decide to leave this warning as there is no need for additional section heading.
+
+#### JavaScript
+
 JavaScript code was validated using [JSHint](https://jshint.com/) and [Beautify Tools](http://beautifytools.com/javascript-validator.php).
+
+Both validators have indicated that there are four unknown / undefined variables, namely queue, dc, d3, and crossfilter. The warning was ignored as I believe it is due to the fact that these libaries are separated and the validator dose not have access to them.
+
 
 ### Features testing
 
@@ -234,15 +246,15 @@ This site was tested across multiple browsers (Chrome, Safari, Internet Explorer
 
 Chrome developer tools were used to additionally inspect responsiveness for the following devices:
 
-- iPad Pro / iPad / iPad Mini;
+- iPad Pro / iPad / iPad Mini (portrait & landscape);
 
-- iPhone 5/SE;
+- iPhone 5/SE (portrait & landscape);
 
-- iPhone 6/7/8;
+- iPhone 6/7/8 (portrait & landscape);
 
-- iPhone 6/7/8 Plus;
+- iPhone 6/7/8 Plus (portrait & landscape);
 
-- iPhone X.
+- iPhone X (portrait & landscape).
 
 Furthermore, [Responsinator](https://www.responsinator.com/) was used to test responsivness of the final version of the project. The website is fully responsive and working well on mobile devices.
 
