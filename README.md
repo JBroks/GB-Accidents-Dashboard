@@ -2,7 +2,7 @@
 
 Stream Two Project: Interactive Frontend Development - Milestone Project.
 
-![alt text](https://jbroks.github.io/GB-Accidents-Dashboard/gif/mackbook-dashboard.gif "Gif")
+![alt text](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/gif/mackbook-dashboard.gif "Gif")
 
 This is a data dashboard presenting analysis of 2017 road safety statistics for Great Britain.
 Statistics are published annually by [Department for Transport (DfT)](https://www.gov.uk/government/organisations/department-for-transport).
