@@ -13,7 +13,6 @@ html {
     margin: 0;
 }
 
-
 /* Spinner on data loading
 spinner animation found on CodePen: https://codepen.io/judecodes/pen/PrBOvG?&page=1 */
 
@@ -93,7 +92,7 @@ spinner animation found on CodePen: https://codepen.io/judecodes/pen/PrBOvG?&pag
   width: 50px;
   height: 50px;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 3px;
   position: fixed;
   bottom: 30px;
   right: 30px;
@@ -125,6 +124,11 @@ spinner animation found on CodePen: https://codepen.io/judecodes/pen/PrBOvG?&pag
   visibility: visible;
 }
 
+/* Reset button */
+
+.reset-button{
+    border-radius: 3px;
+}
 
 /* Styling of the dashboard title */
 
@@ -168,25 +172,18 @@ h2 {
     max-width: 70rem;
 }
 
-/* Card titles styled to uppercase */
+/* Card titles and filter label styled to uppercase */
 
-.card-header {
+.card-header, .selector-label{
     text-transform: uppercase;
 }
 
-
-
 /* Region selector menu styling */
-
-.selector-label {
-    padding-right: 15px;
-}
 
 #region-selector select {
     background: #5d6b78;
     border: #445360;
     color: #ebebeb;
-    text-transform: uppercase;
     font-size: 1rem;
 }
 
@@ -285,7 +282,7 @@ a:hover {
         font-size: 1.5rem;
     }
 
-    .card-header {
+    .card-header, .selector-label {
         font-size: 0.7rem;
     }
 
@@ -309,7 +306,7 @@ a:hover {
         font-size: 2rem;
     }
 
-    .card-header {
+    .card-header, .selector-label {
         font-size: 1rem;
     }
 
