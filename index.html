@@ -8,7 +8,7 @@
   <title>GB Accidents Data - Dashboard</title>
 
   <!-- Load stylesheets -->
-  <link rel="shortcut icon" type="image/png" href="assets/favicons/favicon.png"/>
+  <link rel="shortcut icon" type="image/png" href="assets/favicons/favicon.png" />
   <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css" />
   <link rel="stylesheet" href="assets/css/dc.min.css" type="text/css" />
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -17,6 +17,18 @@
 </head>
 
 <body>
+
+<!-- Spinner on data loading -->
+  <div id="overlay">
+    <div class="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+
+
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
@@ -27,6 +39,7 @@
   <main>
 
     <div class="container-fluid">
+
       <!-- Dashboard section containing heading and region selector  -->
       <section>
         <div class="container-fluid">
@@ -294,6 +307,7 @@
   </footer>
 
   <!-- js files -->
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
   <script src="assets/js/d3.min.js"></script>
   <script src="assets/js/crossfilter.min.js"></script>
   <script src="assets/js/dc.min.js"></script>

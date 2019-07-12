@@ -1,3 +1,11 @@
+// Spinner show method
+
+/**
+ * This is jQuery method that activates the overlay div containing spinner
+ * This was implemented so the user can see the loading spinner instead of empty charts while the data is loading
+ */
+$("#overlay").show();
+
 queue()
     .defer(d3.csv, "assets/data/Accidents2017.csv")
     .defer(d3.csv, "assets/data/Accidents2016.csv")
@@ -6,7 +14,6 @@ queue()
 function makeGraphs(error, accData, accData16) {
     let dataFor2017 = crossfilter(accData);
     let dataFor2016 = crossfilter(accData16);
-
 
     // Parse strings to integers
 
@@ -51,9 +58,16 @@ function makeGraphs(error, accData, accData16) {
     showPeakHrCasValue(dataFor2017);
     showRecordsCount(dataFor2017);
 
+    // Spinner hide method
+    /**
+     * This is jQuery method that hides the overlay div containing spinner
+     * When data is loaded spinner with overlay will be hidden
+     */
+    $("#overlay").hide();
 
     // Render all charts
     dc.renderAll();
+
 }
 
 // CHART FUNCTIONS
@@ -554,7 +568,7 @@ function showPeakHrCas(dataFor2017) {
  * it then evaluates which hour in a day shows the highest number of casualties and displays that value divided by number of days per year
  * The final result instead of showing annual total shows daily average for a peak hour
  */
- 
+
 function showPeakHrCasValue(dataFor2017) {
     let dim = dataFor2017.dimension(dc.pluck("hour"));
 
