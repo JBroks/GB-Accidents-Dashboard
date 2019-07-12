@@ -270,7 +270,9 @@ Chrome developer tools were used to additionally inspect responsiveness for the 
 
 - Android (Pixel 2) (portrait & landscape).
 
-Furthermore, [Responsinator](https://www.responsinator.com/) was used to test responsiveness of the final version of the project. The website is fully responsive and working well on mobile devices.
+Furthermore, [Responsinator](https://www.responsinator.com/) was used to test responsiveness of the final version of the project.
+
+The website is fully responsive and working well on mobile devices.
 
 #### Bugs:
 
@@ -281,6 +283,10 @@ Initially dashboard was not responsive on mobile devices, however I was able to 
 ### Peer-code-review
 
 The project was published on Code Institute Slack code-peer-review channel where other students and mentors tested the site, reviewed the code and provided a useful feedback that was then implemented.
+
+#### Bugs:
+
+Thanks to the feedback from peer-code-review comments in javascript file were improved, loading spinner was added, folder structure was improved, font size was increased, *Reset all* was restyled to be a button, and Readme.md *Deployment* section was improved.
 
 ### User stories testing
 
@@ -326,22 +332,22 @@ The project was published on Code Institute Slack code-peer-review channel where
 
 ## Deployment
 
-The site was developed using AWS Cloud 9. To keep records of different version of al project files git version control system was used. 
+The site was developed using AWS Cloud 9. To keep records of different versions of all project files git version control system was used. 
 
 In order to track the changes in the local repository the following steps were taken:
 
-- command `git add` + file name - to update what will be committed;
+- command `git add 'filename'` - to update what will be committed;
 
 - command `git commit` - to commit the changes.
 
-Using `git push` command all changes from the local repository were pushed to the remote one.
+Using `git push` command all changes from the local repository were pushed to the remote one on GitHub.
 
 
 This dashboard project is hosted using GitHub pages, deployed directly from the `master` branch. 
 
 To deploy my dashboard project from GitHub I followed these steps:
 
-1. On GitHub website I logged into my account and navigated to [my repository](https://github.com/JBroks/GB-Accidents-Dashboard);
+1. On GitHub website I logged onto my account and navigated to [my repository](https://github.com/JBroks/GB-Accidents-Dashboard);
 
 2. Under my repository name, I clicked on **Settings** tab;
 
