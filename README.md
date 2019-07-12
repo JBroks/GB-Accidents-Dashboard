@@ -136,7 +136,7 @@ List of features to be implemented in the future:
 - JavaScript - The project used **Javascript** to implement interactive elemets to the web document.
 
 ### Libraries
-- [Crossfilter library](https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js) - The project used the **Crossfilter.js** library to explore the accidents dataset and create dimensions and groups for charts prepared using **DC.js**;
+- [Crossfilter](https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js) - The project used the **Crossfilter.js** library to explore the accidents dataset and create dimensions and groups for charts prepared using **DC.js**;
 
 - [DC.js](https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.js) and [DC.css (2.1.8)](https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.css)
    - The project used **DC.js** library to set up charts from prebuilt chart types available in the DC library;
@@ -145,6 +145,8 @@ List of features to be implemented in the future:
 - [D3.js](https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js) - **D3.js** library was used to edit and style prebuilt charts provided by **DC.js** library;
 
 - [Queue.js](https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js) - The project used **Queue.js** to bind external datasets (saved in the project folder) to the charts;
+
+- [jQuery](https://code.jquery.com/jquery-3.4.1.js) - The project used `show()` and `hide()` method to display loading spinner;
 
 - [Bootswatch](https://bootswatch.com/) - The project used **Bootswatch** "Superhero" theme for setting color pallete and card element to contain each chart;
 
