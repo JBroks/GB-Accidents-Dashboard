@@ -13,11 +13,20 @@ html {
     margin: 0;
 }
 
-.lds-ring {
+
+/* Spinner on data loading
+spinner animation found on CodePen: https://codepen.io/judecodes/pen/PrBOvG?&page=1 */
+
+.loader {
     z-index: 99;
-    display: inline-block;
-    width: 64px;
-    height: 64px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border-top: 2px solid #2477b4;
+    border-bottom: 2px solid transparent;
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
+    animation: spin 3s linear infinite forwards;
 
     position: absolute;
     top: 0;
@@ -27,45 +36,51 @@ html {
     margin: auto;
 }
 
-.lds-ring div {
-    box-sizing: border-box;
-    display: block;
+.loader::before,
+.loader::after {
+    content: "";
     position: absolute;
-    width: 51px;
-    height: 51px;
-    margin: 6px;
-    border: 6px solid #fff;
     border-radius: 50%;
-    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #fff transparent transparent transparent;
+    border-top: 2px solid inherit;
+    border-bottom: 2px solid transparent;
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
 }
 
-.lds-ring div:nth-child(1) {
-    animation-delay: -0.45s;
+.loader::before {
+    top: 7px;
+    left: 7px;
+    width: 178px;
+    height: 178px;
+    border-top: 2px solid #e6562e;
+    animation: spin 2s linear infinite forwards;
 }
 
-.lds-ring div:nth-child(2) {
-    animation-delay: -0.3s;
+.loader::after {
+    top: 16px;
+    left: 16px;
+    width: 160px;
+    height: 160px;
+    border-top: 2px solid #f2893c;
+    animation: spin 1s linear infinite forwards;
 }
 
-.lds-ring div:nth-child(3) {
-    animation-delay: -0.15s;
-}
-
-@keyframes lds-ring {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
+@keyframes spin {
+    to {
         transform: rotate(360deg);
     }
 }
 
+/* Overlay styled to dim the background for spinner */
+
 #overlay {
     z-index: 98;
+    position: fixed;
+    top: 0;
+    left: 0;
     height: 100%;
     width: 100%;
-    background: rgba(0, 0, 0, .2);
+    background: rgba(0, 0, 0, .5);
 }
 
 /* Styling of the dashboard title */
