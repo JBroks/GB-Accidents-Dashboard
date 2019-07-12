@@ -2,7 +2,7 @@
 
 Stream Two Project: Interactive Frontend Development - Milestone Project.
 
-![alt text](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/gif/mackbook-dashboard.gif "Gif")
+![alt text](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/gif/various-displays.gif "Gif")
 
 This is a data dashboard presenting analysis of 2017 road safety statistics for Great Britain.
 Statistics are published annually by [Department for Transport (DfT)](https://www.gov.uk/government/organisations/department-for-transport).
@@ -266,7 +266,9 @@ Chrome developer tools were used to additionally inspect responsiveness for the 
 
 - iPhone 6/7/8 Plus (portrait & landscape);
 
-- iPhone X (portrait & landscape).
+- iPhone X (portrait & landscape);
+
+- Android (Pixel 2) (portrait & landscape).
 
 Furthermore, [Responsinator](https://www.responsinator.com/) was used to test responsivness of the final version of the project. The website is fully responsive and working well on mobile devices.
 
