@@ -164,7 +164,7 @@ List of features to be implemented in the future:
 
 - [Gifox](https://gifox.io/) - Tool was used to record the gif presented in the demo secion of this README files;
 
-- [Photopea](https://www.photopea.com) - Online tool was used to edit the gif, namely to add it onto a photo;
+- [Am I Responsive](http://ami.responsivedesign.is/#) - Online tool was used to display the project on various devices;
 
 - [Adobe XD](https://www.adobe.com/ie/products/xd.html) - Software was used to create a project mockup;
 
@@ -326,13 +326,52 @@ The project was published on Code Institute Slack code-peer-review channel where
 
 ## Deployment
 
-This dashboard project is hosted using GitHub pages, deployed directly from the master branch. Detailed instructions on how to deploy a project on GitHub Pages can be found [here](https://help.github.com/en/articles/configuring-a-publishing-source-for-github-pages).
+The site was developed using AWS Cloud 9. To keep records of different version of al project files git version control system was used. 
 
-The deployed site will update automatically upon new commits to the master branch. It is important to remember that for the site to deploy correctly on GitHub pages, the landing page must be named `index.html`.
+In order to track the changes in the local repository the following steps were taken:
 
-In order to run this code locally, you can clone this repository directly into the editor of your choice by pasting `git clone https://github.com/JBroks/GB-Accidents-Dashboard.git` into your terminal.
+- command `git add` + file name - to update what will be commited;
 
-If you wish to remove connection with this remote GitHub repository, type `git remote rm origin` into the terminal.
+- command `git commit` - to commit the changes.
+
+Using `git push` command all changes from the local repository were pushed to the remote one.
+
+
+This dashboard project is hosted using GitHub pages, deployed directly from the `master` branch. 
+
+To deploy my dashboard project from GitHub I followed these steps:
+
+1. On GitHub website I logged into my account and navigated to [my repository](https://github.com/JBroks/GB-Accidents-Dashboard);
+
+2. Under my repository name, I clicked on **Settings** tab;
+
+3. I scrolled down to the **GitHub Pages** section;
+
+4. On the **Select source** drop-down menu I selected `master` as my GitHub Pages publishing source;
+
+5. I clicked **Save**.
+
+The deployed site will update automatically upon new commits to the `master` branch. It is important to remember that for the site to deploy correctly on GitHub pages, the landing page must be named `index.html`.
+
+In order to clone my GitHub repository to your local one you should follow these steps:
+
+1. On GitHub navigate to [my repository](https://github.com/JBroks/GB-Accidents-Dashboard);
+
+2. Under the repository name, click **Clone or download**;
+
+3. In the Clone with HTTPs section, copy the clone URL for the repository;
+
+4. Go to IDE that you are using and open terminal;
+
+5. Change the current working directory to the location where you want the cloned directory to be made;
+
+6. Type `git clone` and then paste the URL you copied in Step 3;
+
+```
+$ git clone https://github.com/JBroks/GB-Accidents-Dashboard.git
+```
+
+7. Lastly press **Enter** and your local repository will be created.
 
 ## Credits
 
@@ -341,8 +380,6 @@ If you wish to remove connection with this remote GitHub repository, type `git r
 Accident datasets were downloaded from the [DfT website](https://data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data).
 
 ### Media
-
-Photo used in demo gif preparation was sourced from [here](https://214.co/case-study/batsu/laptop-module-template/).
 
 Favicon used for the project was download from [here](https://icons8.com/icons/).
 
