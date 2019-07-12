@@ -1,3 +1,9 @@
+// Back to top button
+
+/**
+ * Function implements smooth scrolling back to top after clicking the button
+ */
+
 let btn = $('#button');
 
 $(window).scroll(function() {
