@@ -270,7 +270,7 @@ Chrome developer tools were used to additionally inspect responsiveness for the 
 
 - Android (Pixel 2) (portrait & landscape).
 
-Furthermore, [Responsinator](https://www.responsinator.com/) was used to test responsivness of the final version of the project. The website is fully responsive and working well on mobile devices.
+Furthermore, [Responsinator](https://www.responsinator.com/) was used to test responsiveness of the final version of the project. The website is fully responsive and working well on mobile devices.
 
 #### Bugs:
 
@@ -302,7 +302,7 @@ The project was published on Code Institute Slack code-peer-review channel where
 
 **User Story 5:** 
 
-- Solution: Dashboard provides a user with information about average daily, peak hour and annual total figures (`dc.numberDisplay`) which are useful in the cost benefit analysis calcualtions.
+- Solution: Dashboard provides a user with information about average daily, peak hour and annual total figures (`dc.numberDisplay`) which are useful in the cost benefit analysis calculations.
 
 **User Story 6:** 
 
@@ -322,7 +322,7 @@ The project was published on Code Institute Slack code-peer-review channel where
 
 **User Story 10:**
 
-- Solution: Reset all feature was included at the botom of the dashboard to enable users to reset all filters at once.
+- Solution: Reset all feature was included at the bottom of the dashboard to enable users to reset all filters at once.
 
 ## Deployment
 
@@ -330,7 +330,7 @@ The site was developed using AWS Cloud 9. To keep records of different version o
 
 In order to track the changes in the local repository the following steps were taken:
 
-- command `git add` + file name - to update what will be commited;
+- command `git add` + file name - to update what will be committed;
 
 - command `git commit` - to commit the changes.
 
@@ -405,6 +405,6 @@ Many thanks to my mentor **Maranatha Ilesanmi** for support and advice throughou
 
 Many thanks to Simen Daehlin mentor at Code Institute for useful comments on my project.
 
-### Disclamer
+### Disclaimer
 
 *This is for educational use.*
