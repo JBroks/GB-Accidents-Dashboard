@@ -17,12 +17,15 @@
 </head>
 
 <body>
-  
-<!-- Spinner on data loading -->
-    <div id="overlay">
-      <div class="loader"></div>
-    </div>
-    
+
+  <!-- Spinner on data loading -->
+  <div id="overlay">
+    <div class="loader"></div>
+  </div>
+
+  <!-- Back to top button -->
+  <a id="button"></a>
+
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
@@ -31,19 +34,24 @@
   </nav>
 
   <main>
-    
+
     <div class="container-fluid">
 
       <!-- Dashboard section containing heading and region selector  -->
       <section>
         <div class="container-fluid">
           <div class="row mb-4 mt-3">
-            <div class="col-lg-8 col-md-12">
+            <div class="col-xl-8 col-lg-12 px-2">
               <h1>Reported road accidents in Great Britain: 2017</h1>
             </div>
             <!-- Regional selector added so user is able to see totals for the GB or filter data by region -->
-            <div class="col-lg-4 col-md-12 d-flex justify-content-lg-end justify-content-md-start">
-              <div id="region-selector"></div>
+            <div class="col-xl-4 col-lg-12 px-2 mt-2">
+              <div class="row">
+                <div class="col-xl-6 col-lg-12 d-flex justify-content-xl-end justify-content-lg-start">Filter by region:</div>
+                <div class="col-xl-6 col-lg-12 d-flex justify-content-xl-start justify-content-lg-start">
+                  <div id="region-selector"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -307,6 +315,7 @@
   <script src="assets/js/dc.min.js"></script>
   <script src="assets/js/queue.min.js"></script>
   <script src="assets/js/graph.js"></script>
+  <script src="assets/js/script.js"></script>
 
 </body>
 

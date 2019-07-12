@@ -91,6 +91,8 @@ The dashboard consists of the following features:
 
 - **Spinner** -  jQuery method `show()` and `hide()` was used to create spinner showing while data is loading;
 
+- **Back to top button** - back to top button was implemented so user can go back to the top of the page without scrolling back. The feature is especially useful on mobile devices.
+
 - **Navbar** - navbar contains the dashboard name;
 
 - **Region selector** - this `dc.selectMenu` feature allows users to filter out data for a particular region of Great Britain by selecting it from the list;
@@ -188,10 +190,9 @@ All errors and warning were addressed except the following: "Section lacks headi
 
 #### JavaScript
 
-JavaScript code was validated using [JSHint](https://jshint.com/) and [Beautify Tools](http://beautifytools.com/javascript-validator.php).
+JavaScript code was validated using [JSHint](https://jshint.com/).
 
-Both validators have indicated that there are four unknown / undefined variables, namely queue, dc, d3, and crossfilter. The warning was ignored as I believe it is due to the fact that these libaries are separated and the validator dose not have access to them.
-
+Validator has indicated that there are five unknown / undefined variables, namely $, queue, dc, d3, and crossfilter. The warning was ignored as I believe it is due to the fact that these libaries are separated and the validator dose not have access to them. Furthermore, **JSHint** shown the following warning: *'let' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).* However, after setting configuration to assume *New JavaScript features (ES6)* this warning disappeared.
 
 ### Features testing
 
@@ -244,6 +245,12 @@ Reset all button was tested to confirm that is brings all chart results and regi
 #### Links
 
 Source and copyrights links were tested and will open in a new tab using `target="_blank"`. All links have been manually tested to ensure that they are pointing to the correct destination.
+
+#### Spinner
+
+##### Bugs:
+
+Spinner was tested and it was discovered that the overlay is only covering the extent of the viewport, so when user scrolled down dim effect was cut off. This was resolved by adjustment applied to position, i.e. `position: fixed`.
 
 ### Responsivness testing
 
@@ -351,10 +358,14 @@ Solution that enabled label rotation can be found in [here](https://groups.googl
 
 Reset all and data count solution inspired by [this](https://codepen.io/danshultz11/pen/ZBvjGV) code.
 
+Spinner animation found on [Codepen](https://codepen.io/judecodes/pen/PrBOvG?&page=1).
+
+Back to top button was inspired by [this](https://codepen.io/matthewcain/pen/ZepbeR) Codepen solution.
+
 Many thanks to my mentor **Maranatha Ilesanmi** for support and advice throughout the project.
 
 Many thanks to Simen Daehlin mentor at Code Institute for useful comments on my project.
 
-#### Disclamer
+### Disclamer
 
-**This is for educational use.**
+*This is for educational use.*

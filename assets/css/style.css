@@ -41,7 +41,7 @@ spinner animation found on CodePen: https://codepen.io/judecodes/pen/PrBOvG?&pag
     content: "";
     position: absolute;
     border-radius: 50%;
-    border-top: 2px solid inherit;
+    border-top: 2px solid #2477b4;
     border-bottom: 2px solid transparent;
     border-left: 2px solid transparent;
     border-right: 2px solid transparent;
@@ -82,6 +82,49 @@ spinner animation found on CodePen: https://codepen.io/judecodes/pen/PrBOvG?&pag
     width: 100%;
     background: rgba(0, 0, 0, .5);
 }
+
+/* Back to top button inspired by this Codepen solution: https://codepen.io/matthewcain/pen/ZepbeR */
+
+#button {
+  display: inline-block;
+  background-color: transparent;
+  color: #e0691a;
+  border: 1px solid #e0691a;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 4px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  transition: background-color .3s, 
+    opacity .5s, visibility .5s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+}
+#button::after {
+  content: "\f077";
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 2em;
+  line-height: 50px;
+}
+#button:hover {
+  cursor: pointer;
+  background-color: #e0691a;
+  color: #ffffff;
+}
+#button:active {
+  color: #ffffff;
+  background-color: #e0691a;
+}
+#button.show {
+  opacity: 1;
+  visibility: visible;
+}
+
 
 /* Styling of the dashboard title */
 
@@ -131,11 +174,12 @@ h2 {
     text-transform: uppercase;
 }
 
+
+
 /* Region selector menu styling */
 
-#region-selector {
-    margin-top: 10px;
-    margin-bottom: 10px;
+.selector-label {
+    padding-right: 15px;
 }
 
 #region-selector select {

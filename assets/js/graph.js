@@ -29,7 +29,7 @@ function makeGraphs(error, accData, accData16) {
         d.hour = parseInt(d.hour);
     });
 
-    // Convert date to tdate data types
+    // Convert date to time data types
 
     let parseDate = d3.time.format("%d/%m/%Y").parse;
     accData.forEach(function(d) {
@@ -69,6 +69,10 @@ function makeGraphs(error, accData, accData16) {
     dc.renderAll();
 
 }
+
+// Const for the block
+
+const numberOfDaysPerYear = 365;
 
 // CHART FUNCTIONS
 
@@ -487,7 +491,6 @@ function showAccidentsAvg(dataFor2017) {
         .formatNumber(d3.format(",.0f"))
         .group(totalAcc)
         .valueAccessor(function(d) {
-            let numberOfDaysPerYear = 365;
             return (d.value / numberOfDaysPerYear);
         });
 }
@@ -500,7 +503,6 @@ function showCasualtiesAvg(dataFor2017) {
         .formatNumber(d3.format(",.0f"))
         .group(totalAcc)
         .valueAccessor(function(d) {
-            let numberOfDaysPerYear = 365;
             return (d.value / numberOfDaysPerYear);
         });
 }
@@ -516,7 +518,6 @@ function showCasualtiesAvg(dataFor2017) {
 
 function showPeakHrAcc(dataFor2017) {
     let dim = dataFor2017.dimension(dc.pluck("hour"));
-
     let totalAccByHour = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
     dc.numberDisplay('#accidents-peak-hr')
@@ -533,14 +534,12 @@ function showPeakHrAcc(dataFor2017) {
  */
 function showPeakHrAccValue(dataFor2017) {
     let dim = dataFor2017.dimension(dc.pluck("hour"));
-
     let totalAccByHour = dim.group().reduceSum(dc.pluck("number_of_accidents"));
 
     dc.numberDisplay('#accidents-peak-value')
         .formatNumber(d3.format(",.0f"))
         .group(totalAccByHour)
         .valueAccessor(function(d) {
-            let numberOfDaysPerYear = 365;
             return totalAccByHour.top(1)[0].value / numberOfDaysPerYear;
         });
 }
@@ -553,7 +552,6 @@ function showPeakHrAccValue(dataFor2017) {
  */
 function showPeakHrCas(dataFor2017) {
     let dim = dataFor2017.dimension(dc.pluck("hour"));
-
     let totalCasByHour = dim.group().reduceSum(dc.pluck("number_of_casualties"));
 
     dc.numberDisplay('#casualties-peak-hr')
@@ -571,14 +569,12 @@ function showPeakHrCas(dataFor2017) {
 
 function showPeakHrCasValue(dataFor2017) {
     let dim = dataFor2017.dimension(dc.pluck("hour"));
-
     let totalCasByHour = dim.group().reduceSum(dc.pluck("number_of_casualties"));
 
     dc.numberDisplay('#casualties-peak-value')
         .formatNumber(d3.format(",.0f"))
         .group(totalCasByHour)
         .valueAccessor(function(d) {
-            let numberOfDaysPerYear = 365;
             return totalCasByHour.top(1)[0].value / numberOfDaysPerYear;
         });
 }
