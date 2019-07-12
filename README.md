@@ -89,6 +89,8 @@ Additionally [this](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master
 
 The dashboard consists of the following features:
 
+- **Spinner** -  jQuery method `show()` and `hide()` was used to create spinner showing while data is loading;
+
 - **Navbar** - navbar contains the dashboard name;
 
 - **Region selector** - this `dc.selectMenu` feature allows users to filter out data for a particular region of Great Britain by selecting it from the list;
@@ -105,7 +107,7 @@ The dashboard consists of the following features:
 
 - **Records count** - `dc.dataCount` feature presenting count of records selected from the 2017 dataset;
 
-- **Reset all** - feature that enables users to reset all their selection;
+- **Reset all button** - feature that enables users to reset all their selection;
 
 - **Footer** - simple footer containing link to the original **DfT** dataset and link to the data copyrights.
 
@@ -119,7 +121,7 @@ List of features to be implemented in the future:
 
 - Add available datasets for other years and add a year selector to the dashboard;
 
-- **Bootstrap** `popovers` containing explanation / user instruction attached to each chart tile;
+- Bootstrap `popovers` containing explanation / user instruction attached to each chart tile;
 
 - Implement `dc.geoChoroplethChart` feature using GeoJson data to present statistics on the GB regional map.
 
@@ -177,6 +179,7 @@ CSS code was validated using the [W3C CSS Validation Service - Jigsaw](https://j
 While validating CSS code the following warrning appeared: "Imported style sheets are not checked in direct input and file upload modes". Warning was investigated and [this](https://stackoverflow.com/questions/25946111/importing-css-is-ending-up-with-an-error) Stack Overflow thread explained that it is just an information that imported style sheet will not be validated.
 
 #### HTML
+
 HTML code was validated using the [W3C Markup Validation Service](https://validator.w3.org/).
 
 All errors and warning were addressed except the following: "Section lacks heading. Consider using h2-h6 elements to add identifying headings to all sections." The warning appears in four instances due to lack of a heading. Since each charts has a title placed in the `card-header` I decide to leave this warning as there is no need for additional section heading.
@@ -264,6 +267,10 @@ Bugs that were noticed during the testing were fixed using **Bootstrap** classes
 
 Initially dashboard was not responsive on mobile devices, however I was able to find the `viewBox` solution on [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox) that helped me to fix that issue.
 
+### Peer-code-review
+
+The project was published on Code Institute Slack code-peer-review channel where other students and mentors tested the site, reviewed the code and provided a useful feedback that was then implemented.
+
 ### User stories testing
 
 **User Story 1:**
@@ -325,6 +332,8 @@ Accident datasets were downloaded from the [DfT website](https://data.gov.uk/dat
 ### Media
 
 Photo used in demo gif preparation was sourced from [here](https://214.co/case-study/batsu/laptop-module-template/).
+
+Favicon used for the project was download from [here](https://icons8.com/icons/).
 
 ### Acknowledgements
 
