@@ -85,49 +85,51 @@ spinner animation found on CodePen: https://codepen.io/judecodes/pen/PrBOvG?&pag
 /* Back to top button inspired by this Codepen solution: https://codepen.io/matthewcain/pen/ZepbeR */
 
 #button {
-  display: inline-block;
-  background-color: transparent;
-  color: #e0691a;
-  border: 1px solid #e0691a;
-  width: 50px;
-  height: 50px;
-  text-align: center;
-  border-radius: 3px;
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  transition: background-color .3s, 
+    display: inline-block;
+    background-color: transparent;
+    color: #df692c;
+    border: 1px solid #df692c;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 3px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: background-color .3s,
     opacity .5s, visibility .5s;
-  opacity: 0;
-  visibility: hidden;
-  z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
 }
+
 #button::after {
-  content: "\f077";
-  font-family: FontAwesome;
-  font-weight: normal;
-  font-style: normal;
-  font-size: 2em;
-  line-height: 50px;
+    content: "\f077";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2em;
+    line-height: 50px;
 }
-#button:hover {
-  cursor: pointer;
-  background-color: #e0691a;
-  color: #ffffff;
-}
+
 #button:active {
   color: #ffffff;
-  background-color: #e0691a;
+  background-color: #df692c;
 }
+
 #button.show {
-  opacity: 1;
-  visibility: visible;
+    opacity: 1;
+    visibility: visible;
 }
 
 /* Reset button */
 
-.reset-button{
+#reset-button {
     border-radius: 3px;
+}
+
+#reset-button:focus {
+    box-shadow: none;
 }
 
 /* Styling of the dashboard title */
@@ -174,7 +176,8 @@ h2 {
 
 /* Card titles and filter label styled to uppercase */
 
-.card-header, .selector-label{
+.card-header,
+.selector-label {
     text-transform: uppercase;
 }
 
@@ -282,7 +285,8 @@ a:hover {
         font-size: 1.5rem;
     }
 
-    .card-header, .selector-label {
+    .card-header,
+    .selector-label {
         font-size: 0.7rem;
     }
 
@@ -306,7 +310,8 @@ a:hover {
         font-size: 2rem;
     }
 
-    .card-header, .selector-label {
+    .card-header,
+    .selector-label {
         font-size: 1rem;
     }
 
@@ -329,5 +334,15 @@ a:hover {
 @media only screen and (max-width: 375px) {
     #severity-distribution {
         height: 250px;
+    }
+}
+
+/* Solution to sticky hover on mobile devices found here: https://medium.com/@ferie/detect-a-touch-device-with-only-css-9f8e30fa1134 */
+
+@media (hover: hover) {
+    #button:hover {
+        cursor: pointer;
+        background-color: #df692c;
+        color: #ffffff;
     }
 }

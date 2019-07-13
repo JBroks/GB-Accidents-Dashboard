@@ -182,6 +182,8 @@ CSS code was validated using the [W3C CSS Validation Service - Jigsaw](https://j
 
 While validating CSS code the following warrning appeared: "Imported style sheets are not checked in direct input and file upload modes". Warning was investigated and [this](https://stackoverflow.com/questions/25946111/importing-css-is-ending-up-with-an-error) Stack Overflow thread explained that it is just an information that imported style sheet will not be validated.
 
+Also this warnning remains unresolved: "`hover` is an unknown vendor extension" since the validator does not recognise vendor specfic extensions.
+
 #### HTML
 
 HTML code was validated using the [W3C Markup Validation Service](https://validator.w3.org/).
@@ -195,6 +197,14 @@ JavaScript code was validated using [JSHint](https://jshint.com/).
 Validator has indicated that there are five unknown / undefined variables, namely $, queue, dc, d3, and crossfilter. The warning was ignored as I believe it is due to the fact that these libaries are separated and the validator dose not have access to them. Furthermore, **JSHint** shown the following warning: *'let' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).* However, after setting configuration to assume *New JavaScript features (ES6)* this warning disappeared.
 
 ### Features testing
+
+#### Back to top button
+
+##### Bugs:
+
+While testing this button on mobile devices 'sticky' hover effect was noticed. That issue was resolved using `@media (hover: hover)` solution. However while validating CSS code the following warning came up: "`hover` is an unknown vendor extension". 
+
+This solution will have to be replaced with a better one in the future, ideally with one that will resolve this issue for all buttons.
 
 #### Charts
 
@@ -241,6 +251,10 @@ Initially I have tried to make the sparkline chart not to interact with other ch
 #### Reset All
 
 Reset all button was tested to confirm that is brings all chart results and regional selection to the default (i.e. 'All Regions' selection without filters applied).
+
+##### Bugs:
+
+While testing this button on mobile devices 'sticky' hover effect was noticed. In this case `@media (hover: hover)` solution did not work as this button was created using bootstrap styles. This remains as unresolved bug for now.
 
 #### Links
 
@@ -407,9 +421,11 @@ Spinner animation found on [Codepen](https://codepen.io/judecodes/pen/PrBOvG?&pa
 
 Back to top button was inspired by [this](https://codepen.io/matthewcain/pen/ZepbeR) Codepen solution.
 
+Solution to 'sticky' hover on mobile devices found [here](https://medium.com/@ferie/detect-a-touch-device-with-only-css-9f8e30fa1134).
+
 Many thanks to my mentor **Maranatha Ilesanmi** for support and advice throughout the project.
 
-Many thanks to Simen Daehlin mentor at Code Institute for useful comments on my project.
+Many thanks to **Simen Daehlin** mentor at Code Institute for useful comments on my project.
 
 ### Disclaimer
 

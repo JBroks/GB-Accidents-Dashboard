@@ -19,10 +19,3 @@ btn.on('click', function(d) {
   $('html, body').animate({scrollTop:0}, '300');
 });
 
-// Fix for the touch screen hover effect issue 
-
-/**
- * jQuery solution to sticky hover on touch screen devices
- */
-
-$("*").on("click, touchend", function(e) { $(this).focus(); }); 
