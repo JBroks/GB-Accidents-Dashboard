@@ -25,4 +25,4 @@ btn.on('click', function(d) {
  * jQuery solution to sticky hover on touch screen devices
  */
 
-$("a:").on("touchend", function(e) { $(this).focus(); });
+$("*").on("click, touchend", function(e) { $(this).focus(); }); 
