@@ -180,9 +180,9 @@ List of features to be implemented in the future:
 
 CSS code was validated using the [W3C CSS Validation Service - Jigsaw](https://jigsaw.w3.org/css-validator/).
 
-While validating CSS code the following warrning appeared: "Imported style sheets are not checked in direct input and file upload modes". Warning was investigated and [this](https://stackoverflow.com/questions/25946111/importing-css-is-ending-up-with-an-error) Stack Overflow thread explained that it is just an information that imported style sheet will not be validated.
+While validating CSS code the following warning appeared: "Imported style sheets are not checked in direct input and file upload modes". Warning was investigated and [this](https://stackoverflow.com/questions/25946111/importing-css-is-ending-up-with-an-error) Stack Overflow thread explained that it is just an information that imported style sheet will not be validated.
 
-Also this warnning remains unresolved: "`hover` is an unknown vendor extension" since the validator does not recognise vendor specfic extensions.
+Also, this warning remains unresolved: "`hover` is an unknown vendor extension" since the validator does not recognise vendor specific extensions.
 
 #### HTML
 
