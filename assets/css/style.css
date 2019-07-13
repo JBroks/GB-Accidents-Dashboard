@@ -319,7 +319,8 @@ a:hover {
         font-size: 1rem;
     }
 
-    /* height adjusted to reduce space at top and the bottom of the chart (within the card) */
+/* height adjusted to reduce space at top and the bottom of the chart (within the card) */
+
     #composite-hour,
     #composite-month {
         height: 120px;

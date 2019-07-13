@@ -4,11 +4,12 @@
  * This is jQuery method that activates the overlay div containing spinner
  * This was implemented so the user can see the loading spinner instead of empty charts while the data is loading
  */
+ 
 $("#overlay").show();
 
 queue()
-    .defer(d3.csv, "assets/data/Accidents2017.csv")
-    .defer(d3.csv, "assets/data/Accidents2016.csv")
+    .defer(d3.csv, "assets/data/accidents2017.csv")
+    .defer(d3.csv, "assets/data/accidents2016.csv")
     .await(makeGraphs);
 
 function makeGraphs(error, accData, accData16) {
@@ -59,10 +60,12 @@ function makeGraphs(error, accData, accData16) {
     showRecordsCount(dataFor2017);
 
     // Spinner hide method
+    
     /**
      * This is jQuery method that hides the overlay div containing spinner
      * When data is loaded spinner with overlay will be hidden
      */
+     
     $("#overlay").hide();
 
     // Render all charts
@@ -76,6 +79,7 @@ const numberOfDaysPerYear = 365;
 
 // CHART FUNCTIONS
 
+// Filter by region
 
 /**
  * Region selecter to enable user to choose region of Great Britain
@@ -532,6 +536,7 @@ function showPeakHrAcc(dataFor2017) {
  * it then evaluates which hour in a day shows the highest number of accidents and displays that value divided by number of days per year
  * The final result instead of showing annual total shows daily average for a peak hour
  */
+ 
 function showPeakHrAccValue(dataFor2017) {
     let dim = dataFor2017.dimension(dc.pluck("hour"));
     let totalAccByHour = dim.group().reduceSum(dc.pluck("number_of_accidents"));
@@ -550,6 +555,7 @@ function showPeakHrAccValue(dataFor2017) {
  * This function adds up all casualties and groups them by hour
  * it then evaluates which hour in a day shows the highest number of casualties and displays that hour (key)
  */
+ 
 function showPeakHrCas(dataFor2017) {
     let dim = dataFor2017.dimension(dc.pluck("hour"));
     let totalCasByHour = dim.group().reduceSum(dc.pluck("number_of_casualties"));
@@ -692,7 +698,6 @@ function showAccidentsMonth(dataFor2017) {
  * Data points cut off issue was resolved by applying elasticX / elasticY and xAxisPadding / yAxisPadding
  * Since the hour labels in their initial position were overlapping, rotation transformation was applied
  */
-
 
 function showAccidentsHour(dataFor2017) {
     let dim = dataFor2017.dimension(dc.pluck("hour"));

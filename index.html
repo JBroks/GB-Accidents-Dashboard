@@ -9,8 +9,8 @@
 
   <!-- Load stylesheets -->
   <link rel="shortcut icon" type="image/png" href="assets/favicons/favicon.png" />
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css" />
-  <link rel="stylesheet" href="assets/css/dc.min.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/libraries/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="assets/css/libraries/dc.min.css" type="text/css" />
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
 
@@ -40,10 +40,13 @@
       <!-- Dashboard section containing heading and region selector  -->
       <section>
         <div class="container-fluid">
+
           <div class="row mb-4 mt-3">
+
             <div class="col-xl-12 px-2">
               <h1>Reported road accidents in Great Britain: 2017</h1>
             </div>
+
             <!-- Regional selector added so user is able to see totals for the GB or filter data by region -->
             <div class="col-xl-12 px-2 mt-4">
               <div class="row">
@@ -53,14 +56,16 @@
                 </div>
               </div>
             </div>
+
           </div>
+
         </div>
       </section>
 
       <!-- Dashboard section containing three tiles with summary statistics -->
-
       <section>
         <div class="container-fluid">
+
           <div class="row">
 
             <!-- Total accidents tile -->
@@ -97,18 +102,17 @@
             </div>
 
           </div>
+
         </div>
       </section>
 
       <!-- Dashboard section containing accidents analysis by severity, road type and speed limit -->
-
       <section>
-
         <div class="container-fluid">
 
-          <!-- Pie chart presenting accidents by severity level -->
-
           <div class="row">
+
+            <!-- Pie chart presenting accidents by severity level -->
             <div class="col-xl-4 col-md-6 col-sm-12 px-2">
               <div class="card text-white bg-secondary mb-3 shadow-box box tile-s2">
                 <div class="card-header">Accidents by severity</div>
@@ -119,7 +123,6 @@
             </div>
 
             <!-- Pie chart presenting accidents by road type -->
-
             <div class="col-xl-4  col-md-6 col-sm-12 px-2">
               <div class="card text-white bg-secondary mb-3 shadow-box box tile-s2">
                 <div class="card-header">Accidents by road type</div>
@@ -130,7 +133,6 @@
             </div>
 
             <!-- Stacked chart presenting accidents by severity level and road speed limit -->
-
             <div class="col-xl-4 col-md-12 col-sm-12 px-2">
               <div class="card text-white bg-secondary mb-3 shadow-box box tile-s2" id="stacked-chart">
                 <div class="card-header">Accident severity by speed limit</div>
@@ -143,17 +145,15 @@
           </div>
 
         </div>
-
       </section>
 
       <!-- Dashboard section presenting average daily and peak hour values -->
-
       <section>
         <div class="container-fluid">
+
           <div class="row">
 
             <!-- Average per day statistics -->
-
             <div class="col-xl-4 col-md-4 px-2">
               <div class="card text-white bg-secondary mb-3 shadow-box box tile-s3">
                 <div class="card-header">Average per day</div>
@@ -179,11 +179,9 @@
               </div>
             </div>
 
-
             <!-- Peak hour statistics -->
 
             <!-- Peak hour accidents tile -->
-
             <div class="col-xl-4 col-md-4 px-2">
               <div class="card text-white bg-secondary mb-3 shadow-box box tile-s3">
                 <div class="card-header">Accidents peak time</div>
@@ -210,7 +208,6 @@
             </div>
 
             <!-- Peak hour casualties tile -->
-
             <div class="col-xl-4 col-md-4 px-2">
               <div class="card text-white bg-secondary mb-3 shadow-box box tile-s3">
                 <div class="card-header">Casualties peak time</div>
@@ -237,17 +234,17 @@
             </div>
 
           </div>
+
         </div>
       </section>
 
       <!-- Dashboard section presenting monthly and hourly accident profils -->
-
       <section>
         <div class="container-fluid">
+
           <div class="row">
 
             <!-- Line chart presenting accidents by month -->
-
             <div class="col-xl-6 col-lg-12 px-2">
               <div class="card text-white bg-secondary mb-3 shadow-box box tile-s4">
                 <div class="card-header">Monthly distribution of annual totals</div>
@@ -258,7 +255,6 @@
             </div>
 
             <!-- Line chart presenting accidents by hour -->
-
             <div class="col-xl-6 col-lg-12 px-2">
               <div class="card text-white bg-secondary mb-3 shadow-box box tile-s4">
                 <div class="card-header">Hourly distribution of annual totals</div>
@@ -269,23 +265,27 @@
             </div>
 
           </div>
+
         </div>
       </section>
 
       <!-- Data records count and Reset Alll button -->
       <section>
         <div class="container-fluid">
+
           <div class="row">
+
             <div class="col-xl-12 d-flex justify-content-center">
               <div class="dc-data-count text-center">
                 <div class="row">
                   <div class="col-12"><span class="filter-count"></span> selected out of <span class="total-count"></span> records</div>
                   <div class="col-12 mt-2 mb-2"><a href="javascript:dc.filterAll(); dc.renderAll();" id="reset-button" class="btn btn-outline-primary" role="button">Reset All</a></div>
                 </div>
-
               </div>
             </div>
+
           </div>
+
         </div>
       </section>
 
@@ -294,26 +294,25 @@
   </main>
 
   <!-- Footer -->
-
   <footer>
-
     <div class="container-fluid">
 
       <div class="row">
+        
         <div class="col-lg-6 col-md-12 col-sm-12 text-center footer-item">Source: <a href="https://data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data" target="_blank" rel="noopener">DfT</a></div>
         <div class="col-lg-6 col-md-12 col-sm-12 text-center footer-item"><a href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/" target="_blank" rel="noopener"> &copy; Crown copyright</a></div>
+      
       </div>
 
     </div>
-
   </footer>
 
   <!-- js files -->
-  <script src="assets/js//jquery-3.4.1.js"></script>
-  <script src="assets/js/d3.min.js"></script>
-  <script src="assets/js/crossfilter.min.js"></script>
-  <script src="assets/js/dc.min.js"></script>
-  <script src="assets/js/queue.min.js"></script>
+  <script src="assets/js/libraries/jquery-3.4.1.js"></script>
+  <script src="assets/js/libraries/d3.min.js"></script>
+  <script src="assets/js/libraries/crossfilter.min.js"></script>
+  <script src="assets/js/libraries/dc.min.js"></script>
+  <script src="assets/js/libraries/queue.min.js"></script>
   <script src="assets/js/graph.js"></script>
   <script src="assets/js/script.js"></script>
 

@@ -18,4 +18,3 @@ btn.on('click', function(d) {
   d.preventDefault();
   $('html, body').animate({scrollTop:0}, '300');
 });
-

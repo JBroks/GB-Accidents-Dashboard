@@ -75,13 +75,13 @@ The following user stories were used to design this data dashboard:
 
 The following wireframe sketches were created to design the dashboard layout options:
 
-- [Mobile display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/wireframes/Mobile-Display-Wireframe.pdf)
+- [Mobile display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/wireframes/mobile-display-wireframe.pdf)
    
-- [Medium display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/wireframes/Medium-Display-Wireframe.pdf)
+- [Medium display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/wireframes/medium-display-wireframe.pdf)
 
-- [Desktop display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/wireframes/Desktop-Display-Wireframe.pdf)
+- [Desktop display](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/wireframes/desktop-display-wireframe.pdf)
 
-Additionally [this](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/wireframes/Dashboard-mockup.png) mockup for a desktop display was created using **Adobe XD**.
+Additionally [this](https://github.com/JBroks/GB-Accidents-Dashboard/blob/master/wireframes/dashboard-mockup.png) mockup for a desktop display was created using **Adobe XD**.
 
 ## Features
 
