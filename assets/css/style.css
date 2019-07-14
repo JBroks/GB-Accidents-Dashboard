@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:300,400&display=swap");
 
+/* BODY & HTML */
 body {
     font-family: "Lato", sans-serif;
     font-weight: 400;
@@ -13,6 +14,23 @@ html {
     margin: 0;
 }
 
+/* HEADINGS */
+/* Styling of the dashboard title */
+
+h1 {
+    margin: 0;
+}
+
+/* Styling of heading 2 */
+
+h2 {
+    font-size: 1rem;
+    font-weight: 300;
+    margin-bottom: 0;
+    margin-top: 15px;
+}
+
+/* SPINNER */
 /* Spinner on data loading
 spinner animation found on CodePen: https://codepen.io/judecodes/pen/PrBOvG?&page=1 */
 
@@ -82,13 +100,14 @@ spinner animation found on CodePen: https://codepen.io/judecodes/pen/PrBOvG?&pag
     background: rgba(0, 0, 0, .5);
 }
 
+/* BACK TO TOP BUTTON */
 /* Back to top button inspired by this Codepen solution: https://codepen.io/matthewcain/pen/ZepbeR */
 
 #button {
     display: inline-block;
     background-color: transparent;
-    color: #df692c;
-    border: 1px solid #df692c;
+    color: #DF691A;
+    border: 1px solid #DF691A;
     width: 50px;
     height: 50px;
     text-align: center;
@@ -113,8 +132,8 @@ spinner animation found on CodePen: https://codepen.io/judecodes/pen/PrBOvG?&pag
 }
 
 #button:active {
-  color: #ffffff;
-  background-color: #df692c;
+    color: #ffffff;
+    background-color: #DF691A;
 }
 
 #button.show {
@@ -122,31 +141,24 @@ spinner animation found on CodePen: https://codepen.io/judecodes/pen/PrBOvG?&pag
     visibility: visible;
 }
 
-/* Reset button */
+/* REGIONAL SELECTOR */
+/* Region selector menu styling */
 
-#reset-button {
-    border-radius: 3px;
-}
-
-#reset-button:focus {
-    box-shadow: none;
-}
-
-/* Styling of the dashboard title */
-
-h1 {
-    margin: 0;
-}
-
-/* Styling of heading 2 */
-
-h2 {
+#region-selector select {
+    background: #5d6b78;
+    border: #445360;
+    color: #ebebeb;
     font-size: 1rem;
-    font-weight: 300;
-    margin-bottom: 0;
-    margin-top: 15px;
 }
 
+/* Select menu styling to match bootstrap theme */
+
+select {
+    background: #4e5d6c;
+    color: #ebebeb;
+}
+
+/* CARDS */
 /* Increasing size of font awesome icons */
 
 .fa {
@@ -179,22 +191,6 @@ h2 {
 .card-header,
 .selector-label {
     text-transform: uppercase;
-}
-
-/* Region selector menu styling */
-
-#region-selector select {
-    background: #5d6b78;
-    border: #445360;
-    color: #ebebeb;
-    font-size: 1rem;
-}
-
-/* Select menu styling to match bootstrap theme */
-
-select {
-    background: #4e5d6c;
-    color: #ebebeb;
 }
 
 /* Number box font size increased to make it more prominent */
@@ -230,12 +226,24 @@ select {
     width: 380px;
 }
 
+/* DATA COUNT & RESET
 /* Changing default margins to create some space between count feature and other sections */
 
 .dc-data-count {
     margin: 10px 0;
 }
 
+/* Reset button  - border-radius added to match back0to0top button and shadow box removed*/
+
+#reset-button {
+    border-radius: 3px;
+}
+
+#reset-button:focus {
+    box-shadow: none;
+}
+
+/* FOOTER */
 /* adding margin so footer ellements have some space inbetween on smaller devices */
 
 .footer-item {
@@ -251,12 +259,15 @@ a:hover {
 /* MEDIA QUERIES */
 
 @media only screen and (min-width: 1200px) {
+    
     .tile-s2 {
         min-height: 30rem;
     }
+    
 }
 
 @media only screen and (max-width: 1200px) {
+    
     h1 {
         font-size: 1.9rem;
     }
@@ -264,11 +275,13 @@ a:hover {
     #stacked-chart {
         max-width: 70rem;
     }
+    
 }
 
 @media only screen and (max-width: 992px) {
+    
     .card-header {
-        font-size: 0.80rem;
+        font-size: 0.7rem;
     }
 
     .number-box span {
@@ -306,6 +319,7 @@ a:hover {
 /* Adjustments to font sizes to avoid line break */
 
 @media only screen and (max-width: 576px) {
+    
     h1 {
         font-size: 2rem;
     }
@@ -319,8 +333,7 @@ a:hover {
         font-size: 1rem;
     }
 
-/* height adjusted to reduce space at top and the bottom of the chart (within the card) */
-
+    /* height adjusted to reduce space at top and the bottom of the chart (within the card) */
     #composite-hour,
     #composite-month {
         height: 120px;
@@ -330,20 +343,25 @@ a:hover {
     #rd-type-split {
         height: 260px;
     }
+    
 }
 
 @media only screen and (max-width: 375px) {
+    
     #severity-distribution {
         height: 250px;
     }
+    
 }
 
 /* Solution to sticky hover on mobile devices found here: https://medium.com/@ferie/detect-a-touch-device-with-only-css-9f8e30fa1134 */
 
 @media (hover: hover) {
+    
     #button:hover {
         cursor: pointer;
-        background-color: #df692c;
+        background-color: #DF691A;
         color: #ffffff;
     }
+    
 }
