@@ -292,7 +292,7 @@ a:hover {
 
 /* media query created to make number display element look better, to add more space between the chart and the number */
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 
     .number-box span {
         font-size: 1.5rem;
@@ -300,7 +300,7 @@ a:hover {
 
     .card-header,
     .selector-label {
-        font-size: 0.7rem;
+        font-size: 0.8rem;
     }
 
     #accidents-severity,
