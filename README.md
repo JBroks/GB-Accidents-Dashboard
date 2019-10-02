@@ -9,7 +9,7 @@ Statistics are published annually by [Department for Transport (DfT)](https://ww
 
 Dashboard consists of the following sections:
 
-1. Dashbord heading - first section consists of dashbord title and region selector;
+1. Dashboard heading - first section consists of dashboard title and region selector;
 
 2. Summary totals - second section presents tiles showing annual number of accidents, casualties and vehicles involved;
 
@@ -34,12 +34,12 @@ My goal in this design was to create a dashboard that would make a maximum use o
 The project aim was to create a dashboard with a simple and modern feel by implementing tile design where each charts is placed in a separate tile.
 
 Color pallete also strives for simplicity implementing dark background colors, off-white fonts, and bright and colorful charts.
-In most of the cases chart colors were adjusted to emphasise importance / seriousness of each category i.e. casualties / fatal accidents category was represented by red (`#e6562e`) thoughout the dashboard,
+In most of the cases chart colors were adjusted to emphasise importance / seriousness of each category i.e. casualties / fatal accidents category was represented by red (`#e6562e`) throughout the dashboard,
 accidents /  serious accidents category was represented by orange (`#f2893c`), and vehicles involved / slight accidents category was represented by more neutral blue (`#2477b4`).
 
 ### Target Audience
 
-This dashboard constitutes a useful analytical tool for transport planners, transport modellers and road desing engineers
+This dashboard constitutes a useful analytical tool for transport planners, transport modellers and road design engineers
 in a private sector as well as planners and policy makers in a public sector. The main objective of this particular dashboard is to 
 provide an insight into accident data to transport planning professionals.
 
@@ -53,9 +53,9 @@ The following user stories were used to design this data dashboard:
 
 **User Story 1:** As a transport planner I would like to gain an understanding into accident volumes and severity in order to include this analysis into my traffic model.
 
-**User Story 2:** As a transport planner I would like to understand distribution of incident occurence on a certain road types to include valid recommendations for road safety improvements.
+**User Story 2:** As a transport planner I would like to understand distribution of incident occurrence on a certain road types to include valid recommendations for road safety improvements.
 
-**User Story 3:** As a road designer I want to understand volumes of incident occurence on a certain road type to include appropriate safety measures into my road design.
+**User Story 3:** As a road designer I want to understand volumes of incident occurrence on a certain road type to include appropriate safety measures into my road design.
 
 **User Story 4:** As a transport representative in a local council I would like to gain an understanding into the safety situation in my region so I can decide if any safety measures should be implemented in the future.
 
@@ -103,7 +103,7 @@ The dashboard consists of the following features:
 
 - **Stacked bar chart** - `dc.barChart` presents percentage split of accidents by severity by road speed limit. Each bar represents data for different speed limit, and each stack represents accident severity category. By clicking on a given bar, all dashboard results are recalculated to filter out only the chosen category.
 
-- **Average per day and peak time number displays** - `dc.numberDisplay` features used to calcualate average accidents / casualties per day, and accidents / casualties peak hour and peak value calculated for an average day;
+- **Average per day and peak time number displays** - `dc.numberDisplay` features used to calculate average accidents / casualties per day, and accidents / casualties peak hour and peak value calculated for an average day;
 
 - **Line charts** - `dc.lineChart` features presenting monthly and hourly distribution of annual accidents / casualties / vehicles involved totals;
 
@@ -135,7 +135,7 @@ List of features to be implemented in the future:
 
 - CSS - The project used **CSS** stylesheets to specify style of the web document elements;
 
-- JavaScript - The project used **Javascript** to implement interactive elemets to the web document.
+- JavaScript - The project used **Javascript** to implement interactive elements to the web document.
 
 ### Libraries
 - [Crossfilter](https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js) - The project used the **Crossfilter.js** library to explore the accidents dataset and create dimensions and groups for charts prepared using **DC.js**;
@@ -162,7 +162,7 @@ List of features to be implemented in the future:
 
 ### Other
 
-- [Gifox](https://gifox.io/) - Tool was used to record the gif presented in the demo secion of this README files;
+- [Gifox](https://gifox.io/) - Tool was used to record the gif presented in the demo section of this README files;
 
 - [Am I Responsive](http://ami.responsivedesign.is/#) - Online tool was used to display the project on various devices;
 
@@ -194,7 +194,7 @@ All errors and warning were addressed except the following: "Section lacks headi
 
 JavaScript code was validated using [JSHint](https://jshint.com/).
 
-Validator has indicated that there are five unknown / undefined variables, namely $, queue, dc, d3, and crossfilter. The warning was ignored as I believe it is due to the fact that these libaries are separated and the validator dose not have access to them. Furthermore, **JSHint** shown the following warning: *'let' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).* However, after setting configuration to assume *New JavaScript features (ES6)* this warning disappeared.
+Validator has indicated that there are five unknown / undefined variables, namely $, queue, dc, d3, and crossfilter. The warning was ignored as I believe it is due to the fact that these libraries are separated and the validator dose not have access to them. Furthermore, **JSHint** shown the following warning: *'let' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).* However, after setting configuration to assume *New JavaScript features (ES6)* this warning disappeared.
 
 ### Features testing
 
@@ -202,7 +202,7 @@ Validator has indicated that there are five unknown / undefined variables, namel
 
 ##### Bugs:
 
-While testing this button on mobile devices 'sticky' hover effect was noticed. That issue was resolved using `@media (hover: hover)` solution. However while validating CSS code the following warning came up: "`hover` is an unknown vendor extension". 
+While testing this button on mobile devices 'sticky' hover effect was noticed. That issue was resolved using `@media (hover: hover)` solution. However, while validating CSS code the following warning came up: "`hover` is an unknown vendor extension". 
 
 This solution will have to be replaced with a better one in the future, ideally with one that will resolve this issue for all buttons.
 
@@ -235,7 +235,7 @@ chart.selectAll("g.x text")
                 .attr("transform", "rotate(-90)");
 ```
 
-Sparkline charts were created for decoration of summary statistics cards. However when connected to 2017 dataset they were interacting with other charts. In order to disable them data from 2016 dataset was used and the following code was applied to disable `pointer-event` and click function:
+Sparkline charts were created for decoration of summary statistics cards. However, when connected to 2017 dataset they were interacting with other charts. In order to disable them data from 2016 dataset was used and the following code was applied to disable `pointer-event` and click function:
 ```
 .on("renderlet", (function(chart) {
             chart.selectAll(".bar").on("click", function(d) {
@@ -246,7 +246,7 @@ Sparkline charts were created for decoration of summary statistics cards. Howeve
         }))
 ```
 
-Initially I have tried to make the sparkline chart not to interact with other charts by using **DC.js** `chartGroup` parameter but I was unable to make it work correctly. Therefore the current solution to this bug will have to be revisited in the future if datasets for other years are added (i.e. 2016 dataset will be used).
+Initially I have tried to make the sparkline chart not to interact with other charts by using **DC.js** `chartGroup` parameter but I was unable to make it work correctly. Therefore, the current solution to this bug will have to be revisited in the future if datasets for other years are added (i.e. 2016 dataset will be used).
 
 #### Reset All
 
@@ -266,7 +266,7 @@ Source and copyrights links were tested and will open in a new tab using `target
 
 Spinner was tested and it was discovered that the overlay is only covering the extent of the viewport, so when user scrolled down dim effect was cut off. This was resolved by adjustment applied to position, i.e. `position: fixed`.
 
-### Responsivness testing
+### Responsiveness testing
 
 This site was tested across multiple browsers (Chrome, Safari, Internet Explorer) and on multiple mobile devices (iPad Mini, iPad, Sony Xperia) to ensure compatibility and responsiveness. 
 
